@@ -13,10 +13,29 @@
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+       
+        <style>
+           
+            
+            h1 {
+                color: blue;
+                text-align: center;
+                margin-top: 100px;
+                font-style: italic;
+            }
+            
+            h2 {
+                color: blue;
+                text-align: center;
+                
+            }
+            </style>
+            
     </head>
     <body>
         <header>
-            <h1>InstaGrim ! </h1>
+            <h1>InstaGrim!</h1>
             <h2>Your world in Black and White</h2>
         </header>
         <nav>
@@ -50,5 +69,11 @@
                 <li>&COPY; Andy C</li>
             </ul>
         </footer>
+            <div id = "image">
+            <img src = "Logo.jpeg" alt = "testing logo" style = "width: 300px; height: 300px">
+            </div>
+          
+            
+           
     </body>
 </html>
