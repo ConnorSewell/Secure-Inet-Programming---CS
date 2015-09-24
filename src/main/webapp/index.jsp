@@ -56,7 +56,10 @@
                             }else{
                                 %>
                  <li><a href="register.jsp">Register</a></li>
-                <li><a href="login.jsp">Login</a></li>
+                 <li><a href="login.jsp">Login</a></li>
+                 <li><a href="/Instagrim">Home</a></li>
+                
+                
                 <%
                                         
                             
@@ -65,14 +68,13 @@
         </nav>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-                <li>&COPY; Andy C</li>
+             <!--  <li class="footer"><a href="/Instagrim">Home</a></li> -->
+                
             </ul>
         </footer>
-            <div id = "image">
-            <img src = "Logo.jpeg" alt = "testing logo" style = "width: 300px; height: 300px">
-            </div>
-          
+            
+            <img src = "Logo.jpeg" alt = "testing logo" align = "middle" style = "width: 300px; height: 300px; margin: 0 auto; display:block; margin-top: 130px;">
+             <!-- Temp ref for margin: 0 auto & display: block: stackoverflow.com/questions/10378235/link-image-css-wont-center-rails-3-2 -->
             
            
     </body>

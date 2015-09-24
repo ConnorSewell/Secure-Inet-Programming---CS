@@ -8,9 +8,17 @@ and open the template in the editor.
     Author     : Administrator
 */
 
-
 nav {
     text-align: left;
-    border: 2px;
+    border: 2x;
     float: right;
+    font-size: 15pt;
+  //  background-color: blue;
 }
+
+body
+{
+    background-color: cyan;
+}
+
+
