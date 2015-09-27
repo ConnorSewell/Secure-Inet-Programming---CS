@@ -52,6 +52,10 @@
                     %>
 
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <article>
+                    <li><a href="/Instagrim">Log Out</a></li>
+                 <!-- Set User to null here -->
+                </article>
                     <%}
                             }else{
                                 %>
