@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,6 +13,7 @@
         <title>Instagrim</title>
     </head>
     <body>
+       
         <header>
             <h1> 404 Error </h1>
             <h2> Sorry, there seems to have been a problem! 

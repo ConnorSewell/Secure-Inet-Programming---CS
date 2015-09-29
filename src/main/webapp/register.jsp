@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,6 +22,9 @@
             <ul>
                 
                 <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <li><a href="index.jsp">Home</a></li>
+                <li><a href="upload.jsp">Upload</a></li>
+                <li><a href="index.jsp">Log Out</a></li>
             </ul>
         </nav>
        
@@ -38,7 +42,7 @@
         </article>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
+                <li class="footer"><a href="/Instagrim/index.jsp">Home</a></li>
             </ul>
         </footer>
     </body>

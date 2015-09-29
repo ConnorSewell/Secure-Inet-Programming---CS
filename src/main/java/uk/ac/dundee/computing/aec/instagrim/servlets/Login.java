@@ -27,6 +27,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
  */
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet {
+    
+    
 
     Cluster cluster=null;
 
@@ -48,6 +50,8 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        LoggedIn lg= new LoggedIn();
+        
         String username=request.getParameter("username");
         String password=request.getParameter("password");
         
@@ -56,19 +60,23 @@ public class Login extends HttpServlet {
         boolean isValid=us.IsValidUser(username, password);
         HttpSession session=request.getSession();
         System.out.println("Session in servlet "+session);
+        
+        session.setAttribute("LoggedIn", lg);
         if (isValid){
-            LoggedIn lg= new LoggedIn();
             lg.setLogedin();
-            lg.setUsername(username);
-            //request.setAttribute("LoggedIn", lg);
+            lg.setUsername(username);  
+         //   request.setAttribute("LoggedIn", lg);
             
-            session.setAttribute("LoggedIn", lg);
+            
             System.out.println("Session in servlet "+session);
             RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
 	    rd.forward(request,response);
             
         }else{
-            response.sendRedirect("/Instagrim/login.jsp");
+            //Display incorrect password input...
+            lg.setPasswordState();
+            
+            response.sendRedirect("/Instagrim");
         }
         
     }
@@ -82,5 +90,8 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    
+    
 
 }

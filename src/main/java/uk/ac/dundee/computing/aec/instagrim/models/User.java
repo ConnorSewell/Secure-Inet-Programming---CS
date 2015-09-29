@@ -24,7 +24,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 public class User {
     Cluster cluster;
     public User(){
-        
+        System.out.println("Can't check your password");
     }
     
     public boolean RegisterUser(String username, String Password){

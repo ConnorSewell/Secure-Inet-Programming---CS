@@ -49,7 +49,7 @@
                     %>
                
                  <li><a href="register.jsp">Register</a></li>
-                 <li><a href="login.jsp">Login</a></li>
+           <!--      <li><a href="login.jsp">Login</a></li> -->
                  <li><a href="/Instagrim">Home</a></li>
                 
                 
@@ -80,7 +80,7 @@
            
             
             h1 {
-                 color: blue;
+                color: blue;
                 
                 text-align: center;
                 font-style: italic;

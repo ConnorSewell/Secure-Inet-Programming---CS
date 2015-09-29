@@ -1,5 +1,3 @@
-<!-- creation of web.xml: docs.oracle.com/javaee/6/tutorial/doc/bnaeo.html#gkihh !-->
-
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <session-config>
@@ -11,4 +9,10 @@
        <error-code>404</error-code>
     <location>/404 page.jsp</location> <!-- stackoverflow.com/questions/2956167/how-can-i-catch-all-errors-to-same-page-from-web-xml !-->
    </error-page>
+   
+   <welcome-file-list>
+       <welcome-file>initial.jsp</welcome-file> <!-- http://stackoverflow.com/questions/17247863/index-jsp-default-in-java-ee-project-in-netbeans-where -->
+   </welcome-file-list>
 </web-app>
+
+<!-- creation of web.xml: docs.oracle.com/javaee/6/tutorial/doc/bnaeo.html#gkihh !-->
