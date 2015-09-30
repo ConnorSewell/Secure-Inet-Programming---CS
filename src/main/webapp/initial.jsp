@@ -17,8 +17,10 @@
         
     
      <header>
+           
            <h1>InstaGrim!</h1> 
            <h2>Your world in Black and White</h2> 
+          
            </header>
          
               
@@ -27,8 +29,9 @@
     <article>
             
             <form method="POST"  action="Login">
-                <ul>
+                <ul class="userIn">
                     <li>User Name <input type="text" name="username"></li>
+                  
                     <li>Password <input type="password" name="password"></li>
                 </ul>
                 <br/>
@@ -38,9 +41,7 @@
             </form>
 
         </article>
-        
- 
-        
+     
     </body>
     
     <%
@@ -60,41 +61,22 @@
           
     %>
    
-       <style>
-           
-            
-            h1 {
-                color: blue;
-                margin-top: 80px;
-                text-align: center;
-                font-style: italic;
-            }
-            
-            h2 {
-                color: blue;
-                text-align: center;
-                
-            }
-            
-            h3
-            {
-               margin-top: 30px;
-               text-align: center;
+
+
+            <ul>
+            <li><a href="register.jsp">Don't have an account?</a></li>
+            </ul>
+    
+           <style>
+               ul.userIn{
+                   margin-left: 500px;
+                   margin-top: 30px;
+               }
                
-            }
-            
-          li{
-              
-               
-            }
-            
-            ul{
-                
-               
-                margin-left: 530px;
-                margin-top:30px;
-            }
-            
-           
+               li.userIn{
+                  
+               }
+    
             </style>
+            
 </html>

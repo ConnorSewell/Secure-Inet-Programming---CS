@@ -14,36 +14,45 @@
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
     <body>
-        <header>
+       
+         <header>
         <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
+        <h2>Register</h2>
         </header>
+        
         <nav>
-            <ul>
-                
-                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="upload.jsp">Upload</a></li>
-                <li><a href="index.jsp">Log Out</a></li>
-            </ul>
+          
         </nav>
        
         <article>
-            <h3>Register as user</h3>
+            <h3>Register to start sharing your memories</h3>
             <form method="POST"  action="Register">
                 <ul>
                     <li>User Name <input type="text" name="username"></li>
                     <li>Password <input type="password" name="password"></li>
                 </ul>
                 <br/>
-                <input type="submit" value="Regidter"> 
+                <input type="submit" value="Register" style="margin-left:640px; margin-top: 10px"> 
             </form>
 
         </article>
-        <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim/index.jsp">Home</a></li>
-            </ul>
-        </footer>
+        
+            
+       
+        
     </body>
+    
+    <style>
+         ul
+            {
+               
+                margin-left: 530px;
+                margin-top:30px;
+            } 
+            
+           // h1
+           // {
+             //   margin-top: 100px;
+           // }
+        </style>
 </html>

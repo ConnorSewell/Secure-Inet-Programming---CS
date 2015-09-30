@@ -52,13 +52,20 @@ public class Login extends HttpServlet {
         
         LoggedIn lg= new LoggedIn();
         
-        String username=request.getParameter("username");
-        String password=request.getParameter("password");
         
+        String username=request.getParameter("username");
+       
+        String password=request.getParameter("password");
+    
+        HttpSession session=request.getSession();
         User us=new User();
         us.setCluster(cluster);
-        boolean isValid=us.IsValidUser(username, password);
-        HttpSession session=request.getSession();
+        
+        boolean isValid = false;
+        
+        if(!username.equals("") && !password.equals(""))
+        {isValid = us.IsValidUser(username, password);}
+        
         System.out.println("Session in servlet "+session);
         
         session.setAttribute("LoggedIn", lg);
