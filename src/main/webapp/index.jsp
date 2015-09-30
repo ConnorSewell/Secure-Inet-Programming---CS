@@ -14,15 +14,19 @@
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       
              
     </head>
+    
+   
     <body>
         
         <nav>
+            <div id = "navBar">
             <ul>
 
                
-                <li><a href="upload.jsp">Upload</a></li>
+                
                     <%
                         
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -38,26 +42,28 @@
                                 if (lg.getlogedin()) {
                     %>
               
+                <li><a href="upload.jsp">Upload</a></li>
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
                 <li><a href="userProfile.jsp">My Profile</a></li>
-                <li><a href="index.jsp">Log Out</a></li>
+                <li><a href="/Instagrim" onclick="<%lg.setLogedout();%>">Log Out</a></li>
                 
                 
               
-                    <%}
+                    <%;}
                             }else{
                     %>
                
-                 <li><a href="register.jsp">Register</a></li>
-           <!--      <li><a href="login.jsp">Login</a></li> -->
-                 <li><a href="/Instagrim">Home</a></li>
+                    
                 
                 
                 <%
-                                        
+                       
                             
                     }%>
+                    
+                  
             </ul>
+        </div>
         </nav>
         <footer>
             <ul>
