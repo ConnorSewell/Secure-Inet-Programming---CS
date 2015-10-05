@@ -49,6 +49,12 @@ public final class Keyspaces {
                     + "      email set<text>,\n"
                     + "      addresses  map<text, frozen <address>>\n"
                     + "  );";
+            
+            String CreateUserProfilePage = "CREATE TABLE if not exists instagrim.profilepage (\n"
+                    + "       user text PRIMARY KEY, \n"
+                    + "       about_user text, \n"
+                    + "  );";
+            
             Session session = c.connect();
             try {
                 PreparedStatement statement = session
@@ -93,6 +99,14 @@ public final class Keyspaces {
             } catch (Exception et) {
                 System.out.println("Can't create Address Profile " + et);
             }
+            
+             try {
+                 System.out.println("Creating...");
+                SimpleStatement cqlQuery = new SimpleStatement(CreateUserProfilePage);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create Profile " + et);
+            } 
             session.close();
 
         } catch (Exception et) {

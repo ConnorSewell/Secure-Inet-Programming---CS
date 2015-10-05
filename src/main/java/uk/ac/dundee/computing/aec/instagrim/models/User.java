@@ -65,7 +65,7 @@ public class User {
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         username));
         if (rs.isExhausted()) {
-            System.out.println("No Images returned");
+            System.out.println("No valid user");
             return false;
         } else {
             for (Row row : rs) {

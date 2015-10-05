@@ -99,6 +99,7 @@ public class Image extends HttpServlet {
         tm.setCluster(cluster);
         java.util.LinkedList<Pic> lsPics = tm.getPicsForUser(User);
         RequestDispatcher rd = request.getRequestDispatcher("/UsersPics.jsp");
+       
         request.setAttribute("Pics", lsPics);
         rd.forward(request, response);
 
@@ -127,8 +128,8 @@ public class Image extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         for (Part part : request.getParts()) {
-            System.out.println("Part Name " + part.getName());
-
+            System.out.println("Part Name: " + part.getName());
+          
             String type = part.getContentType();
             String filename = part.getSubmittedFileName();
             

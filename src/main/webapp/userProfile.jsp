@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,6 +30,12 @@
 
                 <br/>
                 <input type="submit" value="Press"> to upload the file!
+        </form>
+        <%aboutUser au = (aboutUser) session.getAttribute("aboutUser");%>
+        <form method="POST" action="aboutUserController">
+            <textarea name="aboutUser" rows="5" columns="20"><%=au.getAbout()%></textarea>
+            <br/>
+            <input type="submit" value="Done">
         </form>
      
         

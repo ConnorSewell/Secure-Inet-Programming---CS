@@ -25,14 +25,18 @@
                
                 <li><a href="upload.jsp">Upload</a></li>
                     <%
-                        
+                        aboutUser au = (aboutUser) session.getAttribute("aboutUser");
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                         if (lg != null) {
                             
                         
                     
                     %>
+                    
+                <h5><%=au.getAbout()%></h5>
                     <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                    <li><a href="/Instagrim/aboutUserController">Profile</a></li>
+                    
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
                     <%
                         }
@@ -42,10 +46,7 @@
             </ul>
         </nav>
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-                <li>&COPY; Andy C</li>
-            </ul>
+           
         </footer>
     </body>
 </html>
