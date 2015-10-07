@@ -5,6 +5,7 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
+
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,24 +22,25 @@ import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
-import uk.ac.dundee.computing.aec.instagrim.models.About;
-
+import uk.ac.dundee.computing.aec.instagrim.models.Search;
+import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "aboutUserController", urlPatterns = {"/aboutUserController"})
-public class aboutUserController extends HttpServlet {
-    
-    private Cluster cluster;   
+@WebServlet(name = "searchUser", urlPatterns = {"/searchUser"})
+public class searchUser extends HttpServlet {
+
+     private Cluster cluster;   
 
      public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
      
-
-     
+  
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -50,31 +52,9 @@ public class aboutUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
-            HttpSession session=request.getSession();
-            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-           
-            About about = new About();
-            about.setCluster(cluster);
-            
-            aboutUser au = new aboutUser();
-          
-            String aboutUser = about.getAbout(lg.getUsername());
-            System.out.println("About: " + aboutUser);
-            au.setAbout(about.getAbout(lg.getUsername()));
-            
-            session.setAttribute("aboutUser", au);
         
-             RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
-             request.setAttribute("profilepage", aboutUser);
-             rd.forward(request, response);
-           
-             response.sendRedirect("userProfile.jsp");
-           
         
     }
-    
-
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -87,37 +67,33 @@ public class aboutUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           
-        String username = "majed";
-        String aboutIn = "about";
-        HttpSession session=request.getSession();
-       
-        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        aboutUser au = (aboutUser) session.getAttribute("aboutUser");
-       
-        if(au!=null)
-        {
-           aboutIn=request.getParameter("aboutUser");
-           au.setAbout(aboutIn);
-        }
-       
-        if(lg!=null)
-        {
-            username=lg.getUsername();
-        }
- 
-       session.setAttribute("aboutUser", au);
- 
-       About about = new About();
-
-       about.setCluster(cluster);
-       
-       about.insertAbout(username, aboutIn);
-
-       RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
-       rd.forward(request, response);
-            
         
+        HttpSession session=request.getSession();
+        
+        userSearch us = new userSearch();
+       
+        Search search = new Search();
+        search.setCluster(cluster);
+        
+        String user=request.getParameter("user");
+        
+        //us.setSearchedUser(user);
+        
+       // java.util.LinkedList<String> derp = new java.util.LinkedList<String>();
+       // derp.add("hi");
+      //  derp.add("bye");
+        
+        us.setUsers(search.getUsers(user));
+        
+        System.out.println("User searched for is..." + user);
+
+       
+        session.setAttribute("userSearch", us);
+       // us.setUsers(search.getUsers(user));
+        
+      //  request.setAttribute("userList", us.getUsers());
+       RequestDispatcher rd = request.getRequestDispatcher("/searchedUser.jsp");
+       rd.forward(request, response);
     }
 
     /**

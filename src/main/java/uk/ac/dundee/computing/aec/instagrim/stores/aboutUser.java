@@ -11,13 +11,12 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
  */
 public class aboutUser {
     
-    String about_User=null;
+    String about_User="No description";
     
     public aboutUser()
     {
         
     }
-    
     
     public void setAbout(String about)
     {

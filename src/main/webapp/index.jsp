@@ -33,7 +33,7 @@
                     
                     %>
                     
-                <h5><%=au.getAbout()%></h5>
+               
                     <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
                     <li><a href="/Instagrim/aboutUserController">Profile</a></li>
                     
@@ -44,6 +44,16 @@
                 
                
             </ul>
+                        
+              <form method="POST"  action="searchUser">
+                <ul class="userIn">
+                    <li>Search for user <input type="text" name="user"></li>
+                </ul>
+                <br/>
+                
+                <input type="submit" value="Search"> <!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
+               
+            </form>
         </nav>
         <footer>
            

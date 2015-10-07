@@ -11,76 +11,58 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
-import java.io.IOException;
-import java.util.Date;
-import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
-import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
 
 /**
  *
  * @author Connor131
  */
-public class About {
+public class Search {
+    
     Cluster cluster;
     
-     public About(){
+    public Search(){
         System.out.println("Can't update about section...");
     }
      
       public void setCluster(Cluster cluster) {
         this.cluster = cluster;
      }
-     
-      //Method for inserting the users about section!
-      public void insertAbout(String user, String aboutUser)
-      {
-       
-        
-          Session session = cluster.connect("instagrim");
-         
-          
-          PreparedStatement psInsertAboutUser = session.prepare("insert into profilepage (user, about_user, tester) values(?, ?, ?)");
-     
-          BoundStatement bsInsertAboutUser = new BoundStatement(psInsertAboutUser);
-           
-          session.execute(bsInsertAboutUser.bind(user, aboutUser, aboutUser));
-          session.close();
-     
-    }
       
-    public String getAbout(String User)
-    {
-    
-        String userDesc="User has not enterred a description";
-       
+     
+      
+      public java.util.LinkedList<String> getUsers(String name)
+      {
+          
+        java.util.LinkedList<String> allMatches = new java.util.LinkedList<>();
         Session session = cluster.connect("instagrim");
-       
-        
-        PreparedStatement ps = session.prepare("select about_user from profilepage where user =?");
+        PreparedStatement ps = session.prepare("select user from userlist");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        User));
+                        ));
         if (rs.isExhausted()) {
             System.out.println("No valid user");
-            return userDesc;
+            
         } else {
             for (Row row : rs) {
                
-                if(userDesc!=null)
+                String userName = row.getString("user");
+                if (userName.contains(name) || name.contains(userName))
                 {
-                  userDesc = row.getString("about_user");
+                    allMatches.add(userName);
                 }
-                
                     
             }
         }
-        
-        return userDesc;
-}
-}
-       
+          
+           return allMatches;
+      }
+      
+      public String uh()
+              {
+                  return "fdg";
+              }
     
-
+}

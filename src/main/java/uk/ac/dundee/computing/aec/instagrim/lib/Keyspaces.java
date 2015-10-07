@@ -53,6 +53,15 @@ public final class Keyspaces {
             String CreateUserProfilePage = "CREATE TABLE if not exists instagrim.profilepage (\n"
                     + "       user text PRIMARY KEY, \n"
                     + "       about_user text, \n"
+                    + "       tester text, \n"
+                    + "  );";
+            
+            String CreateUserList = "CREATE TABLE if not exists instagrim.userlist  (\n"
+                    + "       user text PRIMARY KEY, \n"
+                    + "  );";
+            
+            String CreateUserTest = "CREATE TABLE if not exists instagrim.usertest  (\n"
+                    + "       user<text> PRIMARY KEY, \n"
                     + "  );";
             
             Session session = c.connect();
@@ -104,6 +113,22 @@ public final class Keyspaces {
                  System.out.println("Creating...");
                 SimpleStatement cqlQuery = new SimpleStatement(CreateUserProfilePage);
                 session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create Profile " + et);
+            } 
+             
+            try {
+            System.out.println("Creating...");
+            SimpleStatement cqlQuery = new SimpleStatement(CreateUserList);
+            session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create Profile " + et);
+            } 
+            
+             try {
+            System.out.println("Creating...");
+            SimpleStatement cqlQuery = new SimpleStatement(CreateUserTest);
+            session.execute(cqlQuery);
             } catch (Exception et) {
                 System.out.println("Can't create Profile " + et);
             } 
