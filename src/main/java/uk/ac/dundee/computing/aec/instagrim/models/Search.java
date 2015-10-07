@@ -36,7 +36,7 @@ public class Search {
           
         java.util.LinkedList<String> allMatches = new java.util.LinkedList<>();
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select user from userlist");
+        PreparedStatement ps = session.prepare("select login from userprofiles");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
@@ -47,8 +47,9 @@ public class Search {
             
         } else {
             for (Row row : rs) {
+                System.out.println("User: " + row.getString("login"));
                
-                String userName = row.getString("user");
+                String userName = row.getString("login");
                 if (userName.contains(name) || name.contains(userName))
                 {
                     allMatches.add(userName);
@@ -56,7 +57,7 @@ public class Search {
                     
             }
         }
-          
+        //  allMatches.add("hi");
            return allMatches;
       }
       

@@ -38,6 +38,7 @@ public class User {
         }
         Session session = cluster.connect("instagrim");
         PreparedStatement ps = session.prepare("insert into userprofiles (login,password) Values(?,?)");
+    
        
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
