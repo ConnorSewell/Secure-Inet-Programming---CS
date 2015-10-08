@@ -38,6 +38,7 @@
                     <li><a href="/Instagrim/aboutUserController">Profile</a></li>
                     
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
+                    <li><a href="changePassword.jsp">Change password</a></li>
                     <%
                         }
                         %>

@@ -53,7 +53,7 @@ public final class Keyspaces {
             String CreateUserProfilePage = "CREATE TABLE if not exists instagrim.profilepage (\n"
                     + "       user text PRIMARY KEY, \n"
                     + "       about_user text, \n"
-                    + "       tester text, \n"
+                    + "       picid uuid, \n"
                     + "  );";
             
             String CreateUserList = "CREATE TABLE if not exists instagrim.userlist  (\n"

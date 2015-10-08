@@ -24,9 +24,15 @@
         
         
         <h1>Your Profile</h1>
-       
-        <form method="POST" enctype="multipart/form-data" action="Image">
+    
+       <% 
+           session.setAttribute("hello", 123);
+           
+           boolean tester = true;
+       %>
+        <form method="POST" enctype="multipart/form-data" action="Image?id=1">
              Edit profile picture: <input type="file" name="upfile"><br/>
+             <input type="hidden" name="profilePic" value = "<%=tester%>">
 
                 <br/>
                 <input type="submit" value="Press"> to upload the file!

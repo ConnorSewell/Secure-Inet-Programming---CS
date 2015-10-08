@@ -80,6 +80,14 @@ public class PicModel {
             Date DateAdded = new Date();
             session.execute(bsInsertPic.bind(picid, buffer, thumbbuf,processedbuf, user, DateAdded, length,thumblength,processedlength, type, name));
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
+            
+           
+            //  PreparedStatement psInsertProfilePic = session.prepare("insert into profilepage (user, picid) values(?, ?)");  
+             // BoundStatement bsInsertProfilePic = new BoundStatement(psInsertProfilePic);
+            //  session.execute(bsInsertProfilePic.bind(picid));
+              
+            
+            
             session.close();
 
         } catch (IOException ex) {

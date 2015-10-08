@@ -127,6 +127,9 @@ public class Image extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        boolean userPic = Boolean.valueOf(request.getParameter("profilePic")); //http://www.coderanch.com/t/287125/JSP/java/boolean-parameters
+
         for (Part part : request.getParts()) {
             System.out.println("Part Name: " + part.getName());
           

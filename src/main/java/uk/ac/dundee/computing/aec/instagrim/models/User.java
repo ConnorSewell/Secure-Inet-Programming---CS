@@ -49,6 +49,17 @@ public class User {
         return true;
     }
     
+    public boolean changePass(String username, String password, String currPass, String newPass)
+    {
+        if(!password.equals(currPass))
+        {
+            return false;
+        }
+        
+        return RegisterUser(username, newPass);
+        
+    }
+    
     public boolean IsValidUser(String username, String Password){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;

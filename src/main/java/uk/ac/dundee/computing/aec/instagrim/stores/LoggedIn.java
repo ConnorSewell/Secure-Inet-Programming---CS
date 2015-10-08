@@ -14,6 +14,7 @@ public class LoggedIn {
     boolean logedin=false;
     boolean invalidPass=false;
     String Username=null;
+    String Password=null;
     public void LogedIn(){
         
     }
@@ -29,6 +30,16 @@ public class LoggedIn {
     }
     public void setLogedout(){
         logedin=false;
+    }
+    
+    public void setPassword(String pass)
+    {
+        this.Password=pass;
+    }
+    
+    public String getPassword()
+    {
+        return Password;
     }
     
     public void setPasswordState()

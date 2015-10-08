@@ -40,11 +40,11 @@ public class About {
           Session session = cluster.connect("instagrim");
          
           
-          PreparedStatement psInsertAboutUser = session.prepare("insert into profilepage (user, about_user, tester) values(?, ?, ?)");
+          PreparedStatement psInsertAboutUser = session.prepare("insert into profilepage (user, about_user) values(?, ?)");
      
           BoundStatement bsInsertAboutUser = new BoundStatement(psInsertAboutUser);
            
-          session.execute(bsInsertAboutUser.bind(user, aboutUser, aboutUser));
+          session.execute(bsInsertAboutUser.bind(user, aboutUser));
           session.close();
      
     }
