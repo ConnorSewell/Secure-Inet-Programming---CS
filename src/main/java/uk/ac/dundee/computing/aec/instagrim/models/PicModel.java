@@ -78,14 +78,16 @@ public class PicModel {
             BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
 
             Date DateAdded = new Date();
+            System.out.println("Date is... " + DateAdded);
             session.execute(bsInsertPic.bind(picid, buffer, thumbbuf,processedbuf, user, DateAdded, length,thumblength,processedlength, type, name));
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
             
-           
-            //  PreparedStatement psInsertProfilePic = session.prepare("insert into profilepage (user, picid) values(?, ?)");  
-             // BoundStatement bsInsertProfilePic = new BoundStatement(psInsertProfilePic);
-            //  session.execute(bsInsertProfilePic.bind(picid));
-              
+               // if(userPic)
+               // {
+                 //  PreparedStatement psInsertProfilePic = session.prepare("insert into profilepage ( user, picid) values(?,?)");  
+                //   BoundStatement bsInsertProfilePic = new BoundStatement(psInsertProfilePic);
+                 //  session.execute(bsInsertProfilePic.bind(user, picid));
+             //   }
             
             
             session.close();
@@ -143,12 +145,18 @@ public class PicModel {
     public java.util.LinkedList<Pic> getPicsForUser(String User) {
         java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select picid from userpiclist where user =?");
+        PreparedStatement ps = session.prepare("select picid, pic_added from userpiclist where user =?");
+      //  PreparedStatement pss = session.prepare("select pic_added from userpiclist where user =?");
         ResultSet rs = null;
+       
         BoundStatement boundStatement = new BoundStatement(ps);
+      
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         User));
+        
+        Date pic_added = new Date();
+        
         if (rs.isExhausted()) {
             System.out.println("No Images returned");
             return null;
@@ -156,12 +164,17 @@ public class PicModel {
             for (Row row : rs) {
                 Pic pic = new Pic();
                 java.util.UUID UUID = row.getUUID("picid");
+                pic_added = row.getDate("pic_added");
+               // System.out.println("Date... " + pic_added);
                 System.out.println("UUID" + UUID.toString());
+                pic.setPicAdded(pic_added);
+                pic.setImageOwner(User);
                 pic.setUUID(UUID);
                 Pics.add(pic);
 
             }
         }
+ 
         return Pics;
     }
 

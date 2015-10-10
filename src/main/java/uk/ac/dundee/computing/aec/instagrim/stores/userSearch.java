@@ -11,13 +11,24 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
  */
 public class userSearch {
     
-    String SearchedUser="...";
-    String aboutUser="...";
+    String SearchedUser=null;
+    String aboutUser=null;
     java.util.LinkedList<String> users = new java.util.LinkedList<>();
+    java.util.UUID userPicId;
     
     public userSearch()
     {
         
+    }
+    
+    public void setUserPicId(java.util.UUID userPicId)
+    {
+        this.userPicId=userPicId;
+    }
+    
+    public java.util.UUID getPicId()
+    {
+        return userPicId;
     }
    
     public String getSearchedUser()

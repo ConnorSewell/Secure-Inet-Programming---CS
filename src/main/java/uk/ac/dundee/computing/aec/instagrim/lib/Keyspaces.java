@@ -34,6 +34,7 @@ public final class Keyspaces {
                     + "picid uuid,\n"
                     + "user varchar,\n"
                     + "pic_added timestamp,\n"
+                    + "comments text, \n"
                     + "PRIMARY KEY (user,pic_added)\n"
                     + ") WITH CLUSTERING ORDER BY (pic_added desc);";
             String CreateAddressType = "CREATE TYPE if not exists instagrim.address (\n"
@@ -51,9 +52,9 @@ public final class Keyspaces {
                     + "  );";
             
             String CreateUserProfilePage = "CREATE TABLE if not exists instagrim.profilepage (\n"
-                    + "       user text PRIMARY KEY, \n"
+                    + "       user varchar PRIMARY KEY, \n"
                     + "       about_user text, \n"
-                    + "       picid uuid, \n"
+                    + "       picid uuid \n"
                     + "  );";
             
             String CreateUserList = "CREATE TABLE if not exists instagrim.userlist  (\n"

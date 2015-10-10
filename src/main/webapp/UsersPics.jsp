@@ -17,7 +17,11 @@
         <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
     </head>
     <body>
+        
+   
         <header>
+            
+            
         
         <h1>InstaGrim ! </h1>
         <h2>Your world in Black and White</h2>
@@ -43,15 +47,21 @@
             iterator = lsPics.iterator();
             while (iterator.hasNext()) {
                 Pic p = (Pic) iterator.next();
-
+                %>
+               <h5><%=p.getPicAdded()%></h5> 
+                <%
+                        
+                      
         %>
-        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/><%
-
-            }
-            }
-        %>
+             <a href="/Instagrim/userComment?date=<%=p.getPicAdded()%>&picId=<%=p.getSUUID()%>&picOwner=<%= p.getImageOwner()%>">  <img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/> 
+     
+        <%
         
-      
+
+            }
+            }
+        %>
+
         </article>
         <footer>
             <ul>

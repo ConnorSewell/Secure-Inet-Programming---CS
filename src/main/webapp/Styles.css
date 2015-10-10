@@ -13,7 +13,7 @@ nav {
     border: 2x;
    // float: right;
     font-size: 15pt;
-    background-color: blue;
+    //background-color: blue;
 }
 
 //w3.schools.com/css/tryit.asp?filename=trycss_float5 reference used.
@@ -39,14 +39,14 @@ a {
   
 }
 
-h1,h2,h3 {  color: blue;
+h1,h2,h3 {  //color: blue;
                 
                 text-align: center;
                 font-style: italic;}
 
 body
 {
-    background-color: cyan;
+  //  background-color: cyan;
 }
 
 

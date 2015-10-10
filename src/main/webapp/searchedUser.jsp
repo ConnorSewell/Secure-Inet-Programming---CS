@@ -20,19 +20,19 @@
 
              <%
                userSearch us = (userSearch) session.getAttribute("userSearch");
-               java.util.LinkedList<String> tester = us.getUsers();
+               java.util.LinkedList<String> users = us.getUsers();
                //System.out.println("." + tester.get(0));
-               if (tester == null) {
+               if (users == null) {
         %>
         <p>No matches found</p>
         <%
         } else {
                    
-                   for(int i = 0; i < tester.size(); i++)
+                   for(int i = 0; i < users.size(); i++)
                    {
                      //  System.out.println("?.. " + tester.get(i));
                        %>
-                             <li><a href="register.jsp"><%=tester.get(i)%></a></li>
+                             <li><a href="searchUser?user=<%=users.get(i)%>"><%=users.get(i)%></a></li>
                              
                        <%
                    }

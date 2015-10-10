@@ -25,6 +25,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
 import uk.ac.dundee.computing.aec.instagrim.models.Search;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
+import uk.ac.dundee.computing.aec.instagrim.models.About;
 /**
  *
  * @author Connor131
@@ -53,7 +54,19 @@ public class searchUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session=request.getSession();
+        userSearch us = (userSearch)session.getAttribute("userSearch"); 
+       
+        About about = new About();
+        about.setCluster(cluster);
         
+        String user = request.getParameter("user");
+        
+        us.setAboutUser(about.getAbout("hi"));
+        us.setSearchedUser(user);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/searchedProfile.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -76,22 +89,14 @@ public class searchUser extends HttpServlet {
         search.setCluster(cluster);
         
         String user=request.getParameter("user");
-        
-        //us.setSearchedUser(user);
-        
-       // java.util.LinkedList<String> derp = new java.util.LinkedList<String>();
-       // derp.add("hi");
-      //  derp.add("bye");
-        
+ 
         us.setUsers(search.getUsers(user));
         
         System.out.println("User searched for is..." + user);
 
        
         session.setAttribute("userSearch", us);
-       // us.setUsers(search.getUsers(user));
-        
-      //  request.setAttribute("userList", us.getUsers());
+
        RequestDispatcher rd = request.getRequestDispatcher("/searchedUser.jsp");
        rd.forward(request, response);
     }

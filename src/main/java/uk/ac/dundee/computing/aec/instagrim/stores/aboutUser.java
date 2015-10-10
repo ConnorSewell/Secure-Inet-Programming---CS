@@ -12,7 +12,7 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
 public class aboutUser {
     
     String about_User="No description";
-    
+   
     public aboutUser()
     {
         
@@ -28,5 +28,6 @@ public class aboutUser {
         return about_User ;
     }
     
+
     
 }

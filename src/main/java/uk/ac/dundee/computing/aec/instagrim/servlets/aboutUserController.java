@@ -106,7 +106,7 @@ public class aboutUserController extends HttpServlet {
             username=lg.getUsername();
         }
  
-       session.setAttribute("aboutUser", au);
+      // session.setAttribute("aboutUser", au);
  
        About about = new About();
 

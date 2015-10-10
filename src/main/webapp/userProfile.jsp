@@ -30,10 +30,8 @@
            
            boolean tester = true;
        %>
-        <form method="POST" enctype="multipart/form-data" action="Image?id=1">
+        <form method="POST" enctype="multipart/form-data" action="Image?profilePic=true">
              Edit profile picture: <input type="file" name="upfile"><br/>
-             <input type="hidden" name="profilePic" value = "<%=tester%>">
-
                 <br/>
                 <input type="submit" value="Press"> to upload the file!
         </form>
@@ -44,6 +42,11 @@
             <input type="submit" value="Done">
         </form>
      
+        <form method="POST" action="userComment">
+        <textarea name="userComment" rows="5" columns="20">derpy</textarea>
+        <br/>
+            <input type="submit" value="Done">
+        </form>
         
     </body>
 </html>
