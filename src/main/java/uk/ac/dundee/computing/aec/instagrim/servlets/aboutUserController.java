@@ -62,14 +62,16 @@ public class aboutUserController extends HttpServlet {
             String aboutUser = about.getAbout(lg.getUsername());
             System.out.println("About: " + aboutUser);
             au.setAbout(about.getAbout(lg.getUsername()));
+            au.setUUID(about.getUserId(lg.getUsername()));
             
             session.setAttribute("aboutUser", au);
-        
-             RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
-             request.setAttribute("profilepage", aboutUser);
+            
+            
+             RequestDispatcher rd = request.getRequestDispatcher("Images/Connor");
+          //   request.setAttribute("profilepage", aboutUser);
              rd.forward(request, response);
            
-             response.sendRedirect("userProfile.jsp");
+           //  response.sendRedirect("userProfile.jsp");
            
         
     }

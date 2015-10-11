@@ -17,5 +17,9 @@
         <h1>Instagrim</h1>
         <h2>User: <%=us.getSearchedUser() %></h2>
         <h3>About user: <%=us.getAboutUser()%></h3>
+        <h4>Pic Id: <%=us.getSUUID()%></h4>
+        
+        <% String id = us.getSUUID(); %>
+        <img src="/Instagrim/Thumb/<%=id%>">
     </body>
 </html>

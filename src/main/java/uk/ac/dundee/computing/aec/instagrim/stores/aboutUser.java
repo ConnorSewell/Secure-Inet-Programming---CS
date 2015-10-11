@@ -12,10 +12,21 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
 public class aboutUser {
     
     String about_User="No description";
+    java.util.UUID UUID=null;
    
     public aboutUser()
     {
         
+    }
+    
+    public String getUUID()
+    {
+        return UUID.toString();
+    }
+    
+    public void setUUID(java.util.UUID UUID)
+    {
+        this.UUID=UUID;
     }
     
     public void setAbout(String about)

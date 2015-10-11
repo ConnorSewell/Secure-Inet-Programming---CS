@@ -50,7 +50,7 @@ public class PicModel {
         this.cluster = cluster;
     }
 
-    public void insertPic(byte[] b, String type, String name, String user) {
+    public void insertPic(byte[] b, String type, String name, String user, String profilePic) {
         try {
             Convertors convertor = new Convertors();
 
@@ -82,12 +82,13 @@ public class PicModel {
             session.execute(bsInsertPic.bind(picid, buffer, thumbbuf,processedbuf, user, DateAdded, length,thumblength,processedlength, type, name));
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
             
-               // if(userPic)
-               // {
-                 //  PreparedStatement psInsertProfilePic = session.prepare("insert into profilepage ( user, picid) values(?,?)");  
-                //   BoundStatement bsInsertProfilePic = new BoundStatement(psInsertProfilePic);
-                 //  session.execute(bsInsertProfilePic.bind(user, picid));
-             //   }
+                if(profilePic.equals("true"))
+                {
+                  
+                    PreparedStatement ps = session.prepare("update profilepage set picid= " + picid + " where user = '" + user + "'");
+                    BoundStatement boundStatement = new BoundStatement(ps);
+                    session.execute(boundStatement.bind());
+                }
             
             
             session.close();

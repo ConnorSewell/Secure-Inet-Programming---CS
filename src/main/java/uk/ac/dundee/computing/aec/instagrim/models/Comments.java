@@ -42,23 +42,23 @@ public class Comments {
           System.out.println("Comment is: " + insertComment);
           System.out.println("user is: " + picOwner);
           System.out.println("Date is: " + pic_added);
-         // PreparedStatement psInsertPicToUser = session.prepare("update userpiclist set comments= 'hallo' where user = '" + picOwner + "' and pic_added = '" + pic_added + "'");
+          PreparedStatement psInsertPicToUser = session.prepare("update userpiclist set comments= 'hallo' where user = '" + picOwner + "' and pic_added = '" + pic_added + "'");
          // "update userprofiles set password= '" + EncodedPassword + "' where login = '" + username + "'"
           
-          PreparedStatement psInsertPic = session.prepare("insert into userpiclist ( user, pic_added) values(?,?)");
-          BoundStatement bound = new BoundStatement(psInsertPic);
+         // PreparedStatement psInsertPic = session.prepare("insert into userpiclist ( user, pic_added) values(?,?)");
+         //// BoundStatement bound = new BoundStatement(psInsertPic);
           
-      //    BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
+          BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
           
           //Date DateAdded = new Date();
           
          // DateAdded = pic_added;
           
          // System.out.println("Pic owner is: " + picOwner + " " + DateAdded);
-          session.execute(bound.bind(user, pic_added));
-        //  session.execute(bsInsertPicToUser);
+         // session.execute(bound.bind(user, pic_added));
+        session.execute(bsInsertPicToUser);
          //   
-         // session.close();
+         session.close();
      
   
         }

@@ -14,7 +14,7 @@ public class userSearch {
     String SearchedUser=null;
     String aboutUser=null;
     java.util.LinkedList<String> users = new java.util.LinkedList<>();
-    java.util.UUID userPicId;
+    java.util.UUID UUID=null;
     
     public userSearch()
     {
@@ -23,12 +23,11 @@ public class userSearch {
     
     public void setUserPicId(java.util.UUID userPicId)
     {
-        this.userPicId=userPicId;
+        this.UUID=userPicId;
     }
     
-    public java.util.UUID getPicId()
-    {
-        return userPicId;
+    public String getSUUID(){
+        return UUID.toString();
     }
    
     public String getSearchedUser()

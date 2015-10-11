@@ -16,25 +16,19 @@
     </head>
     <body>
         
-        <%String tester = request.getParameter("date");%>
-        <h2><%=request.getParameter("picId")%></h2>
-        <h3><%=request.getParameter("picOwner")%></h3>
+
         
         <%
           Pic p = (Pic) session.getAttribute("Pic");
           LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-          String comment = p.getComment();
-          Date derp = new Date();
+         
          %>
         
-         <h4><%=p.getPicAdded()%></h4>
-         <h5><%=p.getImageOwner()%>
-         <h5><%=lg.getPassword()%></h5>
-         <h6><%=derp%></h6>
-          <img src="/Instagrim/Thumb/<%=p.getSUUID()%>">
+   
+        <img src="/Instagrim/Thumb/<%=p.getSUUID()%>">
         
         <form method="POST" action="userComment">
-            <textarea name="comment" rows="5" columns="20"><%="haha"%></textarea>
+            <textarea name="comment" rows="5" columns="20"></textarea>
             <br/>
             <input type="submit" value="Done">
         </form>

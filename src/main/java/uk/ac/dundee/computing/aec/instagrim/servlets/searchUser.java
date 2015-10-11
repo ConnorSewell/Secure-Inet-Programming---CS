@@ -62,8 +62,9 @@ public class searchUser extends HttpServlet {
         
         String user = request.getParameter("user");
         
-        us.setAboutUser(about.getAbout("hi"));
+        us.setAboutUser(about.getAbout(user));
         us.setSearchedUser(user);
+        us.setUserPicId(about.getUserId(user));
         
         RequestDispatcher rd = request.getRequestDispatcher("/searchedProfile.jsp");
         rd.forward(request, response);

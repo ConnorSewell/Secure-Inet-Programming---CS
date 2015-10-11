@@ -89,6 +89,32 @@ public class About {
         
         return userDesc;
 }
+    
+    public java.util.UUID getUserId(String user)
+    {
+        
+        java.util.UUID UUID=null;
+        
+        Session session = cluster.connect("instagrim");
+
+        PreparedStatement ps = session.prepare("select picid from profilepage where user =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        user));
+        if (rs.isExhausted()) {
+            System.out.println("No valid user");
+            return UUID;
+        } else {
+            for (Row row : rs) {
+
+                  UUID = row.getUUID("picid");
+            }
+        }
+        
+        return UUID;
+    }
 }
        
     

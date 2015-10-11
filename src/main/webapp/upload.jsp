@@ -25,11 +25,11 @@
  
         <article>
             <h3>File Upload</h3>
-            <form method="POST" enctype="multipart/form-data" action="Image">
-                File to upload: <input type="file" name="upfile"><br/>
+            <form method="POST" enctype="multipart/form-data" action="Image?profilePic=false">
+               <input type="file" name="upfile"><br/>
 
                 <br/>
-                <input type="submit" value="Press"> to upload the file!
+                <input type="submit" value="Add to library"> to upload the file!
             </form>
 
         </article>

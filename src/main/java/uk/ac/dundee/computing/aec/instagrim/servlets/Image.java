@@ -101,7 +101,7 @@ public class Image extends HttpServlet {
         PicModel tm = new PicModel();
         tm.setCluster(cluster);
         java.util.LinkedList<Pic> lsPics = tm.getPicsForUser(User);
-        RequestDispatcher rd = request.getRequestDispatcher("/UsersPics.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
        
         request.setAttribute("Pics", lsPics);
         rd.forward(request, response);
@@ -131,7 +131,7 @@ public class Image extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        boolean userPic = Boolean.valueOf(request.getParameter("profilePic")); //http://www.coderanch.com/t/287125/JSP/java/boolean-parameters
+        String profilePic = request.getParameter("profilePic"); //http://www.coderanch.com/t/287125/JSP/java/boolean-parameters
 
         for (Part part : request.getParts()) {
             System.out.println("Part Name: " + part.getName());
@@ -153,7 +153,7 @@ public class Image extends HttpServlet {
                 System.out.println("Length : " + b.length);
                 PicModel tm = new PicModel();
                 tm.setCluster(cluster);
-                tm.insertPic(b, type, filename, username);
+                tm.insertPic(b, type, filename, username, profilePic);
 
                 is.close();
             }

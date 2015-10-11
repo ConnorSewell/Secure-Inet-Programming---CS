@@ -72,12 +72,7 @@ public class userComment extends HttpServlet {
         comments.setCluster(cluster);
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         session.setAttribute("Pic", p);
-       
-        System.out.println("Date is.. : " + request.getParameter("date"));
-        
-        //Date ugh = new Date();
-        
-        
+      
         try{
             SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy"); //http://stackoverflow.com/questions/4496359/how-to-parse-date-string-to-date  date: 10/10/2015 @ 21:18pm -> full try catch
             p.setPicAdded(format.parse("Sat Oct 10 22:34:53 BST 2015"));
@@ -89,22 +84,19 @@ public class userComment extends HttpServlet {
             System.out.println("failed");
             }
         
-        
 
-      // p.setPicAdded(ugh);
         
        p.setImageOwner(request.getParameter("picOwner"));
        p.setUUID(java.util.UUID.fromString(request.getParameter("picId")));
        
        System.out.println("Date: " + p.getPicAdded() + " Owner: " + p.getImageOwner() + " UUID: " + p.getSUUID());
        
-      // session.setAttribute("Pic", p);
+ 
        comments.getComments(p.getImageOwner(), p.getPicAdded());
        RequestDispatcher rd = request.getRequestDispatcher("/imageView.jsp");
        System.out.println("Pic is.. " + p.getPicAdded());
        rd.forward(request, response);
-        
-      // response.sendRedirect("/imageView.jsp");
+    
         
     }
 
@@ -136,9 +128,7 @@ public class userComment extends HttpServlet {
         System.out.println("Date: " + p.getPicAdded() + " Owner: " + p.getImageOwner() + " UUID: " + p.getSUUID());
         
         comments.addComment(commentBy, comment, commentDate, p.getImageOwner(), p.getPicAdded());
-     
-       // System.out.println("Comment: " + commentBy + " by: " + comment + " at: " + commentDate);
-        
+
        RequestDispatcher rd = request.getRequestDispatcher("/imageView.jsp");
        rd.forward(request, response);
         

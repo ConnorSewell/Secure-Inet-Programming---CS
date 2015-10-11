@@ -14,35 +14,53 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
-    
+
      <header>
+         </header>
+         <div id ="pageContent">
            
            <h1>InstaGrim!</h1> 
            <h2>Your world in Black and White</h2> 
-          
-           </header>
-         
-              
-        <img src = "Logo.jpeg" alt = "testing logo" align = "middle" style = "width: 300px; height: 300px; margin: 0 auto; display:block; margin-top: 0px;"> 
-      
-    <article>
-            
-            <form method="POST"  action="Login">
-                <ul class="userIn">
-                    <li>User Name <input type="text" name="username"></li>
-                  
-                    <li>Password <input type="password" name="password"></li>
-                </ul>
-                <br/>
-                
-                <input type="submit" value="Login" style = "position: relative; top: 20px; margin-left: 640px;"> <!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
-               
-            </form>
 
-        </article>
+           <img src = "Logo.jpg" alt = "testing logo" align = "middle" style = "width: 300px; height: 300px; margin: 0 auto; display:block; margin-top: 0px;"> 
+        </div>
      
+            <form method="POST"  action="Login">
+                <div style ="text-align: center">
+                
+               <input type="text" name="username" placeholder = "Username" style = "margin-top: 5px;"></li>
+                
+                <br/>
+            
+                <input type="password" name="password" placeholder = "Password" style = "margin-top: 5px;"></li>
+                
+                <br/>
+               <input type="submit" value="Login" style = "margin-top: 10px;"> <!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
+              <br/>
+              <br/>
+            </div>
+            </form>
+        
+        
+        <a href="register.jsp">Don't have an account?</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+        
+
     </body>
+    <style>
+        a {
+  display: block;
+  margin: auto;
+}
+        label{
+            float: left;
+            width: 150px;
+            text-align:right;
+            
+            padding-right: 10px;
+            margin-top: 12px;
+            clear: left;
+        }
+        </style>
     
     <%
         
@@ -62,21 +80,14 @@
     %>
    
 
-
-            <ul>
-            <li><a href="register.jsp">Don't have an account?</a></li>
-            </ul>
-    
-           <style>
-               ul.userIn{
-                   margin-left: 500px;
-                   margin-top: 30px;
-               }
-               
-               li.userIn{
-                  
-               }
-    
-            </style>
+    <style>
+        #pageContent {
+        width: 650px ;
+        margin-left: auto ;
+        margin-right: auto ;
+        
+  
+}
+    </style>
             
 </html>
