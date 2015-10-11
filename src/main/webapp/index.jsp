@@ -31,10 +31,8 @@
             <ul>
                     <li><a href="initial.jsp">Home</a></li>
                     <li><a href="upload.jsp">Upload</a></li>
-            
                     <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
                     <li><a href="/Instagrim/aboutUserController">Profile</a></li>
-                    
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
                     <li><a href="changePassword.jsp">Change password</a></li>
                     
@@ -44,20 +42,21 @@
            
                
             </ul>
-                        
-            <h1>InstaGrim ! </h1>
-            <h2>Your world in Black and White</h2>
-            
-             <form method="POST"  action="searchUser">
-                <ul class="userIn">
-                    <li>Search for user <input type="text" name="user"></li>
-                </ul>
+                    
+            <form method="POST"  action="searchUser" style = "display:in-line;">
+                
+                <input type="text" name="user" placeholder = "Search for user">
+                
                 <br/>
                 
                 <input type="submit" value="Search"> <!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
                
             </form>
-                        
+  
+            <h1>InstaGrim ! </h1>
+            <h2>Your world in Black and White</h2>
+            
+             
              
         </nav>
         <footer>

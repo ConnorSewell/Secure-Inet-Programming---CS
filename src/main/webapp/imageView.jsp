@@ -26,6 +26,7 @@
         
    
         <img src="/Instagrim/Thumb/<%=p.getSUUID()%>">
+        <h5><%=p.getPicAdded()%></h5>
         
         <form method="POST" action="userComment">
             <textarea name="comment" rows="5" columns="20"></textarea>
