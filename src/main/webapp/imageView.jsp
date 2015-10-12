@@ -23,6 +23,7 @@
         <%
           Pic p = (Pic) session.getAttribute("Pic");
           LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+          java.util.List<String> comments = p.getComment();
          %>
          
           <div id ="navBar">
@@ -50,8 +51,22 @@
                     
                     <h1> User Image: </h1>
         
+                    
    
          <img src="/Instagrim/Thumb/<%=p.getSUUID()%>">
+         
+          <div id ="commentBlock">
+             <% for(int i = 0; i < comments.size(); i++)
+            {
+                String[] userComment = comments.get(i).split("/");
+                %>
+                    
+                <p>User: <%=userComment[0]%> at <%=userComment[1]%> </br> <%=userComment[2]%></p>
+                <%
+            }
+             
+             %>
+        </div>
         
         <form method="POST" action="userComment">
             <textarea name="comment" rows="5" columns="20" placeholder = "Comment on the picture..."></textarea>

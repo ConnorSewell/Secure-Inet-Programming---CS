@@ -49,11 +49,22 @@ public class Register extends HttpServlet {
         String email=request.getParameter("email");
         String addresses=request.getParameter("addresses");
         
+        
+        
         User us=new User();
         us.setCluster(cluster);
-        us.RegisterUser(username, password, firstName, lastName, email, addresses);
-        
-	response.sendRedirect("/Instagrim/index.jsp");
+         
+        if(!us.checkNameVal(username))
+        {
+            
+        }
+        else
+        {
+            us.RegisterUser(username, password, firstName, lastName, email, addresses);
+            
+        }
+        RequestDispatcher rd = request.getRequestDispatcher("initial.jsp");
+	rd.forward(request, response);
         
     }
 

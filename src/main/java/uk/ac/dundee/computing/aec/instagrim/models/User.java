@@ -32,7 +32,34 @@ public class User {
         System.out.println("Can't check your password");
     }
     
+    public boolean checkNameVal(String username)
+    {
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select login from userprofiles where login =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        username));
+        if (rs.isExhausted()) {
+            System.out.println("No valid user");
+            return true;
+        } else {
+            for (Row row : rs) {
+               
+              //  String StoredPass = row.getString("password");
+                if (row.getString("login").compareTo(username) == 0)
+                {
+                    return false;
+                }       
+            }
+        }
+        
+        return true;
+    }
+    
     public boolean RegisterUser(String username, String Password, String firstName, String lastName, String email, String addresses){
+        
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
         try {

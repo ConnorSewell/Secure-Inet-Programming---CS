@@ -45,7 +45,7 @@ public class Pic {
     private java.util.UUID UUID=null;
     private Date pic_added = new Date();
     private String imageOwner=null;
-    private String comment="No comments to display... be the first to comment!";
+    private java.util.List<String> comment;
     private boolean profilePic;
     
     public void Pic() {
@@ -62,12 +62,12 @@ public class Pic {
         this.profilePic = profilePic;
     }
     
-    public void setComment(String comment)
+    public void setComment(java.util.List<String> comments)
     {
-        this.comment=comment;
+        this.comment=comments;
     }
     
-    public String getComment()
+    public java.util.List<String> getComment()
     {
         return comment;
     }

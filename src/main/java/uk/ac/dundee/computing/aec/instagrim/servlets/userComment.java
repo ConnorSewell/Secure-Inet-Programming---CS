@@ -65,8 +65,7 @@ public class userComment extends HttpServlet {
             throws ServletException, IOException {
        
         HttpSession session=request.getSession();
-       
-      
+
         Pic p = new Pic();
         Comments comments = new Comments();
        
@@ -76,11 +75,11 @@ public class userComment extends HttpServlet {
  
         p.setUUID(java.util.UUID.fromString(request.getParameter("picId")));
 
-       comments.getComments(p.getSUUID());
-       
-       RequestDispatcher rd = request.getRequestDispatcher("/imageView.jsp");
-       System.out.println("Pic is.. " + p.getPicAdded());
-       rd.forward(request, response);
+        p.setComment(comments.getComments(p.returnUUID()));
+ 
+        RequestDispatcher rd = request.getRequestDispatcher("/imageView.jsp");
+        System.out.println("Pic is.. " + p.getPicAdded());
+        rd.forward(request, response);
     
         
     }
@@ -106,18 +105,17 @@ public class userComment extends HttpServlet {
         Comments comments = new Comments();
         comments.setCluster(cluster);
         
-        String comment = request.getParameter("comment");
         String commentBy = lg.getUsername();
         Date commentDate = new Date();
-        
-      //  System.out.println("Date: " + p.getPicAdded() + " Owner: " + p.getImageOwner() + " UUID: " + p.getSUUID());
-        
-        comments.addComment(comment, p.returnUUID());
+        String comment = commentBy + "/" + commentDate + "/" + request.getParameter("comment");
+        java.util.UUID picId = p.returnUUID();
 
-       RequestDispatcher rd = request.getRequestDispatcher("/imageView.jsp");
-       rd.forward(request, response);
+        comments.addComment(comment, picId);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/imageView.jsp");
+        rd.forward(request, response);
         
-       response.sendRedirect("/imageView.jsp");
+        response.sendRedirect("/imageView.jsp");
     }
 
     /**

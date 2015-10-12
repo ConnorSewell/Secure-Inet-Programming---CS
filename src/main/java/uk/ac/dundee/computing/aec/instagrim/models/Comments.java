@@ -36,23 +36,43 @@ public class Comments {
           
           Session session = cluster.connect("instagrim");
 
-          PreparedStatement psInsertPicToUser = session.prepare("update usercomments set comments= 'tester' where picid = '" + picId + "'");
+          PreparedStatement psInsertPicToUser = session.prepare("update usercomments set comments= ['" + comment + "'] + comments where picid = " + picId);
        
           BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
 
          session.execute(bsInsertPicToUser);
       
          session.close();
-     
-  
+
         }
         
        // return userDesc;
   
        
-       public void getComments(String ID)
+       public java.util.List<String> getComments(java.util.UUID picId)
        {
-            java.util.ArrayList<String> allComments = new java.util.ArrayList();
+            java.util.List<String> allComments = new java.util.ArrayList();
+            
+            String userDesc="User has not enterred a description";
+
+            Session session = cluster.connect("instagrim");
+
+            PreparedStatement ps = session.prepare("select comments from usercomments where picid =?");
+            ResultSet rs = null;
+            BoundStatement boundStatement = new BoundStatement(ps);
+            rs = session.execute( // this is where the query is executed
+            boundStatement.bind( // here you are binding the 'boundStatement'
+                        picId));
+            if (rs.isExhausted()) {
+            System.out.println("No valid user");
+            return allComments;
+            } else {
+            for (Row row : rs) {
+                  allComments = row.getList("comments", String.class);
+            }
+        }
+
+        return allComments;
             
            // return allComments;
        }
