@@ -89,8 +89,13 @@ public class PicModel {
                     BoundStatement boundStatement = new BoundStatement(ps);
                     session.execute(boundStatement.bind());
                 }
+                
+            PreparedStatement psInsertCommentTab = session.prepare("insert into usercomments (picid) values (?)");
+            BoundStatement bsInsertCommentTab = new BoundStatement(psInsertCommentTab);
+            session.execute(bsInsertCommentTab.bind(picid));
             
-            
+            //PreparedStatement psInsertLastUpload = session.prepare
+                
             session.close();
 
         } catch (IOException ex) {

@@ -65,7 +65,7 @@ public class userComment extends HttpServlet {
             throws ServletException, IOException {
        
         HttpSession session=request.getSession();
-        String date = request.getParameter("date");
+       
       
         Pic p = new Pic();
         Comments comments = new Comments();
@@ -73,23 +73,11 @@ public class userComment extends HttpServlet {
         comments.setCluster(cluster);
         
         session.setAttribute("Pic", p);
-      
-      
-        try{
-           // DateFormat df = DateFormat.getDateInstance(); 
-            SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy"); //http://stackoverflow.com/questions/4496359/how-to-parse-date-string-to-date  date: 10/10/2015 @ 21:18pm -> full try catch
-          //  p.setPicAdded(df.parse(date));
-            p.setPicAdded(format.parse(date));
  
-        }
-        catch(ParseException e){ System.out.println("failed");}
-        
-       p.setImageOwner(request.getParameter("picOwner"));
-       p.setUUID(java.util.UUID.fromString(request.getParameter("picId")));
+        p.setUUID(java.util.UUID.fromString(request.getParameter("picId")));
+
+       comments.getComments(p.getSUUID());
        
-       System.out.println("Date: " + p.getPicAdded() + " Owner: " + p.getImageOwner() + " UUID: " + p.getSUUID());
-       
-       comments.getComments(p.getImageOwner(), p.getPicAdded());
        RequestDispatcher rd = request.getRequestDispatcher("/imageView.jsp");
        System.out.println("Pic is.. " + p.getPicAdded());
        rd.forward(request, response);
@@ -122,9 +110,9 @@ public class userComment extends HttpServlet {
         String commentBy = lg.getUsername();
         Date commentDate = new Date();
         
-        System.out.println("Date: " + p.getPicAdded() + " Owner: " + p.getImageOwner() + " UUID: " + p.getSUUID());
+      //  System.out.println("Date: " + p.getPicAdded() + " Owner: " + p.getImageOwner() + " UUID: " + p.getSUUID());
         
-        comments.addComment(commentBy, comment, commentDate, p.getImageOwner(), p.getPicAdded());
+        comments.addComment(comment, p.returnUUID());
 
        RequestDispatcher rd = request.getRequestDispatcher("/imageView.jsp");
        rd.forward(request, response);

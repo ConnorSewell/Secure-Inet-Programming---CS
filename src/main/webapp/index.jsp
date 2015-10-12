@@ -11,12 +11,13 @@
 <html>
     <head>
         <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="Styles.css" />
+       
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
     </head>
     <body>
         <header>
-            
+                    
         </header>
         <nav>
             
@@ -27,45 +28,63 @@
 
                     %>
                     
-               
+             <div id ="navBar">
             <ul>
-                    <li><a href="initial.jsp">Home</a></li>
-                    <li><a href="upload.jsp">Upload</a></li>
-                    <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                    <li><a href="/Instagrim/aboutUserController">Profile</a></li>
+                    <li><a href="/Instagrim/index.jsp">Home</a></li>
+                    <li><a href="/Instagrim/aboutUserController?id=profile">Profile</a></li>
+                    <li><a href="/Instagrim/upload.jsp">Upload</a></li>
+                    <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
+                    <li><a href="#">Samples</a></li>
+                    <li><a href="/Instagrim/changePassword.jsp">Change Password</a></li>
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
-                    <li><a href="changePassword.jsp">Change password</a></li>
                     
                     <%
                                         }
                     %>
-           
-               
-            </ul>
-                    
-            <form method="POST"  action="searchUser" style = "display:in-line;">
+        
+      <!--  <a href="/Instagrim/testList">tester</a> -->
+            <form method="POST"  action="searchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
                 
                 <input type="text" name="user" placeholder = "Search for user">
-                
-                <br/>
-                
+ 
                 <input type="submit" value="Search"> <!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
                
             </form>
+                    
+        
+             </ul>
+                    
+                    </br></br></br>
+                    
+             </div>
   
-            <h1>InstaGrim ! </h1>
-            <h2>Your world in Black and White</h2>
-            
-             
-             
+          
         </nav>
+           <div id ="mainBlock">
+            <h1>InstaGrim ! </h1>
+            <h2>Your world in Black and White...</h2>
+            
+             <img src = "Logo.jpg" alt = "testing logo" align = "middle" style = "width: 300px; height: 300px; margin: 0 auto; display:block; margin-top: 0px;"> 
+             <h3>Share it</h3>
+            </div>
         <footer>
            
         </footer>
     </body>
     
     <style>
-               
+      
+      
+        
+        #mainBlock{
+            margin-top:20px;
+            text-align: center;
+        }
+
+    body, html{
+       // margin:0;
+         }
+
     </style>
         
 </html>

@@ -98,6 +98,11 @@ public class Pic {
     public String getSUUID(){
         return UUID.toString();
     }
+    
+    public java.util.UUID returnUUID()
+    {
+        return UUID;
+    }
     public void setPic(ByteBuffer bImage, int length,String type) {
         this.bImage = bImage;
         this.length = length;

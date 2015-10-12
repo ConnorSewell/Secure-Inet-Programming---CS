@@ -5,10 +5,10 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
-
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -18,29 +18,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
-import uk.ac.dundee.computing.aec.instagrim.models.User;
+import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
-import uk.ac.dundee.computing.aec.instagrim.models.Search;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
-import uk.ac.dundee.computing.aec.instagrim.models.About;
+
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "searchUser", urlPatterns = {"/searchUser"})
-public class searchUser extends HttpServlet {
+@WebServlet(name = "wallComment", urlPatterns = {"/wallComment"})
+public class wallComment extends HttpServlet {
 
-     private Cluster cluster;   
+    private Cluster cluster;   
 
      public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
-     
-  
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -53,26 +49,28 @@ public class searchUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session=request.getSession();
-       
-        userSearch us = new userSearch();
-       
-        About about = new About();
-        about.setCluster(cluster);
-        
-        String user = request.getParameter("user");
-        
-        session.setAttribute("userSearch", us);
-        us.setAboutUser(about.getAbout(user));
-        us.setSearchedUser(user);
-        us.setUserPicId(about.getUserId(user));
-        us.setDisplaySearch(true);
-        us.setWallComments(about.getWallComments(user));
-        
-        
-        RequestDispatcher rd = request.getRequestDispatcher("searchedProfile.jsp");
-        rd.forward(request, response);
+            
+            HttpSession session=request.getSession();
+
+            About about = new About();
+            about.setCluster(cluster);
+            
+            userSearch us = (userSearch)session.getAttribute("userSearch");
+          
+            java.util.List<String> wallComments = about.getWallComments(us.getSearchedUser());
+            
+           // au.setAbout(about.getAbout(lg.getUsername()));
+          //  au.setUUID(about.getUserId(lg.getUsername()));
+            
+          //  au.setIdValid();
+            
+          //  au.setWallComments(about.getWallComments(lg.getUsername()));
+         
+            //session.setAttribute("aboutUser", au);
+
+            RequestDispatcher rd = request.getRequestDispatcher("userProfile.jsp");
+            
+            rd.forward(request, response);
     }
 
     /**
@@ -86,23 +84,33 @@ public class searchUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String username="majed";
+        String wallComment = request.getParameter("wallComment");
         HttpSession session=request.getSession();
-        
-        userSearch us = new userSearch();
        
-        Search search = new Search();
-        search.setCluster(cluster);
-        
-        String user=request.getParameter("user");
- 
-        us.setSearchedUser(user);
-        us.setUsers(search.getUsers(user));
-        
-        session.setAttribute("userSearch", us);
+        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
+        aboutUser au = (aboutUser) session.getAttribute("aboutUser");
 
-       RequestDispatcher rd = request.getRequestDispatcher("/searchedUser.jsp");
+        if(lg!=null)
+        {
+            username=lg.getUsername();
+        }
+ 
+      // session.setAttribute("aboutUser", au);
+ 
+       About about = new About();
+
+       about.setCluster(cluster);
+       
+       Date date = new Date();
+      // about.getWallComments(username);
+       
+       about.setWallComments(lg.getUsername(), wallComment, date);
+
+       RequestDispatcher rd = request.getRequestDispatcher("/searchedProfile.jsp");
        rd.forward(request, response);
+        
+        
     }
 
     /**

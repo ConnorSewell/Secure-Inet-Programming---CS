@@ -12,17 +12,34 @@
     <head>
       
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
         <title>JSP Page</title>
     </head>
     <body>
-       
-        <ul>
-        <li><a href="upload.jsp">Upload</a></li>
-        <li><a href="index.jsp">Log Out</a></li>
-        <li><a href="index.jsp">Sample Images</a></li>
-        <li><a href="UserPics.jsp">Your Images</a></li>
-        </ul>
+            <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn"); %>
+           <div id ="navBar">
+            <ul>
+                    <li><a href="/Instagrim/index.jsp">Home</a></li>
+                    <li><a href="/Instagrim/aboutUserController?id=profile">Profile</a></li>
+                    <li><a href="/Instagrim/upload.jsp">Upload</a></li>
+                    <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
+                    <li><a href="#">Samples</a></li>
+                    <li><a href="/Instagrim/changePassword.jsp">Account</a></li>
+                    <li><a href="/Instagrim/Logout">Log Out</a></li>
+   
         
+                   <a href="/Instagrim/testList">tester</a>
+                  
+                   <form method="POST"  action="searchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                
+                   <input type="text" name="user" placeholder = "Search for user">
+ 
+                   <input type="submit" value="Search"> 
+                   </form>
+            </ul> 
+                    </br></br></br></br></br></br>
+                
+           </div>
         
         <h1>Your Profile</h1>
     
@@ -35,8 +52,19 @@
 
         <%aboutUser au = (aboutUser) session.getAttribute("aboutUser");%>
         
-        <% String id = au.getUUID(); %>
+        
+        <% 
+        
+        if(au.getIdValid() == true)
+        {
+            String id = au.getUUID();
+        %>
+        
         <img src="/Instagrim/Thumb/<%=id%>">
+        <%
+        
+        }
+        %>
         
         </br>
               <form action="uploadProfilePic.jsp">
@@ -52,34 +80,6 @@
             <br/>
             <br/>
             
-              <%
-            
-            java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
-            if (lsPics == null) {
-        %>
-        <p>No Pictures found</p>
-        <%
-        } else {
-            Iterator<Pic> iterator;
-            iterator = lsPics.iterator();
-            while (iterator.hasNext()) {
-                Pic p = (Pic) iterator.next();
-                %>
-               <h5><%=p.getPicAdded()%></h5> 
-                <%
-                        
-                      
-        %>
-             <a href="/Instagrim/userComment?date=<%=p.getPicAdded()%>&picId=<%=p.getSUUID()%>&picOwner=<%= p.getImageOwner()%>">  <img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/> 
-            
-        <%
-        
 
-            }
-            }
-        %>
-     
-     
-        
     </body>
 </html>

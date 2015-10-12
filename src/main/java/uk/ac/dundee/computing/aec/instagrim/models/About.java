@@ -19,8 +19,10 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
 import javax.servlet.http.HttpSession;
+import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
+import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
  *
@@ -45,14 +47,14 @@ public class About {
           Session session = cluster.connect("instagrim");
           String test = "profilepage";
           
-          PreparedStatement psInsertAboutUser = session.prepare("insert into profilepage (user, about_user) values(?, ?)");
+          PreparedStatement psInsertAboutUser = session.prepare("update profilepage set about_user = '" + aboutUser + "' where user = '" + user + "'");
      
           System.out.println("Session would be ... " + test);
           BoundStatement bsInsertAboutUser = new BoundStatement(psInsertAboutUser);
           
       
            
-          session.execute(bsInsertAboutUser.bind(user, aboutUser));
+          session.execute(bsInsertAboutUser.bind());
           session.close();
      
     }
@@ -61,11 +63,9 @@ public class About {
     {
     
         String userDesc="User has not enterred a description";
-       
-       
+
         Session session = cluster.connect("instagrim");
-       
-        
+
         PreparedStatement ps = session.prepare("select about_user from profilepage where user =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -86,7 +86,7 @@ public class About {
                     
             }
         }
-        
+
         return userDesc;
 }
     
@@ -113,9 +113,59 @@ public class About {
             }
         }
         
+     
         return UUID;
     }
+    
+    public java.util.List<String> getWallComments(String user)
+    {
+        java.util.List<String> wallComments = null;
+        
+        Session session = cluster.connect("instagrim");
+
+        PreparedStatement ps = session.prepare("select wallComments from profilepage where user =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        user));
+        if (rs.isExhausted()) {
+            System.out.println("No valid user");
+            return wallComments;
+        } else {
+            for (Row row : rs) {
+                wallComments = row.getList("wallComments",String.class);
+            }
+        }
+        
+     
+        return wallComments;
+    }
+    
+    public void setWallComments(String user, String comment, Date date)
+    {
+            
+          Session session = cluster.connect("instagrim");
+          String test = "profilepage";
+         
+          
+          String commentAdd = user + "/" + date + "/" + comment; 
+          PreparedStatement psInsertAboutUser = session.prepare("update profilepage set wallComments = [' " + commentAdd + " ']  + wallComments where user = '" + user + "'");
+     
+          System.out.println("Session would be ... " + test);
+          BoundStatement bsInsertAboutUser = new BoundStatement(psInsertAboutUser);
+
+          session.execute(bsInsertAboutUser.bind());
+          session.close();
+    }
 }
+    
+    
+    
+
+    
+ 
+
        
     
 

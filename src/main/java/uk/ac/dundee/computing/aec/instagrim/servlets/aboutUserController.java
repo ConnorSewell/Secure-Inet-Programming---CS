@@ -64,16 +64,16 @@ public class aboutUserController extends HttpServlet {
             au.setAbout(about.getAbout(lg.getUsername()));
             au.setUUID(about.getUserId(lg.getUsername()));
             
+            au.setIdValid();
+            
+          //  au.setWallComments(about.getWallComments(lg.getUsername()));
+         
             session.setAttribute("aboutUser", au);
+
+            RequestDispatcher rd = request.getRequestDispatcher("userProfile.jsp");
             
-            
-             RequestDispatcher rd = request.getRequestDispatcher("Images/Connor");
-          //   request.setAttribute("profilepage", aboutUser);
-             rd.forward(request, response);
-           
-           //  response.sendRedirect("userProfile.jsp");
-           
-        
+            rd.forward(request, response);
+
     }
     
 

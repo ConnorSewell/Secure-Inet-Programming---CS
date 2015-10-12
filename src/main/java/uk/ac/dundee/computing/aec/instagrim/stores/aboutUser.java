@@ -13,12 +13,31 @@ public class aboutUser {
     
     String about_User="No description";
     java.util.UUID UUID=null;
+    java.util.List<String> commentList;
+    boolean idValid;
    
     public aboutUser()
     {
         
     }
     
+    public boolean getIdValid()
+    {
+        return idValid;
+    }       
+    
+    public void setIdValid()
+    {
+        if(UUID!=null)
+        {
+            this.idValid=true;
+        }
+        else
+        {
+            this.idValid=false;
+        }
+    }
+           
     public String getUUID()
     {
         return UUID.toString();
@@ -37,6 +56,16 @@ public class aboutUser {
     public String getAbout()
     {
         return about_User ;
+    }
+    
+    public void setWallComments(java.util.List<String> list)
+    {
+        this.commentList=list;
+    }
+    
+    public java.util.List<String> getWallComments()
+    {
+        return commentList;
     }
     
 

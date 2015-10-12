@@ -34,9 +34,14 @@ public final class Keyspaces {
                     + "picid uuid,\n"
                     + "user varchar,\n"
                     + "pic_added timestamp,\n"
-                    + "comments text, \n"
                     + "PRIMARY KEY (user,pic_added)\n"
                     + ") WITH CLUSTERING ORDER BY (pic_added desc);";
+         
+            String CreateUserComments = "CREATE TABLE if not exists instagrim.usercomments (\n"
+                    + "picid uuid PRIMARY KEY,\n"
+                    + "comments text \n"
+                    + " );";
+            
             String CreateAddressType = "CREATE TYPE if not exists instagrim.address (\n"
                     + "      street text,\n"
                     + "      city text,\n"
@@ -48,13 +53,14 @@ public final class Keyspaces {
                     + "      first_name text,\n"
                     + "      last_name text,\n"
                     + "      email text,\n"
-                    + "      addresses text,>\n"
+                    + "      addresses text\n"
                     + "  );";
             
             String CreateUserProfilePage = "CREATE TABLE if not exists instagrim.profilepage (\n"
                     + "       user varchar PRIMARY KEY, \n"
                     + "       about_user text, \n"
-                    + "       picid uuid \n"
+                    + "       picid uuid, \n"
+                    + "       wallComments list<text> \n"
                     + "  );";
             
             String CreateUserList = "CREATE TABLE if not exists instagrim.userlist  (\n"
@@ -63,6 +69,10 @@ public final class Keyspaces {
             
             String CreateUserTest = "CREATE TABLE if not exists instagrim.usertest  (\n"
                     + "       user<text> PRIMARY KEY, \n"
+                    + "  );";
+            
+            String CreateLastUpload = "CREATE TABLE if not exists instagrim.lastupload  (\n"
+                    + "       picid uuid PRIMARY KEY, \n"
                     + "  );";
             
             Session session = c.connect();
@@ -83,6 +93,14 @@ public final class Keyspaces {
 
             try {
                 SimpleStatement cqlQuery = new SimpleStatement(CreatePicTable);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create tweet table " + et);
+            }
+            System.out.println("" + Createuserpiclist);
+            
+            try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreateUserComments);
                 session.execute(cqlQuery);
             } catch (Exception et) {
                 System.out.println("Can't create tweet table " + et);
@@ -117,6 +135,15 @@ public final class Keyspaces {
             } catch (Exception et) {
                 System.out.println("Can't create Profile " + et);
             } 
+             
+            try {
+            System.out.println("Creating...");
+            SimpleStatement cqlQuery = new SimpleStatement(CreateLastUpload);
+            session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create Profile " + et);
+            } 
+            
              
             try {
             System.out.println("Creating...");

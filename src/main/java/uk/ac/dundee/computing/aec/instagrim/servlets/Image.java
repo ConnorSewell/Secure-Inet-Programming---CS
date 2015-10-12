@@ -27,6 +27,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
  * Servlet implementation class Image
@@ -101,10 +102,17 @@ public class Image extends HttpServlet {
         PicModel tm = new PicModel();
         tm.setCluster(cluster);
         java.util.LinkedList<Pic> lsPics = tm.getPicsForUser(User);
-        RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
+        
+        HttpSession session=request.getSession();
+        
+        userSearch us = (userSearch)session.getAttribute("userSearch");
+ 
+        RequestDispatcher rd = request.getRequestDispatcher("/UsersPics.jsp?");
        
         request.setAttribute("Pics", lsPics);
         rd.forward(request, response);
+   
+        
 
     }
 

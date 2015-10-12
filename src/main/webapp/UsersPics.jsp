@@ -18,24 +18,38 @@
     </head>
     <body>
         
-   
-        <header>
-            
-            
+              <% LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); %>
         
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
-        </header>
-        
-        <nav>
+             <div id ="navBar">
             <ul>
-                <li class="nav"><a href="/Instagrim/upload.jsp">Upload</a></li>
-                <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>
-            </ul>
-        </nav>
+                    <li><a href="/Instagrim/index.jsp">Home</a></li>
+                    <li><a href="/Instagrim/aboutUserController?id=profile">Profile</a></li>
+                    <li><a href="/Instagrim/upload.jsp">Upload</a></li>
+                    <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
+                    <li><a href="#">Samples</a></li>
+                    <li><a href="/Instagrim/changePassword.jsp">Account</a></li>
+                    <li><a href="/Instagrim/Logout">Log Out</a></li>
+   
+        
+                   <a href="/Instagrim/testList">tester</a>
+                  
+                   <form method="POST"  action="searchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                
+                   <input type="text" name="user" placeholder = "Search for user">
  
+                   <input type="submit" value="Search"> 
+                   </form>
+            </ul> 
+                   
+                
+           </div>
+                   
+                    <h1>Gallery</h1>
+   
         <article>
-            <h1>Your Pics</h1>
+            
+            <div id ="test">
+         
         <%
             java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
             if (lsPics == null) {
@@ -48,25 +62,44 @@
             while (iterator.hasNext()) {
                 Pic p = (Pic) iterator.next();
                 %>
-               <h5><%=p.getPicAdded()%></h5> 
+               
                 <%
                         
                       
         %>
-             <a href="/Instagrim/userComment?date=<%=p.getPicAdded()%>&picId=<%=p.getSUUID()%>&picOwner=<%= p.getImageOwner()%>">  <img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/> 
-     
+            <div class ="picAlbum">
+             <a href="/Instagrim/userComment?date=<%=p.getPicAdded()%>&picId=<%=p.getSUUID()%>&picOwner=<%= p.getImageOwner()%>">  <img src="/Instagrim/Thumb/<%=p.getSUUID()%>" style = "height: 200px; width: 200px"></a><br/> 
+            </div>
         <%
         
 
             }
             }
         %>
+        
+            </div>
 
         </article>
-        <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-            </ul>
-        </footer>
+     
     </body>
+    
+    <style>
+        .picAlbum
+        {
+            float:left; 
+          //  margin: 30px;
+            margin-left: 20px;
+            margin-top: 20px;
+           
+        }
+        #test{
+            margin-left: 1%;
+           
+        }
+        h1{
+            text-align:center;
+            margin-top:30px;
+        }
+       
+    </style>
 </html>

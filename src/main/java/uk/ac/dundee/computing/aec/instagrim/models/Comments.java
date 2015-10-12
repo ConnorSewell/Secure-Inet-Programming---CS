@@ -30,34 +30,18 @@ public class Comments {
        
        public Comments(){}
        
-       public void addComment(String user,  String comment, Date comment_added, String picOwner, Date pic_added)
+       public void addComment(String comment, java.util.UUID picId)
        {
-           String insertComment = user + "/" + comment_added + "/" + comment;
-           
-          // System.out.println("Inserted like this: " + insertComment);
-           
-            
+          //java.util.UUID test = picId.toUUID();
+          
           Session session = cluster.connect("instagrim");
 
-          System.out.println("Comment is: " + insertComment);
-          System.out.println("user is: " + picOwner);
-          System.out.println("Date is: " + pic_added);
-          PreparedStatement psInsertPicToUser = session.prepare("update userpiclist set comments= 'hallo' where user = '" + picOwner + "' and pic_added = '" + pic_added + "'");
-         // "update userprofiles set password= '" + EncodedPassword + "' where login = '" + username + "'"
-          
-         // PreparedStatement psInsertPic = session.prepare("insert into userpiclist ( user, pic_added) values(?,?)");
-         //// BoundStatement bound = new BoundStatement(psInsertPic);
-          
+          PreparedStatement psInsertPicToUser = session.prepare("update usercomments set comments= 'tester' where picid = '" + picId + "'");
+       
           BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
-          
-          //Date DateAdded = new Date();
-          
-         // DateAdded = pic_added;
-          
-         // System.out.println("Pic owner is: " + picOwner + " " + DateAdded);
-         // session.execute(bound.bind(user, pic_added));
-        session.execute(bsInsertPicToUser);
-         //   
+
+         session.execute(bsInsertPicToUser);
+      
          session.close();
      
   
@@ -66,7 +50,7 @@ public class Comments {
        // return userDesc;
   
        
-       public void getComments(String imageOwner, Date pic_added)
+       public void getComments(String ID)
        {
             java.util.ArrayList<String> allComments = new java.util.ArrayList();
             
