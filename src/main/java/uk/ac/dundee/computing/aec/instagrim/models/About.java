@@ -34,8 +34,8 @@ public class About {
       {
        
           Session session = cluster.connect("instagrim");
-        
-          PreparedStatement psInsertAboutUser = session.prepare("update profilepage set about_user = '" + aboutUser + "' where user = '" + user + "'");
+         
+          PreparedStatement psInsertAboutUser = session.prepare("update profilepage set about_user = '" + aboutUser.replace("'","''") + "' where user = '" + user + "'");
           BoundStatement bsInsertAboutUser = new BoundStatement(psInsertAboutUser);
           session.execute(bsInsertAboutUser.bind());
           
@@ -134,7 +134,7 @@ public class About {
 
           String commentAdd = user + "/" + date + "/" + comment; 
          
-          PreparedStatement psInsertAboutUser = session.prepare("update profilepage set wallComments = [' " + commentAdd + " ']  + wallComments where user = '" + user + "'");
+          PreparedStatement psInsertAboutUser = session.prepare("update profilepage set wallComments = [' " + commentAdd.replace("'","''") + " ']  + wallComments where user = '" + user + "'");
           BoundStatement bsInsertAboutUser = new BoundStatement(psInsertAboutUser);
           session.execute(bsInsertAboutUser.bind());
           

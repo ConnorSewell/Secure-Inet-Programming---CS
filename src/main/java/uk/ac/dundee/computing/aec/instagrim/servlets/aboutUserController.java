@@ -88,6 +88,7 @@ public class aboutUserController extends HttpServlet {
            
         String username = "majed";
         String aboutIn = "about";
+       
         HttpSession session=request.getSession();
        
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
