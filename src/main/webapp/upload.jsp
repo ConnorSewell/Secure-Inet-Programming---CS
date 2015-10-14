@@ -44,13 +44,16 @@
         <h1>InstaGrim ! </h1>
         <h2>Your world in Black and White</h2>
        
-        
- 
         <article>
             <h3>File Upload</h3>
-            <form method="POST" enctype="multipart/form-data" action="Image?profilePic=false">
+            <p>filters</p>
+            <form method="POST" enctype="multipart/form-data" action="Image?profilePic=<%=request.getParameter("profilePic")%>">
                <input type="file" name="upfile"><br/>
-
+             
+             Rotate 90, 180, 270 degrees <input type="checkbox" name="filter" value ="rotate90">
+             Crop
+             Pad
+             <input type="hidden" name="filter" value="lol">
                 <br/>
                 <input type="submit" value="Add to library"> to upload the file!
             </form>
@@ -60,6 +63,8 @@
             <ul>
                 <li class="footer"><a href="/Instagrim">Home</a></li>
             </ul>
+            
+            <img src = "/var/tmp/instagrim/"></img>
         </footer>
     </body>
 </html>

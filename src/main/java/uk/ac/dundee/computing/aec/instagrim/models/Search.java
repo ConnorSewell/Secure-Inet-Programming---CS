@@ -11,7 +11,6 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
 /**
  *
@@ -57,14 +56,8 @@ public class Search {
                     
             }
         }
-        //  allMatches.add("hi");
            return allMatches;
       }
       
-      
-      public void getUserDetails()
-      {
-          
-      }
-    
+ 
 }

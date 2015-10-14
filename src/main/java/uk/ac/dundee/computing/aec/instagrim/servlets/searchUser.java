@@ -8,7 +8,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -18,12 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
-import uk.ac.dundee.computing.aec.instagrim.models.User;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
 import uk.ac.dundee.computing.aec.instagrim.models.Search;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 /**
@@ -69,8 +63,8 @@ public class searchUser extends HttpServlet {
         us.setUserPicId(about.getUserId(user));
         us.setDisplaySearch(true);
         us.setWallComments(about.getWallComments(user));
-        
-        
+        us.setIdValid();
+
         RequestDispatcher rd = request.getRequestDispatcher("searchedProfile.jsp");
         rd.forward(request, response);
     }
@@ -101,8 +95,8 @@ public class searchUser extends HttpServlet {
         
         session.setAttribute("userSearch", us);
 
-       RequestDispatcher rd = request.getRequestDispatcher("/searchedUser.jsp");
-       rd.forward(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher("/searchedUser.jsp");
+        rd.forward(request, response);
     }
 
     /**

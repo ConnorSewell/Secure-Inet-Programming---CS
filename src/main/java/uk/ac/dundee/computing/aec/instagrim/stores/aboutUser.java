@@ -11,7 +11,7 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
  */
 public class aboutUser {
     
-    String about_User="No description";
+    String about_User=null;
     java.util.UUID UUID=null;
     java.util.List<String> commentList;
     boolean idValid;

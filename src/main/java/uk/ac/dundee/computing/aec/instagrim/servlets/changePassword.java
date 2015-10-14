@@ -7,8 +7,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -71,7 +69,7 @@ public class changePassword extends HttpServlet {
         String password = lg.getPassword();
         String currPass=request.getParameter("currPass");
         String newPass=request.getParameter("newPass");
-        
+
         User us=new User();
         us.setCluster(cluster);
         us.changePass(username, password, currPass, newPass);

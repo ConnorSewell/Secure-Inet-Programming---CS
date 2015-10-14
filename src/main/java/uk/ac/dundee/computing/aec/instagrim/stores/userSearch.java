@@ -17,10 +17,29 @@ public class userSearch {
     java.util.List<String> wallComments = new java.util.LinkedList();
     java.util.UUID UUID=null;
     boolean displaySearch;
+    boolean idValid;
     
     public userSearch()
     {
         
+    }
+    
+       
+    public boolean getIdValid()
+    {
+        return idValid;
+    }       
+    
+    public void setIdValid()
+    {
+        if(UUID!=null)
+        {
+            this.idValid=true;
+        }
+        else
+        {
+            this.idValid=false;
+        }
     }
     
     public void setWallComments(java.util.List<String> comments)
@@ -49,7 +68,8 @@ public class userSearch {
     }
     
     public String getSUUID(){
-        return UUID.toString();
+        
+        return null;
     }
    
     public String getSearchedUser()

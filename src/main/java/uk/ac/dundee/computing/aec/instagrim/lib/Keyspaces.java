@@ -53,7 +53,7 @@ public final class Keyspaces {
                     + "      first_name text,\n"
                     + "      last_name text,\n"
                     + "      email text,\n"
-                    + "      addresses text\n"
+                    + "      address text,\n"
                     + "  );";
             
             String CreateUserProfilePage = "CREATE TABLE if not exists instagrim.profilepage (\n"
@@ -63,19 +63,8 @@ public final class Keyspaces {
                     + "       wallComments list<text> \n"
                     + "  );";
             
-            String CreateUserList = "CREATE TABLE if not exists instagrim.userlist  (\n"
-                    + "       user text PRIMARY KEY, \n"
-                    + "  );";
-            
-            String CreateUserTest = "CREATE TABLE if not exists instagrim.usertest  (\n"
-                    + "       user<text> PRIMARY KEY, \n"
-                    + "  );";
-            
-            String CreateLastUpload = "CREATE TABLE if not exists instagrim.lastupload  (\n"
-                    + "       picid uuid PRIMARY KEY, \n"
-                    + "  );";
-            
             Session session = c.connect();
+            //now add some column families 
             try {
                 PreparedStatement statement = session
                         .prepare(createkeyspace);
@@ -87,10 +76,7 @@ public final class Keyspaces {
             } catch (Exception et) {
                 System.out.println("Can't create instagrim " + et);
             }
-
-            //now add some column families 
-            System.out.println("" + CreatePicTable);
-
+          
             try {
                 SimpleStatement cqlQuery = new SimpleStatement(CreatePicTable);
                 session.execute(cqlQuery);
@@ -135,33 +121,7 @@ public final class Keyspaces {
             } catch (Exception et) {
                 System.out.println("Can't create Profile " + et);
             } 
-             
-            try {
-            System.out.println("Creating...");
-            SimpleStatement cqlQuery = new SimpleStatement(CreateLastUpload);
-            session.execute(cqlQuery);
-            } catch (Exception et) {
-                System.out.println("Can't create Profile " + et);
-            } 
-            
-             
-            try {
-            System.out.println("Creating...");
-            SimpleStatement cqlQuery = new SimpleStatement(CreateUserList);
-            session.execute(cqlQuery);
-            } catch (Exception et) {
-                System.out.println("Can't create Profile " + et);
-            } 
-            
-             try {
-            System.out.println("Creating...");
-            SimpleStatement cqlQuery = new SimpleStatement(CreateUserTest);
-            session.execute(cqlQuery);
-            } catch (Exception et) {
-                System.out.println("Can't create Profile " + et);
-            } 
-            session.close();
-
+    
         } catch (Exception et) {
             System.out.println("Other keyspace or coulm definition error" + et);
         }

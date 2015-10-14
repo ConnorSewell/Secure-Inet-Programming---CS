@@ -4,6 +4,7 @@
     Author     : Administrator
 --%>
 
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@
     </head>
     <body>
        
-         <header>
+        <header>
         <h1>InstaGrim ! </h1>
         <h2>Register</h2>
         </header>
@@ -36,13 +37,14 @@
                     </br>
                     <input type="text" name="last_name" placeholder = "Surname" style = "margin-top: 5px;">
                     </br>
-                    <input type="set<text>" name="email" placeholder = "Email address" style = "margin-top: 5px;">
+                    <input type="text" name="email" placeholder = "Email address" style = "margin-top: 5px;">
+                    </br>
+                    <input type="text" name="address" placeholder = "Address" style = "margin-top: 5px;">
                     </br>
                     <input type="submit" value="Register" style= "margin-top: 5px"> 
                 </form>
                 </div>
-          
-        
+ 
         </article>
         
             

@@ -7,7 +7,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -21,7 +20,6 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
-import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
  *
@@ -50,27 +48,7 @@ public class wallComment extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
-            HttpSession session=request.getSession();
-
-            About about = new About();
-            about.setCluster(cluster);
-            
-            userSearch us = (userSearch)session.getAttribute("userSearch");
-          
-            java.util.List<String> wallComments = about.getWallComments(us.getSearchedUser());
-            
-           // au.setAbout(about.getAbout(lg.getUsername()));
-          //  au.setUUID(about.getUserId(lg.getUsername()));
-            
-          //  au.setIdValid();
-            
-          //  au.setWallComments(about.getWallComments(lg.getUsername()));
-         
-            //session.setAttribute("aboutUser", au);
-
-            RequestDispatcher rd = request.getRequestDispatcher("userProfile.jsp");
-            
-            rd.forward(request, response);
+      
     }
 
     /**
@@ -84,6 +62,7 @@ public class wallComment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String username="majed";
         String wallComment = request.getParameter("wallComment");
         HttpSession session=request.getSession();
@@ -96,16 +75,12 @@ public class wallComment extends HttpServlet {
             username=lg.getUsername();
         }
  
-      // session.setAttribute("aboutUser", au);
- 
        About about = new About();
 
        about.setCluster(cluster);
        
        Date date = new Date();
-      // about.getWallComments(username);
-       
-       about.setWallComments(lg.getUsername(), wallComment, date);
+       about.setWallComments(username, wallComment, date);
 
        RequestDispatcher rd = request.getRequestDispatcher("/searchedProfile.jsp");
        rd.forward(request, response);

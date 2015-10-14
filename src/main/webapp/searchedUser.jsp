@@ -15,11 +15,9 @@
         <title>Searching for users...</title>
     </head>
     <body>
-        
-        
+         
         <% LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); %>
 
-        
           <div id ="navBar">
             <ul>
                     <li><a href="/Instagrim/index.jsp">Home</a></li>
@@ -29,9 +27,7 @@
                     <li><a href="#">Samples</a></li>
                     <li><a href="/Instagrim/changePassword.jsp">Account</a></li>
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
-                    
-                  
- 
+
             <form method="POST"  action="searchUser">
                 
                 <input type="text" name="user" placeholder = "Search for user">
@@ -42,7 +38,7 @@
   
              </ul>
                     </br>
-                    </br>
+                    
                     
              </div>
                     
@@ -50,8 +46,6 @@
              <%
                userSearch us = (userSearch) session.getAttribute("userSearch");
                java.util.LinkedList<String> users = us.getUsers();
-               //System.out.println("." + tester.get(0));
-              
                %>
                 <h1>Searching for user: <%=us.getSearchedUser()%></h1>
                <%
@@ -71,7 +65,7 @@
                      //  System.out.println("?.. " + tester.get(i));
                        %>
                       
-                        <a href ="searchUser?user=<%=users.get(i)%>" class = "tester"><%=users.get(i)%></a>
+                        <a style = "display: block; text-align: center; margin-top: 2px;" href ="searchUser?user=<%=users.get(i)%>" class = "tester"><%=users.get(i)%></a>
                         
                        <%
                    }
@@ -81,22 +75,13 @@
          
         </br>
         </br>
-                      <div id ="register">
-                         <a href="register.jsp">Don't have an account?</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
-                       </div>
-                     
+
     </body>
     
     <style>
         
         //http://www.webdesignerforum.co.uk/topic/727-how-do-i-style-multiple-li-list-tags/
-        
-       #register{
-            margin-top:10px;
-            display: block;
-            text-align: center;
-       }
-        
+ 
       
     body, html{
         margin:0;
@@ -110,7 +95,7 @@
         }
         
         h1,h2{
-            margin-top:40px;
+            margin-top:0px;
             text-align:center;
         }
     </style>

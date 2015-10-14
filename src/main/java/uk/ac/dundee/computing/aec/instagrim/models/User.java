@@ -12,15 +12,9 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
-import com.datastax.driver.core.Statement;
-import com.datastax.driver.core.querybuilder.QueryBuilder;
-import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
-import static com.datastax.driver.core.querybuilder.QueryBuilder.set;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
 /**
  *
@@ -58,7 +52,7 @@ public class User {
         return true;
     }
     
-    public boolean RegisterUser(String username, String Password, String firstName, String lastName, String email, String addresses){
+    public boolean RegisterUser(String username, String Password, String firstName, String lastName, String email, String address){
         
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
@@ -70,14 +64,14 @@ public class User {
         }
 
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("insert into userprofiles (login,password, first_name, last_name, email, addresses) Values(?,?,?,?,?,?)");
+        PreparedStatement ps = session.prepare("insert into userprofiles (login,password, first_name, last_name, email, address) Values(?,?,?,?,?,?)");
         PreparedStatement pp = session.prepare("insert into profilepage (user) Values(?)");
        
         BoundStatement boundStatementt = new BoundStatement(pp);
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username,EncodedPassword, firstName, lastName, email, addresses));
+                        username,EncodedPassword, firstName, lastName, email, address));
         session.execute(boundStatementt.bind(username));
         //We are assuming this always works.  Also a transaction would be good here !
         
@@ -103,12 +97,6 @@ public class User {
 
           Session session = cluster.connect("instagrim");
           PreparedStatement ps = session.prepare("update userprofiles set password= '" + EncodedPassword + "' where login = '" + username + "'");
-    
-       
-         //Statement statement = QueryBuilder.update("simplex", "songs")
-      //  .with(set("artist", "Vasili Ostertag"))
-       // .where(eq("id", UUID.fromString("f6071e72-48ec-4fcb-bf3e-379c8a696488")));
-       //  getSession().execute(statement);
 
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed

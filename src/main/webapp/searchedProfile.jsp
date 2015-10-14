@@ -40,63 +40,81 @@
                    <input type="submit" value="Search"> 
                    </form>
             </ul> 
-
            </div>
-        
-        
+
         <h1>Instagrim</h1>
     
-        <% String id = us.getSUUID(); %>
-        <img src="/Instagrim/Thumb/<%=id%>">
-
-         <form method="POST" action="wallComment">
-          <textarea name="wallComment" rows="5" columns="20" placeholder = "Post to users wall"></textarea>
-          </br>
-           <input type="submit" value="Done">
-        </form>
         
-        <div id ="commentBlock">
-             <% for(int i = 0; i < wcomments.size(); i++)
+        <p><%=us.getAboutUser()%></p>
+        
+           <div id ="mainBlock" style = "width: 450px; margin: 0 auto; margin-top: 200px"> 
+        <div id="wallComments">
+            
+         <form method="POST" action="wallComment">
+             <div style = "height: 150px; width: 150px">
+             <textarea style = "height: 96%; width: 90%"name="wallComment" placeholder = "Post to users wall"></textarea>
+             </div>
+             
+           <input style = "margin-top: 5px; margin-left: 30%" type="submit" value="Done">
+        </form>
+        </div>
+        
+        <div style  = "width: 150px; height: 150px;" id ="imageBlock">
+        
+        <% if(us.getIdValid())
+        {
+            String id = us.getSUUID(); %>
+        <img style = "width: 100%; height: 100%" src="/Instagrim/Thumb/<%=id%>">
+        <%
+        }
+        else
+            %>
+            <p> User has not uploaded a profile picture </p>
+            <%
+        %>
+        <li style = "list-style-type: none; margin-left: 21%"><a href="/Instagrim/Images/<%=us.getSearchedUser()%>?id=Images">View gallery</a></li>
+
+        </div>
+        
+       
+           <div style ="overflow: hidden; overflow:scroll; width: 150px; height: 150px; float: left;">
+            <% for(int i = 0; i < wcomments.size(); i++)
             {
                 String[] userComment = wcomments.get(i).split("/");
                 %>
-                    
-                <p>User: <%=userComment[0]%> at <%=userComment[1]%> </br> <%=userComment[2]%></p>
+                <div>
+                         User: <%=userComment[0]%> at <%=userComment[1]%> </br> <%=userComment[2]%>
+                </div>
                 <%
             }
              
              %>
+             
         </div>
-          
-        <li style = "list-style-type: none;"><a href="/Instagrim/Images/<%=us.getSearchedUser()%>?id=Images">View gallery.</a></li>
-       
+    
+           </div>
        
     </body>
     
     <style>
-        
-        #commentBlock
-        {
-            height:15%;
-            width:30%;
-            overflow: scroll;
-            
-        }
+       
         h1{
             text-align: center;
             margin-top: 30px;
         }
-        
-        #formId
-        {
-           // display: inline-block;
-          //  float: right;
+    
+        #imageBlock{
+          
+            display: block;
+            float:left;
         }
         
-        form{
-        display:inline-block;
-        margin-left: 20px;
-        margin-top: 20px;
+        #wallComments{
+           float: left;
+           display:inline-block;
+            
+           margin-top: 0px;
+         
          
         }
         

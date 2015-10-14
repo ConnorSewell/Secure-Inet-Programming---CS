@@ -40,13 +40,13 @@
                 
            </div>
                    
-        <h1>Change your password...</h1>
+                    <h1>Change password</h1>
         
          <form method="POST"  action="changePassword">
                 <ul class="userIn">
                     <li>Current password <input type="text" name="currPass"></li>
-                  
-                    <li>New password <input type="password" name="newPass"></li>
+                    <li>New Password <input type="password" name="newPass"></li>
+            
                 </ul>
                 <br/>
                 

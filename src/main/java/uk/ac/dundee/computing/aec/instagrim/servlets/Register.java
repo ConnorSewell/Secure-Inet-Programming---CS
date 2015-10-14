@@ -8,7 +8,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -42,27 +41,29 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String username=request.getParameter("username");
         String password=request.getParameter("password");
         String firstName=request.getParameter("first_name");
         String lastName=request.getParameter("last_name");
         String email=request.getParameter("email");
-        String addresses=request.getParameter("addresses");
+        String address=request.getParameter("address");
         
-        
+        if(username.equals("") || password.equals("") || firstName.equals("") || lastName.equals("")|| email.equals("")|| address.equals(""))
+        {
+             RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+             rd.forward(request, response);
+        }
         
         User us=new User();
         us.setCluster(cluster);
          
-        if(!us.checkNameVal(username))
+        if(us.checkNameVal(username))
         {
+            us.RegisterUser(username, password, firstName, lastName, email, address);
             
         }
-        else
-        {
-            us.RegisterUser(username, password, firstName, lastName, email, addresses);
-            
-        }
+        
         RequestDispatcher rd = request.getRequestDispatcher("initial.jsp");
 	rd.forward(request, response);
         

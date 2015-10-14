@@ -87,8 +87,7 @@
         .picAlbum
         {
             float:left; 
-          //  margin: 30px;
-            margin-left: 20px;
+            margin-left: 2.1%;
             margin-top: 20px;
            
         }
