@@ -66,7 +66,7 @@ public class aboutUserController extends HttpServlet {
          
             session.setAttribute("aboutUser", au);
 
-            RequestDispatcher rd = request.getRequestDispatcher("userProfile.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
             
             rd.forward(request, response);
 
@@ -111,7 +111,7 @@ public class aboutUserController extends HttpServlet {
        
        about.insertAbout(username, aboutIn);
 
-       RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
+       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
        rd.forward(request, response);
             
         

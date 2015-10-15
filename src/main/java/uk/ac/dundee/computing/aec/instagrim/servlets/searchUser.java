@@ -65,7 +65,7 @@ public class searchUser extends HttpServlet {
         us.setWallComments(about.getWallComments(user));
         us.setIdValid();
 
-        RequestDispatcher rd = request.getRequestDispatcher("searchedProfile.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
         rd.forward(request, response);
     }
 
@@ -95,7 +95,7 @@ public class searchUser extends HttpServlet {
         
         session.setAttribute("userSearch", us);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/searchedUser.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedUser.jsp");
         rd.forward(request, response);
     }
 

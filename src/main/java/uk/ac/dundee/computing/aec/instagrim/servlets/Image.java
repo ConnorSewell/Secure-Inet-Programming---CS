@@ -33,7 +33,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
     "/Image/*",
     "/Thumb/*",
     "/Images",
-    "/Images/*"
+    "/Images/*",
+    
 })
 @MultipartConfig
 
@@ -102,12 +103,12 @@ public class Image extends HttpServlet {
         
         userSearch us = (userSearch)session.getAttribute("userSearch");
  
-        RequestDispatcher rd = request.getRequestDispatcher("/UsersPics.jsp?");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UsersPics.jsp?");
        
         request.setAttribute("Pics", lsPics);
         rd.forward(request, response);
    
-        
+
 
     }
 
@@ -165,7 +166,7 @@ public class Image extends HttpServlet {
 
                 is.close();
             }
-            RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/upload.jsp");
             rd.forward(request, response);
         }
 

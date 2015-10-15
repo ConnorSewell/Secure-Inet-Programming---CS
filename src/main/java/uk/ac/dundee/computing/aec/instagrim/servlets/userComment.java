@@ -65,7 +65,7 @@ public class userComment extends HttpServlet {
 
         p.setComment(comments.getComments(p.returnUUID()));
  
-        RequestDispatcher rd = request.getRequestDispatcher("/imageView.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
         System.out.println("Pic is.. " + p.getPicAdded());
         rd.forward(request, response);
     
@@ -100,10 +100,10 @@ public class userComment extends HttpServlet {
 
         comments.addComment(comment, picId);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/imageView.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
         rd.forward(request, response);
         
-        response.sendRedirect("/imageView.jsp");
+       // response.sendRedirect("/imageView.jsp");
     }
 
     /**

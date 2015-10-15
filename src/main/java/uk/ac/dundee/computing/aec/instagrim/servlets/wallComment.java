@@ -81,12 +81,12 @@ public class wallComment extends HttpServlet {
        if(!postTo.equals(lg.getUsername()))
        {
          au.setWallComments(about.getWallComments(postTo));
-         RequestDispatcher rd = request.getRequestDispatcher("/searchedProfile.jsp");
+         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
          rd.forward(request, response);
        }
        
        au.setWallComments(about.getWallComments(lg.getUsername()));
-       RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
+       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
        rd.forward(request, response);
         
         

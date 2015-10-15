@@ -34,7 +34,7 @@ public class SampleImages extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
-        RequestDispatcher rd = request.getRequestDispatcher("SampleImages.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/SampleImages.jsp");
             
         rd.forward(request, response);
     }

@@ -101,7 +101,7 @@ public class imgPreview extends HttpServlet {
         }
         out.close();
         
-        RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/upload.jsp");
             rd.forward(request, response);
     }
     }

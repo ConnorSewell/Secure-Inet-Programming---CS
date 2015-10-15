@@ -49,7 +49,7 @@ public class changePassword extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-            RequestDispatcher rd = request.getRequestDispatcher("changePassword.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/changePassword.jsp");
             
             rd.forward(request, response);
     }
@@ -79,7 +79,7 @@ public class changePassword extends HttpServlet {
         us.setCluster(cluster);
         us.changePass(username, password, currPass, newPass);
         
-	response.sendRedirect("/Instagrim/index.jsp");
+	response.sendRedirect("/WEB-INF/index.jsp");
     }
 
     /**
