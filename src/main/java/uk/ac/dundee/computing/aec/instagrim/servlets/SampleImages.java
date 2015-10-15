@@ -5,35 +5,20 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
-import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.About;
-import uk.ac.dundee.computing.aec.instagrim.models.User;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "changePassword", urlPatterns = {"/changePassword"})
-public class changePassword extends HttpServlet {
- 
-    private Cluster cluster;
-
-
-    public void init(ServletConfig config) throws ServletException {
-        // TODO Auto-generated method stub
-        cluster = CassandraHosts.getCluster();
-    }
+@WebServlet(name = "SampleImages", urlPatterns = {"/SampleImages"})
+public class SampleImages extends HttpServlet {
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -48,10 +33,10 @@ public class changePassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            RequestDispatcher rd = request.getRequestDispatcher("changePassword.jsp");
             
-            rd.forward(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher("SampleImages.jsp");
+            
+        rd.forward(request, response);
     }
 
     /**
@@ -65,21 +50,7 @@ public class changePassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
-        HttpSession session=request.getSession();
         
-        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        
-        String username = lg.getUsername();
-        String password = lg.getPassword();
-        String currPass=request.getParameter("currPass");
-        String newPass=request.getParameter("newPass");
-
-        User us=new User();
-        us.setCluster(cluster);
-        us.changePass(username, password, currPass, newPass);
-        
-	response.sendRedirect("/Instagrim/index.jsp");
     }
 
     /**

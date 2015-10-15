@@ -65,24 +65,28 @@ public class wallComment extends HttpServlet {
         
         String username="majed";
         String wallComment = request.getParameter("wallComment");
+        String postTo = request.getParameter("who");
         HttpSession session=request.getSession();
        
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
         aboutUser au = (aboutUser) session.getAttribute("aboutUser");
-
-        if(lg!=null)
-        {
-            username=lg.getUsername();
-        }
- 
-       About about = new About();
+        String userFrom = lg.getUsername();
+        About about = new About();
 
        about.setCluster(cluster);
        
        Date date = new Date();
-       about.setWallComments(username, wallComment, date);
+       about.setWallComments(postTo, userFrom, wallComment, date);
 
-       RequestDispatcher rd = request.getRequestDispatcher("/searchedProfile.jsp");
+       if(!postTo.equals(lg.getUsername()))
+       {
+         au.setWallComments(about.getWallComments(postTo));
+         RequestDispatcher rd = request.getRequestDispatcher("/searchedProfile.jsp");
+         rd.forward(request, response);
+       }
+       
+       au.setWallComments(about.getWallComments(lg.getUsername()));
+       RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
        rd.forward(request, response);
         
         

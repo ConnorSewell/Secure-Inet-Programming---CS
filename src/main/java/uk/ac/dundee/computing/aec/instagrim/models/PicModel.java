@@ -67,19 +67,19 @@ public class PicModel {
             int thumblength= thumbb.length;
             ByteBuffer thumbbuf=ByteBuffer.wrap(thumbb);
             byte[] processedb = picdecolour(picid.toString(),types[1], filter);
-             ByteBuffer processedbuf=ByteBuffer.wrap(processedb);
-             int processedlength=processedb.length;
-           Session session = cluster.connect("instagrim");
+            ByteBuffer processedbuf=ByteBuffer.wrap(processedb);
+            int processedlength=processedb.length;
+            Session session = cluster.connect("instagrim");
 
-           PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
             PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
-          BoundStatement bsInsertPic = new BoundStatement(psInsertPic);
+            BoundStatement bsInsertPic = new BoundStatement(psInsertPic);
             BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
 
-           Date DateAdded = new Date();
-           System.out.println("Date is... " + DateAdded);
-          session.execute(bsInsertPic.bind(picid, buffer, thumbbuf,processedbuf, user, DateAdded, length,thumblength,processedlength, type, name));
-          session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
+            Date DateAdded = new Date();
+            System.out.println("Date is... " + DateAdded);
+            session.execute(bsInsertPic.bind(picid, buffer, thumbbuf,processedbuf, user, DateAdded, length,thumblength,processedlength, type, name));
+            session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
             
                if(profilePic.equals("true"))
               {
@@ -118,8 +118,7 @@ public class PicModel {
     public byte[] picdecolour(String picid,String type, String filter) {
         try {
             BufferedImage BI = ImageIO.read(new File("/var/tmp/instagrim/" + picid));
-            //BufferedImage tester = ImageIO.read(new File("/var/tmp/instagrim/upload"));
-           
+
             BufferedImage processed = createProcessed(BI, filter);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(processed, type, baos);

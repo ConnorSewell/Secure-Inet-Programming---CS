@@ -22,13 +22,14 @@
              java.util.List<String> wcomments = au.getWallComments(); %>
            <div id ="navBar">
             <ul>
-                    <li><a href="/Instagrim/index.jsp">Home</a></li>
+                    <li><a href="/Instagrim/home">Home</a></li>
                     <li><a href="/Instagrim/aboutUserController?id=profile">Profile</a></li>
-                    <li><a href="/Instagrim/upload.jsp">Upload</a></li>
+                    <li><a href="/Instagrim/uploadPage">Upload</a></li>
                     <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
-                    <li><a href="#">Samples</a></li>
-                    <li><a href="/Instagrim/changePassword.jsp">Account</a></li>
+                    <li><a href="/Instagrim/SampleImages">Samples</a></li>
+                    <li><a href="/Instagrim/changePassword">Change Password</a></li>
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
+                    
    
         
                    <a href="/Instagrim/testList">tester</a>
@@ -109,18 +110,16 @@
                 String[] userComment = wcomments.get(i).split("/");
                 %>
              
-                <p style = "overflow-x: hidden;" >User: <%=userComment[0]%> at <%=userComment[1]%> </br> <%=userComment[2]%></p> 
+                <p style = "overflow-x: hidden;">User: <%=userComment[0]%> on <%=userComment[1]%> </br> <%=userComment[2]%></p> 
                
                    <%
             }
              
              %>
              </div>
-       
-        
-        
+
          <div style ="margin-top: 5px; width: 500px">
-          <form method="POST" action="wallComment">
+          <form method="POST" action="wallComment?who=<%=lg.getUsername()%>">
              <div>
              <textarea style = "width: 614px; height: 50px" name="wallComment" placeholder = "Post to your wall" wrap="virtual"></textarea>
              </div>

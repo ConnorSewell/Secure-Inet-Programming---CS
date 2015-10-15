@@ -39,7 +39,11 @@
                     </br>
                     <input type="text" name="email" placeholder = "Email address" style = "margin-top: 5px;">
                     </br>
-                    <input type="text" name="address" placeholder = "Address" style = "margin-top: 5px;">
+                    <input type="text" name="Street" placeholder = "Street" style = "margin-top: 5px;">
+                    </br>
+                    <input type="text" name="town" placeholder = "Town" style = "margin-top: 5px;">
+                    </br>
+                    <input type="text" name="Region" placeholder = "region" style = "margin-top: 5px;">
                     </br>
                     <input type="submit" value="Register" style= "margin-top: 5px"> 
                 </form>

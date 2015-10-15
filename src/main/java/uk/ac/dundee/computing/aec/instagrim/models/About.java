@@ -11,6 +11,8 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
+import com.datastax.driver.core.Statement;
+import com.datastax.driver.core.querybuilder.QueryBuilder;
 import java.util.Date;
 
 
@@ -106,7 +108,7 @@ public class About {
         java.util.List<String> wallComments=null;
         
         Session session = cluster.connect("instagrim");
-
+    
         PreparedStatement ps = session.prepare("select wallComments from profilepage where user =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -121,18 +123,16 @@ public class About {
                 wallComments = row.getList("wallComments",String.class);
             }
         }
-        
-        
-     
+
         return wallComments;
     }
     
-    public void setWallComments(String user, String comment, Date date)
+    public void setWallComments(String user, String userFrom, String comment, Date date)
     {
             
           Session session = cluster.connect("instagrim");
 
-          String commentAdd = user + "/" + date + "/" + comment; 
+          String commentAdd = userFrom + "/" + date + "/" + comment; 
          
           PreparedStatement psInsertAboutUser = session.prepare("update profilepage set wallComments = [' " + commentAdd.replace("'","''") + " ']  + wallComments where user = '" + user + "'");
           BoundStatement bsInsertAboutUser = new BoundStatement(psInsertAboutUser);

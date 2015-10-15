@@ -1,7 +1,7 @@
 <%-- 
-    Document   : searchedProfile
-    Created on : 10-Oct-2015, 22:58:06
-    Author     : Connor131
+    Document   : UsersPics
+    Created on : Sep 24, 2014, 2:52:48 PM
+    Author     : Administrator
 --%>
 
 <%@page import="java.util.Iterator"%>
@@ -15,19 +15,21 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <% userSearch us = (userSearch)session.getAttribute("userSearch"); %>
+        <% aboutUser au = (aboutUser)session.getAttribute("aboutUser");
+           userSearch us = (userSearch)session.getAttribute("userSearch");%>
         <% LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); 
-          java.util.List<String> wcomments = us.getWallComments(); %>
+          java.util.List<String> wcomments = au.getWallComments(); %>
           
           <div id ="navBar">
             <ul>
-                    <li><a href="/Instagrim/index.jsp">Home</a></li>
+                    <li><a href="/Instagrim/home">Home</a></li>
                     <li><a href="/Instagrim/aboutUserController?id=profile">Profile</a></li>
-                    <li><a href="/Instagrim/upload.jsp">Upload</a></li>
+                    <li><a href="/Instagrim/uploadPage">Upload</a></li>
                     <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
-                    <li><a href="#">Samples</a></li>
-                    <li><a href="/Instagrim/changePassword.jsp">Account</a></li>
+                    <li><a href="/Instagrim/SampleImages">Samples</a></li>
+                    <li><a href="/Instagrim/changePassword">Change Password</a></li>
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
+                    
    
         
                    <a href="/Instagrim/testList">tester</a>
@@ -50,9 +52,9 @@
            <div id ="mainBlock" style = "width: 450px; margin: 0 auto; margin-top: 200px"> 
         <div id="wallComments">
             
-         <form method="POST" action="wallComment">
+         <form method="POST" action="wallComment?who=<%=us.getSearchedUser()%>">
              <div style = "height: 150px; width: 150px">
-             <textarea style = "height: 96%; width: 90%"name="wallComment" placeholder = "Post to users wall"></textarea>
+             <textarea style = "height: 96%; width: 90%"name="wallComment" placeholder = "Post to <%=us.getSearchedUser()%>'s wall"></textarea>
              </div>
              
            <input style = "margin-top: 5px; margin-left: 30%" type="submit" value="Done">

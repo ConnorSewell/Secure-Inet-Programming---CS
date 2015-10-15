@@ -19,13 +19,14 @@
             <% LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); %>
         <div id ="navBar">
             <ul>
-                    <li><a href="/Instagrim/index.jsp">Home</a></li>
+                    <li><a href="/Instagrim/home">Home</a></li>
                     <li><a href="/Instagrim/aboutUserController?id=profile">Profile</a></li>
-                    <li><a href="/Instagrim/upload.jsp">Upload</a></li>
+                    <li><a href="/Instagrim/uploadPage">Upload</a></li>
                     <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
-                    <li><a href="#">Samples</a></li>
-                    <li><a href="/Instagrim/changePassword.jsp">Account</a></li>
+                    <li><a href="/Instagrim/SampleImages">Samples</a></li>
+                    <li><a href="/Instagrim/changePassword">Change Password</a></li>
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
+                    
    
         
                    <a href="/Instagrim/testList">tester</a>
