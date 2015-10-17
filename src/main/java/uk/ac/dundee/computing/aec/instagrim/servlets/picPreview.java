@@ -5,10 +5,15 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
-
 import com.datastax.driver.core.Cluster;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import static java.lang.System.out;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,25 +22,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.Search;
+import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
+import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
-import uk.ac.dundee.computing.aec.instagrim.models.About;
-import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
+
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "searchUser", urlPatterns = {"/searchUser"})
-public class searchUser extends HttpServlet {
+@WebServlet(name = "picPreview", urlPatterns = {"/picPreview"})
+public class picPreview extends HttpServlet {
 
-     private Cluster cluster;   
+ 
+    
+    Cluster cluster=null;
 
-     public void init(ServletConfig config) throws ServletException {
+
+    public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
-     
-  
+
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -49,28 +57,16 @@ public class searchUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession session=request.getSession();
-       
-        userSearch us = (userSearch)session.getAttribute("userSearch");
-        aboutUser au = new aboutUser();
+            HttpSession session=request.getSession();
+            userSearch us = (userSearch)session.getAttribute("userSearch");
+            Pic p = (Pic)session.getAttribute("Pic");
+            
+         //   response.setContentType("image/jpeg");
+         //   OutputStream out = response.getOutputStream();
+        //    ImageIO.write(p.getBufferedImage(), "jpg", out);
+       //     out.close();
         
-        About about = new About();
-        about.setCluster(cluster);
-        
-        String user = request.getParameter("user");
-
-        session.setAttribute("aboutUser", au);
-        
-        au.setUUID(about.getUserId(user));
-        au.setAbout(about.getAbout(user));
-        au.setWallComments(about.getWallComments(us.getSearchedUser()));
-        au.setIdValid();
-        
-        us.setSearchedUser(user);
-        us.setDisplaySearch(true);
-   
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
-        rd.forward(request, response);
+ 
     }
 
     /**
@@ -84,23 +80,7 @@ public class searchUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session=request.getSession();
-        
-        userSearch us = new userSearch();
        
-        Search search = new Search();
-        search.setCluster(cluster);
-        
-        String user=request.getParameter("user");
- 
-        us.setSearchedUser(user);
-        us.setUsers(search.getUsers(user));
-        
-        session.setAttribute("userSearch", us);
-
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedUser.jsp");
-        rd.forward(request, response);
     }
 
     /**

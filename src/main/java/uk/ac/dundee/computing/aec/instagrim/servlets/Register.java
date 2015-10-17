@@ -29,7 +29,13 @@ public class Register extends HttpServlet {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
-
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
+        rd.forward(request,response);
+    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -51,7 +57,7 @@ public class Register extends HttpServlet {
         
         if(username.equals("") || password.equals("") || firstName.equals("") || lastName.equals("")|| email.equals("")|| address.equals(""))
         {
-             RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
+             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
              rd.forward(request, response);
         }
         
@@ -64,7 +70,7 @@ public class Register extends HttpServlet {
             
         }
         
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/initial.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("initial.jsp");
 	rd.forward(request, response);
         
     }

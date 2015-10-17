@@ -140,6 +140,9 @@ public class Image extends HttpServlet {
 
         String profilePic = request.getParameter("profilePic"); //http://www.coderanch.com/t/287125/JSP/java/boolean-parameters
         String filter = request.getParameter("filter");
+        HttpSession session=request.getSession();
+        Pic p = new Pic();
+        session.setAttribute("Pic", p);
         
         for (Part part : request.getParts()) {
             System.out.println("Part Name: " + part.getName());
@@ -150,7 +153,6 @@ public class Image extends HttpServlet {
             InputStream is = request.getPart(part.getName()).getInputStream();
 
             int i = is.available();
-            HttpSession session=request.getSession();
             LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
             String username="majed";
             if (lg.getlogedin()){

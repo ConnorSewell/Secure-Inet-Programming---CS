@@ -20,6 +20,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
+import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
  *
@@ -70,6 +71,8 @@ public class wallComment extends HttpServlet {
        
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
         aboutUser au = (aboutUser) session.getAttribute("aboutUser");
+        userSearch us = (userSearch) session.getAttribute("useSearch");
+        
         String userFrom = lg.getUsername();
         About about = new About();
 
@@ -77,15 +80,15 @@ public class wallComment extends HttpServlet {
        
        Date date = new Date();
        about.setWallComments(postTo, userFrom, wallComment, date);
-
-       if(!postTo.equals(lg.getUsername()))
-       {
-         au.setWallComments(about.getWallComments(postTo));
+       au.setWallComments(about.getWallComments(postTo));
+        
+      if(!postTo.equals(lg.getUsername()))
+      {
          RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
          rd.forward(request, response);
-       }
+      }
        
-       au.setWallComments(about.getWallComments(lg.getUsername()));
+      
        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
        rd.forward(request, response);
         

@@ -58,7 +58,8 @@ public class About {
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         User));
-        if (rs.isExhausted()) {
+        if (rs.isExhausted()) { 
+            userDesc="User has not enterred a description";
             System.out.println("No valid user");
             return userDesc;
         } else {
@@ -67,12 +68,7 @@ public class About {
             }
         }
         
-        if(userDesc == null)
-        {
-            userDesc="User has not enterred a description";
-                  
-        }
-
+    
         return userDesc;
 }
     

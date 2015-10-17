@@ -46,7 +46,7 @@
             </form>
         
         <div id ="register">
-        <a href="register.jsp">Don't have an account?</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+        <a href="/Instagrim/Register">Don't have an account?</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
         </div>
        
        

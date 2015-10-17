@@ -12,7 +12,7 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
 public class userSearch {
     
     String SearchedUser=null;
-    String aboutUser=null;
+    String aboutUser="No desc to show";
     java.util.LinkedList<String> users = new java.util.LinkedList<>();
     java.util.List<String> wallComments = new java.util.LinkedList();
     java.util.UUID UUID=null;
@@ -23,13 +23,7 @@ public class userSearch {
     {
         
     }
-    
-       
-    public boolean getIdValid()
-    {
-        return idValid;
-    }       
-    
+
     public void setIdValid()
     {
         if(UUID!=null)
@@ -42,16 +36,8 @@ public class userSearch {
         }
     }
     
-    public void setWallComments(java.util.List<String> comments)
-    {
-        this.wallComments = comments;
-    }
     
-    public java.util.List<String> getWallComments()
-    {
-        return wallComments;
-    }
-    
+       
     public void setDisplaySearch(boolean disp)
     {
         this.displaySearch=disp;
@@ -62,32 +48,13 @@ public class userSearch {
         return displaySearch;
     }
     
-    public void setUserPicId(java.util.UUID userPicId)
-    {
-        this.UUID=userPicId;
-    }
-    
-    public String getSUUID(){
-        
-        return null;
-    }
-   
     public String getSearchedUser()
             
     {
         return SearchedUser;
     }
     
-    public void setAboutUser(String about)
-    {
-        this.aboutUser=about;
-    }
-    
-    public String getAboutUser()
-    {
-        return aboutUser;
-    }
-    
+   
     public void setSearchedUser(String user)
     {
         this.SearchedUser=user;

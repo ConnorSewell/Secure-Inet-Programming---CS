@@ -36,20 +36,26 @@
                    <input type="submit" value="Search"> 
                    </form>
             </ul> 
-                    </br></br></br></br></br></br>
+                   
                 
            </div>
                    
-                    <h1>Change password</h1>
-        
-         <form method="POST"  action="changePassword">
-                <ul class="userIn">
-                    <li>Current password <input type="text" name="currPass"></li>
-                    <li>New Password <input type="password" name="newPass"></li>
-            
-                </ul>
-                <br/>
+                    <h1 style = "text-align: center">Change password</h1>
+     
+           <form method="POST"  action="Login">
+                <div style ="text-align: center">
                 
-               <input type="submit" value="Change Password">
+               <input type="text" name="username" placeholder = "Current Password" style = "margin-top: 0%;"></li>
+                
+                <br/>
+            
+                <input type="password" name="password" placeholder = "New Password" style = "margin-top: 5px;"></li>
+                
+                <br/>
+               <input type="submit" value="Change" style = "margin-top: 10px;"> <!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
+              <br/>
+              
+            </div>
+            </form>
     </body>
 </html>

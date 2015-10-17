@@ -85,7 +85,7 @@
         %>
        
        
-         <form action="/Instagrim/upload.jsp">
+         <form action="/Instagrim/uploadPage">
               <input type ="hidden" name="profilePic" value="true">
              <div style ="text-align:center">
               <button style = "margin-top: 4%">Edit profile picture</button>
@@ -105,7 +105,10 @@
        </div>
             
              <div style ="width: 620px; height: 100px; overflow-x: hidden; overflow-y: scroll; margin-top:20px">
-            <% for(int i = 0; i < wcomments.size(); i++)
+            <% 
+            if(wcomments!=null)
+            {
+            for(int i = 0; i < wcomments.size(); i++)
             {
                 String[] userComment = wcomments.get(i).split("/");
                 %>
@@ -114,7 +117,7 @@
                
                    <%
             }
-             
+            }
              %>
              </div>
 

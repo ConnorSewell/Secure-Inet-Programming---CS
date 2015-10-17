@@ -15,9 +15,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
-      
-        
               <% LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); %>
         
              <div id ="navBar">
