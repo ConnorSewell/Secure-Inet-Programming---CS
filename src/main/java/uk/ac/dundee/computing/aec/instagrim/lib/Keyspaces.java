@@ -39,7 +39,8 @@ public final class Keyspaces {
          
             String CreateUserComments = "CREATE TABLE if not exists instagrim.usercomments (\n"
                     + "picid uuid PRIMARY KEY,\n"
-                    + "comments list<text>\n"
+                    + "likes list<text>,\n"
+                    + "comments list<text>,\n"
                     + " );";
           
             String CreateAddressType = "CREATE TYPE if not exists instagrim.address (\n"

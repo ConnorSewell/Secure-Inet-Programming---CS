@@ -45,9 +45,10 @@
         
         <h1 style = "text-align: center">Your Profile</h1>
         
-       <div style ="width: 900px; margin-left: auto; margin-right: auto">         
-         <div style = "float:left; margin-left: 0%; margin-top:0%">
-             <p style = "overflow-x: hidden; margin-top: 0%; font-weight: bold">Followers:</p>
+            <div style ="width: 900px; margin-left: auto; margin-right: auto">         
+            <div style = "float:left; margin-left: 0%; margin-top:0%; height: 300px; margin-right: 5%">
+             <p style = "margin-top: 0%; font-weight: bold; padding-right: 20px">Followers:</p>
+             <div style ="overflow-x: hidden; overflow-y: scroll; height: 265px; "
              <p style = "overflow-x: hidden; margin-top: 0%;"
                <% 
             
@@ -58,13 +59,14 @@
                 
                 %>
              
-                User: <%=followers.get(i)%> </br>
+                 <%=followers.get(i)%>  </br>
                
                    <%
             }
            }
              %>
          </p>
+             </div>
        </div>
         
        
@@ -119,35 +121,38 @@
             
     
             
-            <div style = "float:left; margin-left: 5%; margin-top:0%">
-                <p style = "display:inline; overflow-x: hidden; margin-top: 0%; font-weight: bold; float:left">Following:
-                
+             <div style = "float:left; margin-left: 5%; margin-top:0%; height: 300px;">
+             <p style = "margin-top: 0%; font-weight: bold">Following:</p>
+             <div style ="overflow-x: hidden; overflow-y: scroll; height: 265px; "
+             <p style = "overflow-x: hidden; margin-top: 0%;padding-right: 20px; text-align: center"
+                 
                 <%
                 if(following!=null)
                 {
                     %>
-                <p>
+                
                     <%
                     for(int i = 0; i < following.size();i++)
                     {
                     %>
                 
-                    User: <%=following.get(i)%></br>
+                <%=following.get(i)%></br>
                            
                     <%
                     
                 }
                     }
                 %>
-                </p>
+               
                 <%
                     %>
-                </p>
+                 </p>
             </div>
-           
+             </div>
 
-             <div style ="width: 620px; height: 100px; overflow-x: hidden; overflow-y: scroll; margin-top:20px">
+             <div style ="margin-left: 1.2%;width: 620px; height: 100px; overflow-x: hidden; overflow-y: scroll; margin-top:20px">
             <% 
+            
             if(wcomments!=null)
             {
             for(int i = 0; i < wcomments.size(); i++)
@@ -161,10 +166,12 @@
             }
             }
              %>
+             </p>
              </div>
+           
     
 
-         <div style ="margin-top: 5px; width: 500px">
+         <div style ="margin-left: 1.2%; margin-top: 5px; width: 500px">
           <form method="POST" action="wallComment?who=<%=lg.getUsername()%>">
              <div>
              <textarea style = "width: 614px; height: 50px" name="wallComment" placeholder = "Post to your wall" wrap="virtual"></textarea>
@@ -187,13 +194,7 @@
     
     <style>
 
-      
-        #commentBlock
-        {
-            height:15%;
-            width:30%;
-            overflow: scroll; 
-        }
+    
         
         #aboutForm{
              

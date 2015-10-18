@@ -57,7 +57,10 @@
          <img src="/Instagrim/Thumb/<%=p.getSUUID()%>">
          
           <div id ="commentBlock">
-             <% for(int i = 0; i < comments.size(); i++)
+             <% 
+             if(comments!=null)
+             {
+             for(int i = 0; i < comments.size(); i++)
             {
                 String[] userComment = comments.get(i).split("/");
                 %>
@@ -65,7 +68,7 @@
                 <p>User: <%=userComment[0]%> at <%=userComment[1]%> </br> <%=userComment[2]%></p>
                 <%
             }
-             
+             }
              %>
         </div>
         
@@ -73,6 +76,10 @@
             <textarea name="comment" rows="5" columns="20" placeholder = "Comment on the picture..."></textarea>
             <br/>
             <input type="submit" value="Done">
+        </form>
+        
+           <form method="POST" action="Likes?id="<%=lg.getUsername()%>>
+            <input type="submit" value="Like">
         </form>
  
     </body>

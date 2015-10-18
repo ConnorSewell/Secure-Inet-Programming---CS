@@ -23,6 +23,17 @@ public class Comments {
        
        public Comments(){}
        
+       public void addLike(java.util.UUID picId, String user)        
+       {
+          Session session = cluster.connect("instagrim");
+
+          PreparedStatement psInsertLikeToPic = session.prepare("update usercomments set likes= ['" + user + "'] + likes where picid = " + picId);
+          BoundStatement bsInsertLikeToPic = new BoundStatement(psInsertLikeToPic);
+          session.execute(bsInsertLikeToPic);
+      
+          session.close();
+       }
+       
        public void addComment(String comment, java.util.UUID picId)
        {
        
@@ -38,7 +49,7 @@ public class Comments {
 
        public java.util.List<String> getComments(java.util.UUID picId)
        {
-            java.util.List<String> allComments = new java.util.ArrayList();
+            java.util.List<String> allComments = null;
 
             Session session = cluster.connect("instagrim");
 
@@ -49,7 +60,7 @@ public class Comments {
             boundStatement.bind( // here you are binding the 'boundStatement'
                         picId));
             if (rs.isExhausted()) {
-            allComments.add("Be the first user to comment on this picture!");
+            
             System.out.println("No valid user");
             return allComments;
             } else {
