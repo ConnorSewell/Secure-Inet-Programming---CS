@@ -99,10 +99,8 @@ public class Image extends HttpServlet {
         tm.setCluster(cluster);
         java.util.LinkedList<Pic> lsPics = tm.getPicsForUser(User);
         
-        HttpSession session=request.getSession();
+        //HttpSession session=request.getSession();
         
-        userSearch us = (userSearch)session.getAttribute("userSearch");
- 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UsersPics.jsp?");
        
         request.setAttribute("Pics", lsPics);
@@ -123,6 +121,7 @@ public class Image extends HttpServlet {
         OutputStream out = response.getOutputStream();
         
         response.setContentType(p.getType());
+        //response.setContentType("image/jpg");
         response.setContentLength(p.getLength());
         //****out.write(Image);
         InputStream is = new ByteArrayInputStream(p.getBytes());
@@ -134,7 +133,7 @@ public class Image extends HttpServlet {
         out.close();
     
  }
-    
+   
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -165,9 +164,12 @@ public class Image extends HttpServlet {
                 PicModel tm = new PicModel();
                 tm.setCluster(cluster);
                 tm.insertPic(b, type, filename, username, profilePic, filter);
-
+         
                 is.close();
             }
+            
+     
+            
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/upload.jsp");
             rd.forward(request, response);
         }

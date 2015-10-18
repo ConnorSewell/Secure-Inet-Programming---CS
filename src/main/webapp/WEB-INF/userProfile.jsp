@@ -19,7 +19,9 @@
           
             <% aboutUser au = (aboutUser)session.getAttribute("aboutUser"); %>
             <% LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); 
-             java.util.List<String> wcomments = au.getWallComments(); %>
+             java.util.List<String> wcomments = au.getWallComments(); 
+             java.util.List<String> followers = au.getFollowers();
+             java.util.List<String> following = au.getFollowing();%>
            <div id ="navBar">
             <ul>
                     <li><a href="/Instagrim/home">Home</a></li>
@@ -29,11 +31,7 @@
                     <li><a href="/Instagrim/SampleImages">Samples</a></li>
                     <li><a href="/Instagrim/changePassword">Change Password</a></li>
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
-                    
-   
-        
-                   <a href="/Instagrim/testList">tester</a>
-                  
+                               
                    <form method="POST"  action="searchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
                 
                    <input type="text" name="user" placeholder = "Search for user">
@@ -46,17 +44,31 @@
            </div>
         
         <h1 style = "text-align: center">Your Profile</h1>
-    
-       <% 
-           session.setAttribute("hello", 123);
-           
-           boolean tester = true;
-       %>
-       
-
-    
         
-        <div style ="margin-left: 28%">  
+       <div style ="width: 900px; margin-left: auto; margin-right: auto">         
+         <div style = "float:left; margin-left: 0%; margin-top:0%">
+             <p style = "overflow-x: hidden; margin-top: 0%; font-weight: bold">Followers:</p>
+             <p style = "overflow-x: hidden; margin-top: 0%;"
+               <% 
+            
+            if(followers!=null)
+            {
+            for(int i = 0; i < followers.size(); i++)
+            {
+                
+                %>
+             
+                User: <%=followers.get(i)%> </br>
+               
+                   <%
+            }
+           }
+             %>
+         </p>
+       </div>
+        
+       
+        <div style ="margin-left: 14%;">  
         <% 
         
         if(au.getIdValid() == true)
@@ -88,15 +100,15 @@
          <form action="/Instagrim/uploadPage">
               <input type ="hidden" name="profilePic" value="true">
              <div style ="text-align:center">
-              <button style = "margin-top: 4%">Edit profile picture</button>
+             <button style = "margin-top: 4%">Edit profile picture</button>
              </div>
             </form>
        </div>
         
         <div id ="aboutForm">
         <form method ="POST" action="aboutUserController">
-            <div style ="height: 300px; width: 300px">
-            <textarea style = "height: 98%; width: 98%" name="aboutUser" rows="5" columns="20" wrap ="virtual"><%=au.getAbout()%></textarea>
+            <div style ="height: 300px; width: 300px; float:left">
+            <textarea style = "height: 98%; width: 98%; float:left" name="aboutUser" rows="5" columns="20" wrap ="virtual"><%=au.getAbout()%></textarea>
             </div>
             <div style ="text-align: center">
             <input type="submit" value="Change details" style = "margin-top: 4%">
@@ -104,6 +116,36 @@
         </form>
        </div>
             
+            
+    
+            
+            <div style = "float:left; margin-left: 5%; margin-top:0%">
+                <p style = "display:inline; overflow-x: hidden; margin-top: 0%; font-weight: bold; float:left">Following:
+                
+                <%
+                if(following!=null)
+                {
+                    %>
+                <p>
+                    <%
+                    for(int i = 0; i < following.size();i++)
+                    {
+                    %>
+                
+                    User: <%=following.get(i)%></br>
+                           
+                    <%
+                    
+                }
+                    }
+                %>
+                </p>
+                <%
+                    %>
+                </p>
+            </div>
+           
+
              <div style ="width: 620px; height: 100px; overflow-x: hidden; overflow-y: scroll; margin-top:20px">
             <% 
             if(wcomments!=null)
@@ -120,6 +162,7 @@
             }
              %>
              </div>
+    
 
          <div style ="margin-top: 5px; width: 500px">
           <form method="POST" action="wallComment?who=<%=lg.getUsername()%>">
@@ -132,11 +175,14 @@
         </form>
          </div>
     </div>
-        
-        
+        </div>
+             
+           
+             
+         
+       </div>
        
         
- 
     </body>
     
     <style>
@@ -154,6 +200,7 @@
                display:inline-block;
                margin-left: 20px;
                margin-top: 0px;
+               float:left;
         }
 
         #pic{

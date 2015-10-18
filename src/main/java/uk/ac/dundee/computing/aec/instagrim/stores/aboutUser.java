@@ -14,6 +14,8 @@ public class aboutUser {
     String about_User=null;
     java.util.UUID UUID=null;
     java.util.List<String> commentList;
+    java.util.List<String> followers;
+    java.util.List<String> following;
     boolean idValid;
    
     public aboutUser()
@@ -68,6 +70,24 @@ public class aboutUser {
         return commentList;
     }
     
+    public void setFollowers(java.util.List<String> followers)
+    {
+        this.followers=followers;
+    }
+    
+    public java.util.List<String> getFollowers()
+    {
+        return followers;
+    }
+    
+    public void setFollowing(java.util.List<String> following)
+    {
+        this.following=following;
+    }
 
+    public java.util.List<String> getFollowing()
+    {
+        return following;
+    }
     
 }

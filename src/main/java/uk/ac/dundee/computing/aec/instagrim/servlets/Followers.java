@@ -6,14 +6,9 @@
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import static java.lang.System.out;
-import javax.imageio.ImageIO;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,28 +17,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.instagrim.models.About;
+import uk.ac.dundee.computing.aec.instagrim.models.Search;
+import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "picPreview", urlPatterns = {"/picPreview"})
-public class picPreview extends HttpServlet {
-
- 
+@WebServlet(name = "Followers", urlPatterns = {"/Followers"})
+public class Followers extends HttpServlet {
     
-    Cluster cluster=null;
+     private Cluster cluster;   
 
-
-    public void init(ServletConfig config) throws ServletException {
+     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
 
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -56,17 +49,7 @@ public class picPreview extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            HttpSession session=request.getSession();
-            userSearch us = (userSearch)session.getAttribute("userSearch");
-            Pic p = (Pic)session.getAttribute("Pic");
-            OutputStream out = response.getOutputStream();
-            response.setContentType("image/jpeg");
-            
-            ImageIO.write(p.getBufferedImage(), "jpg", out);
-            out.close();
-        
- 
+      //  processRequest(request, response);
     }
 
     /**
@@ -80,7 +63,23 @@ public class picPreview extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        
+        HttpSession session=request.getSession();
+
+        LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn");
+        userSearch us = (userSearch)session.getAttribute("userSearch");
+        
+        //String user = lg.getUsername();
+        About about = new About();
+        about.setCluster(cluster);
+        System.out.println("Searched user is: " + lg.getUsername());
+        
+        about.addFollower(lg.getUsername(), us.getSearchedUser());
+        about.addFollowing(lg.getUsername(), us.getSearchedUser());
+        
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedUser.jsp");
+        rd.forward(request, response);
     }
 
     /**

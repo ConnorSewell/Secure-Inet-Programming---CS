@@ -27,6 +27,19 @@
        
         <article>
             <h3>Register to start sharing your memories</h3>
+            
+            <%LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn");
+            if(lg!=null)
+            {
+            if(lg.getInvalidIn())
+            {
+                %>
+                     <h4> invalid username.</h4>
+                <%
+            }
+            }
+            %>
+            
             <form method="POST"  action="Register">
                 <div style = "text-align: center">
                     <input type="text" name="username" placeholder = "Username" style = "margin-top: 5px;">
@@ -39,11 +52,13 @@
                     </br>
                     <input type="text" name="email" placeholder = "Email address" style = "margin-top: 5px;">
                     </br>
-                    <input type="text" name="address" placeholder = "address" style = "margin-top: 5px;">
+                    <input type="text" name="location" placeholder = "location" style = "margin-top: 5px;">
                     </br>
-                    <input type="text" name="town" placeholder = "Town" style = "margin-top: 5px;">
+                    <input type="text" name="street" placeholder = "street" style = "margin-top: 5px;">
                     </br>
-                    <input type="text" name="Region" placeholder = "region" style = "margin-top: 5px;">
+                    <input type="text" name="city" placeholder = "city" style = "margin-top: 5px;">
+                    </br>
+                    <input type="text" name="zip" placeholder = "zip" style = "margin-top: 5px;">
                     </br>
                     <input type="submit" value="Register" style= "margin-top: 5px"> 
                 </form>

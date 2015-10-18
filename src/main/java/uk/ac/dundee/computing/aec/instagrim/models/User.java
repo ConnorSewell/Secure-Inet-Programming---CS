@@ -12,8 +12,13 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
+import com.datastax.driver.core.Statement;
+import com.datastax.driver.core.querybuilder.QueryBuilder;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 
 /**
@@ -28,6 +33,7 @@ public class User {
     
     public boolean checkNameVal(String username)
     {
+   
         Session session = cluster.connect("instagrim");
         PreparedStatement ps = session.prepare("select login from userprofiles where login =?");
         ResultSet rs = null;
@@ -52,7 +58,8 @@ public class User {
         return true;
     }
     
-    public boolean RegisterUser(String username, String Password, String firstName, String lastName, String email, String address){
+
+    public boolean RegisterUser(String username, String Password, String firstName, String lastName, String email, String address, String city, String street, int zip){
         
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
@@ -62,28 +69,40 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
+        
 
-        Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("insert into userprofiles (login,password, first_name, last_name, email, address) Values(?,?,?,?,?,?)");
-        PreparedStatement pp = session.prepare("insert into profilepage (user) Values(?)");
+       Session session = cluster.connect("instagrim");
+    
+
+        //Statement statement = QueryBuilder.insertInto("userprofiles")
+       /// .value("login", username)
+       // .value("password", EncodedPassword)
+       // .value("first_name", firstName)
+       /// .value("last_name", lastName)
+       // .value("email", add("{'one','two'}"));
+        
+        //.value("addresses", "{" + address + ": { street:" + city + ", city:" + street + ", zip: " + zip + "}});" );
+     //  session.execute(statement);
+
+    //   Set a = new HashSet<String>();
+    //   a.add("lol");
+       PreparedStatement ps = session.prepare("insert into userprofiles (login,password, first_name, last_name, email) Values(?,?,?,?,?)");
+       PreparedStatement pp = session.prepare("insert into profilepage (user) Values(?)");
        
-        BoundStatement boundStatementt = new BoundStatement(pp);
+       BoundStatement boundStatementt = new BoundStatement(pp);
         BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        username,EncodedPassword, firstName.replace("'","''"), lastName.replace("'","''"), email.replace("'","''"), address.replace("'","''")));
+       session.execute( // this is where the query is executed
+               boundStatement.bind( // here you are binding the 'boundStatement'
+username,EncodedPassword, firstName.replace("'","''"), lastName.replace("'","''"), email));
         session.execute(boundStatementt.bind(username));
         //We are assuming this always works.  Also a transaction would be good here !
         
         return true;
     }
     
-    public boolean changePass(String username, String password, String currPass, String newPass)
+    public boolean changePass(String username, String currPass, String newPass)
     {
-        if(!password.equals(currPass))
-        {
-            return false;
-        }
+     
         
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
@@ -107,7 +126,73 @@ public class User {
         
     }
     
+    public boolean changeFName(String username, String firstName)
+    {
+      
+       Session session = cluster.connect("instagrim");
+       PreparedStatement ps = session.prepare("update userprofiles set first_name= '" + firstName + "' where login = '" + username + "'");
+
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        ));
+        
+        return true;
+        
+    }
+    
+       
+    public boolean changeSName(String username, String surName)
+    {
+
+        
+       Session session = cluster.connect("instagrim");
+       PreparedStatement ps = session.prepare("update userprofiles set last_name= '" + surName + "' where login = '" + username + "'");
+
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        ));
+        
+        return true;
+        
+    }
+    
+       
+    public boolean changeEmail(String username, String email)
+    {
+       
+       Session session = cluster.connect("instagrim");
+       PreparedStatement ps = session.prepare("update userprofiles set email= '" + email + "' where login = '" + username + "'");
+
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        ));
+        
+        return true;
+        
+    }
+    
+       
+    public boolean changeAddress(String username, String address)
+    {
+       Session session = cluster.connect("instagrim");
+       PreparedStatement ps = session.prepare("update userprofiles set address= '" + address + "' where login = '" + username + "'");
+
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        ));
+        
+        return true;
+        
+    }
+    
     public boolean IsValidUser(String username, String Password){
+        if(username.equals("") && Password.equals(""))
+            return false;
+        
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
         try {
@@ -138,9 +223,36 @@ public class User {
     
     return false;  
     }
+    
+    public boolean getDetails(String username)
+    {
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select first_name, last_name, email, address from userprofiles where login =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        username));
+        if (rs.isExhausted()) {
+            System.out.println("No valid user");
+            return true;
+        } else {
+            for (Row row : rs) {
+
+                if (row.getString("login").compareTo(username) == 0)
+                {
+                    
+                }       
+            }
+        }
+        
+        return true;
+    }
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }
+
+  
 
     
 }

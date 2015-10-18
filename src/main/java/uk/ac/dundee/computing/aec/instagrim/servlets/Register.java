@@ -15,8 +15,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
+import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 
 /**
  *
@@ -53,24 +55,49 @@ public class Register extends HttpServlet {
         String firstName=request.getParameter("first_name");
         String lastName=request.getParameter("last_name");
         String email=request.getParameter("email");
-        String address=request.getParameter("address");
+        String address=request.getParameter("location");
+        String street=request.getParameter("street");
+        String city=request.getParameter("city");
+        String zip=request.getParameter("zip");
+        //http://www.datastax.com/dev/blog/cql-in-2-1
         
-        if(username.equals("") || password.equals("") || firstName.equals("") || lastName.equals("")|| email.equals("")|| address.equals(""))
+        if(username.equals("") || password.equals("") || firstName.equals("") || lastName.equals("")|| email.equals("")|| address.equals("") || street.equals("") || city.equals("") || zip.equals(""))
         {
              RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
              rd.forward(request, response);
         }
         
+        HttpSession session=request.getSession();
+        LoggedIn lg= new LoggedIn();
+        session.setAttribute("LoggedIn", lg);
+        
+        if(!username.matches("[0-9A-Za-z_-]+"))
+        {   
+            lg.setInvalidIn(true);
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
+            rd.forward(request, response);
+        }
+        
+  
         User us=new User();
         us.setCluster(cluster);
-         
+        
+        
         if(us.checkNameVal(username))
         {
-            us.RegisterUser(username, password, firstName, lastName, email, address);
+            if(us.RegisterUser(username, password, firstName, lastName, email, address, street, city, Integer.parseInt(zip)))
+            {
+                
+                   lg.setLogedin();
+                   lg.setUsername(username);
+                   System.out.println("User is...: " + lg.getUsername());
+                   RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+                   rd.forward(request, response);
+            }
             
         }
         
-        RequestDispatcher rd = request.getRequestDispatcher("initial.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
 	rd.forward(request, response);
         
     }

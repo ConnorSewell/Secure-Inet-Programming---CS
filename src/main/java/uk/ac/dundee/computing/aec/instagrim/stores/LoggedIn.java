@@ -15,8 +15,21 @@ public class LoggedIn {
     boolean invalidPass=false;
     String Username=null;
     String Password=null;
+    boolean invalidName=false;
+    
+    
     public void LogedIn(){
         
+    }
+    
+    public void setInvalidIn(boolean val)
+    {
+        this.invalidName=val;
+    }
+    
+    public boolean getInvalidIn()
+    {
+        return invalidName;
     }
     
     public void setUsername(String name){
@@ -58,4 +71,6 @@ public class LoggedIn {
     public boolean getlogedin(){
         return logedin;
     }
+    
+ 
 }

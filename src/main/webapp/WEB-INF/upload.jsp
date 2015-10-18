@@ -48,7 +48,7 @@
         <article>
             <h3>File Upload</h3>
             <p>filters</p>
-            <form method="POST" enctype="multipart/form-data" action="Image?profilePic=<%=request.getParameter("profilePic")%>">
+            <form method="POST" enctype="multipart/form-data" action="Image?profilePic=<%=request.getParameter("profilePic")%>&preview=preview">
                <input type="file" name="upfile"><br/>
              
              Rotate 90, 180, 270 degrees <input type="checkbox" name="filter" value ="rotate90">

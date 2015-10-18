@@ -25,10 +25,7 @@
                     <li><a href="/Instagrim/SampleImages">Samples</a></li>
                     <li><a href="/Instagrim/changePassword">Change Password</a></li>
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
-                    
-        
-                   <a href="/Instagrim/testList">tester</a>
-                  
+
                    <form method="POST"  action="searchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
                 
                    <input type="text" name="user" placeholder = "Search for user">
@@ -40,17 +37,24 @@
                 
            </div>
                    
-                    <h1 style = "text-align: center">Change password</h1>
-     
-           <form method="POST"  action="Login">
+                <h1 style = "text-align: center">Change password</h1>
+                <h2 style = "text-align: center">Confirm current password, leave the fields you don't want changed empty</h2>
+                </br>
+                <form method="POST"  action="changePassword">
                 <div style ="text-align: center">
                 
-               <input type="text" name="username" placeholder = "Current Password" style = "margin-top: 0%;"></li>
-                
+                <input type="text" name="currPass" placeholder = "Current Password" style = "margin-top: 0%;"></li>
                 <br/>
-            
-                <input type="password" name="password" placeholder = "New Password" style = "margin-top: 5px;"></li>
-                
+                <br/>
+                <input type="password" name="newPass" placeholder = "New Password" style = "margin-top: 5px;"></li>
+                <br/>
+                <input type="text" name="firstName" placeholder = "New first name" style = "margin-top: 5px;"></li>
+                <br/>
+                <input type="text" name="surName" placeholder = "New surname" style = "margin-top: 5px;"></li>
+                <br/>
+                <input type="text" name="email" placeholder = "New email" style = "margin-top: 5px;"></li>
+                <br/>
+                <input type="text" name="address" placeholder = "New address" style = "margin-top: 5px;"></li>
                 <br/>
                <input type="submit" value="Change" style = "margin-top: 10px;"> <!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
               <br/>

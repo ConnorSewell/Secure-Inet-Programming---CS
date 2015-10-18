@@ -53,14 +53,16 @@ public final class Keyspaces {
                     + "      first_name text,\n"
                     + "      last_name text,\n"
                     + "      email text,\n"
-                    + "      address text,\n"
+                    + "      addresses map<text, frozen <address>>,\n"
                     + "  );";
             
             String CreateUserProfilePage = "CREATE TABLE if not exists instagrim.profilepage (\n"
                     + "       user varchar PRIMARY KEY, \n"
                     + "       about_user text, \n"
                     + "       picid uuid, \n"
-                    + "       wallComments list<text> \n"
+                    + "       wallComments list<text>, \n"
+                    + "       followers list<text>, \n"
+                    + "       following list<text>, \n"
                     + "  );";
             
             Session session = c.connect();

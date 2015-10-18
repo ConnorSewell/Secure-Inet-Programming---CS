@@ -21,8 +21,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
+import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
+import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
+import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
+import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
 /**
  *
@@ -67,53 +72,14 @@ public class imgPreview extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+
        
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
-              for (Part part : request.getParts()) {
-              System.out.println("Part Name: " + part.getName());
-          
-             String type = part.getContentType();
-             String filename = part.getSubmittedFileName();
-            
-             InputStream is = request.getPart(part.getName()).getInputStream();
-            
-             OutputStream out = response.getOutputStream();
-        
-             BufferedInputStream input = new BufferedInputStream(is);
-             byte[] buffer = new byte[8192];
-             for (int length = 0; (length = input.read(buffer)) > 0;) {
-             out.write(buffer, 0, length);
-        }
-        out.close();
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/upload.jsp");
-            rd.forward(request, response);
-    }
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+  
+  
 
 }
+

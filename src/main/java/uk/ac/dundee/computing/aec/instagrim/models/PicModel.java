@@ -1,8 +1,10 @@
+
 package uk.ac.dundee.computing.aec.instagrim.models;
 
 /*
  * Expects a cassandra columnfamily defined as
  * use keyspace2;
+
  CREATE TABLE Tweets (
  user varchar,
  interaction_time timeuuid,
@@ -53,6 +55,8 @@ public class PicModel {
         this.cluster = cluster;
     }
 
+  
+    
     public void insertPic(byte[] b, String type, String name, String user, String profilePic, String filter) {
         try {
            
@@ -67,9 +71,7 @@ public class PicModel {
             Boolean success = (new File("/var/tmp/instagrim/")).mkdirs();
             FileOutputStream output = new FileOutputStream(new File("/var/tmp/instagrim/" + picid));
             output.write(b);
-         
-            
-            
+ 
             byte []  thumbb = picresize(picid.toString(),types[1], filter);
             int thumblength= thumbb.length;
             ByteBuffer thumbbuf=ByteBuffer.wrap(thumbb);
@@ -77,9 +79,11 @@ public class PicModel {
             ByteBuffer processedbuf=ByteBuffer.wrap(processedb);
             int processedlength=processedb.length;
             Session session = cluster.connect("instagrim");
-
-            BufferedImage BI = ImageIO.read(new File("/var/tmp/instagrim/" + picid));
+ 
+            Pic pic = new Pic();
+            pic.setPic(thumbbuf, length, types[1]);
             
+
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
             PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
             BoundStatement bsInsertPic = new BoundStatement(psInsertPic);

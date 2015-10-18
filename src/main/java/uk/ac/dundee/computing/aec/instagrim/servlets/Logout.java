@@ -6,6 +6,7 @@
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +35,10 @@ public class Logout extends HttpServlet {
         
              HttpSession session=request.getSession();
              session.invalidate();
-             response.sendRedirect("/Instagrim");
+             
+        RequestDispatcher rd = request.getRequestDispatcher("initial.jsp");
+	rd.forward(request, response);
+             //response.sendRedirect("/Instagrim");
            
         }
     }

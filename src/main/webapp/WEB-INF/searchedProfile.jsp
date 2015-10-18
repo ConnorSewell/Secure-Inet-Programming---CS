@@ -118,9 +118,10 @@
     </div>
         
         
-       
-        
- 
+            <form method="POST" action="/Instagrim/Followers">
+            <button>Follow this user</button>
+            </form>
+             
     </body>
     
     <style>

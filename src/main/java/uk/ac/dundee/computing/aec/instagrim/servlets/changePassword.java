@@ -19,6 +19,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
+import uk.ac.dundee.computing.aec.instagrim.stores.userDetails;
 
 /**
  *
@@ -48,7 +49,16 @@ public class changePassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+            HttpSession session=request.getSession();
+            LoggedIn lg = (LoggedIn )session.getAttribute("LoggedIn");
+           
+            User us = new User();
+            userDetails ud = new userDetails();
+           // ud.setFName(user.getFName(lg.getUsername()));
+           // ud.setFName(user.getSName(lg.getUsername()));
+           // ud.setFName(user.getEmail(lg.getUsername()));
+           // ud.setFName(user.getAddress(lg.getUsername()));
+            
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/changePassword.jsp");
             
             rd.forward(request, response);
@@ -69,17 +79,44 @@ public class changePassword extends HttpServlet {
         HttpSession session=request.getSession();
         
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
+        userDetails ud = (userDetails)session.getAttribute("userDetails");
         
         String username = lg.getUsername();
         String password = lg.getPassword();
         String currPass=request.getParameter("currPass");
         String newPass=request.getParameter("newPass");
+        
+        String firstName=request.getParameter("firstName");
+        String surName=request.getParameter("surName");
+        String email=request.getParameter("email");
+        String address=request.getParameter("address");
 
         User us=new User();
         us.setCluster(cluster);
-        us.changePass(username, password, currPass, newPass);
         
-	response.sendRedirect("/WEB-INF/index.jsp");
+   
+        if(currPass.equals(lg.getPassword())){
+       
+            if(!newPass.equals(""))
+            us.changePass(username, currPass, newPass);
+        
+         if(!firstName.equals(""))
+            us.changeFName(username, firstName);
+        
+         if(!surName.equals(""))
+            us.changeSName(username, surName);
+        
+        if(!email.equals(""))
+            us.changeEmail(username, email);
+        
+       if(!address.equals(""))
+            us.changeAddress(username, address);
+        
+        
+        }
+	RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/changePassword.jsp");
+            
+        rd.forward(request, response);
     }
 
     /**

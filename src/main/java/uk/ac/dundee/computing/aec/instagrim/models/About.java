@@ -130,9 +130,84 @@ public class About {
 
           String commentAdd = userFrom + "/" + date + "/" + comment; 
          
-          PreparedStatement psInsertAboutUser = session.prepare("update profilepage set wallComments = [' " + commentAdd.replace("'","''") + " ']  + wallComments where user = '" + user + "'");
-          BoundStatement bsInsertAboutUser = new BoundStatement(psInsertAboutUser);
-          session.execute(bsInsertAboutUser.bind());
+          PreparedStatement ppInsertWallComment = session.prepare("update profilepage set wallComments = [' " + commentAdd.replace("'","''") + " ']  + wallComments where user = '" + user + "'");
+          BoundStatement bsInsertWallComment= new BoundStatement(ppInsertWallComment);
+          session.execute(bsInsertWallComment.bind());
+          
+          session.close();
+    }
+    
+    public java.util.List<String> getFollowing(String user)
+    {
+        java.util.List<String> following=null;
+        
+             
+        Session session = cluster.connect("instagrim");
+    
+        PreparedStatement ps = session.prepare("select following from profilepage where user =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        user));
+        if (rs.isExhausted()) {
+            
+            return following;
+        } else {
+            for (Row row : rs) {
+                following = row.getList("following",String.class);
+            }
+        }
+
+        return following;
+    }
+    
+       public java.util.List<String> getFollowers(String user)
+    {
+        java.util.List<String> followers=null;
+        
+             
+        Session session = cluster.connect("instagrim");
+    
+        PreparedStatement ps = session.prepare("select followers from profilepage where user =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        user));
+        if (rs.isExhausted()) {
+            
+            return followers;
+        } else {
+            for (Row row : rs) {
+                followers = row.getList("followers",String.class);
+            }
+        }
+
+        return followers;
+    }
+    
+    
+    
+    
+    public void addFollower(String user, String userFollowed)
+    {
+          Session session = cluster.connect("instagrim");
+
+          PreparedStatement ppInsertFollower = session.prepare("update profilepage set followers = followers + [' " + user + " '] where user = '" + userFollowed + "'");
+          BoundStatement bsInsertFollower = new BoundStatement(ppInsertFollower);
+          session.execute(bsInsertFollower.bind());
+          
+          session.close();
+    }
+    
+    public void addFollowing(String user, String userFollowed)
+    {
+          Session session = cluster.connect("instagrim");
+
+          PreparedStatement ppInsertFollower = session.prepare("update profilepage set following = following + [' " + userFollowed + " '] where user = '" + user + "'");
+          BoundStatement bsInsertFollower = new BoundStatement(ppInsertFollower);
+          session.execute(bsInsertFollower.bind());
           
           session.close();
     }
