@@ -14,7 +14,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-            <% LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); %>
+            <% LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); 
+               userDetails ud = (userDetails)session.getAttribute("userDetails");%>
         
              <div id ="navBar">
             <ul>
@@ -48,9 +49,9 @@
                 <br/>
                 <input type="password" name="newPass" placeholder = "New Password" style = "margin-top: 5px;"></li>
                 <br/>
-                <input type="text" name="firstName" placeholder = "New first name" style = "margin-top: 5px;"></li>
+                <input type="text" name="firstName" placeholder = "<%=ud.getFname()%>" style = "margin-top: 5px;"></li>
                 <br/>
-                <input type="text" name="surName" placeholder = "New surname" style = "margin-top: 5px;"></li>
+                <input type="text" name="surName" placeholder = "<%=ud.getSname()%>" style = "margin-top: 5px;"></li>
                 <br/>
                 <input type="text" name="email" placeholder = "New email" style = "margin-top: 5px;"></li>
                 <br/>

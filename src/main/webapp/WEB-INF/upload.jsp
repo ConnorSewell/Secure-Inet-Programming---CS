@@ -59,7 +59,7 @@
                 <input type="submit" value="Add to library"> to upload the file!
             </form>
                
-               <img src ="/Instagrim/picPreview" alt = "penis">
+               <img src ="/Instagrim/picPreview">
         </article>
         <footer>
             <ul>

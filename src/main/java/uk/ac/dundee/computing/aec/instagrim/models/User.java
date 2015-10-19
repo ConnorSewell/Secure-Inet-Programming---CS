@@ -14,6 +14,8 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Statement;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.add;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
@@ -73,30 +75,21 @@ public class User {
 
        Session session = cluster.connect("instagrim");
     
-
-        //Statement statement = QueryBuilder.insertInto("userprofiles")
-       /// .value("login", username)
-       // .value("password", EncodedPassword)
-       // .value("first_name", firstName)
-       /// .value("last_name", lastName)
-       // .value("email", add("{'one','two'}"));
-        
-        //.value("addresses", "{" + address + ": { street:" + city + ", city:" + street + ", zip: " + zip + "}});" );
-     //  session.execute(statement);
-
-    //   Set a = new HashSet<String>();
-    //   a.add("lol");
-       PreparedStatement ps = session.prepare("insert into userprofiles (login,password, first_name, last_name, email) Values(?,?,?,?,?)");
-       PreparedStatement pp = session.prepare("insert into profilepage (user) Values(?)");
+        HashSet<String> emails = new HashSet();
+        emails.add(email);
        
-       BoundStatement boundStatementt = new BoundStatement(pp);
-        BoundStatement boundStatement = new BoundStatement(ps);
-       session.execute( // this is where the query is executed
-               boundStatement.bind( // here you are binding the 'boundStatement'
-username,EncodedPassword, firstName.replace("'","''"), lastName.replace("'","''"), email));
-        session.execute(boundStatementt.bind(username));
-        //We are assuming this always works.  Also a transaction would be good here !
+        System.out.println(email);
+         
+        Statement statement = QueryBuilder.insertInto("userprofiles")
+        .value("login", username)
+        .value("password", EncodedPassword)
+        .value("first_name", firstName)
+        .value("last_name", lastName)
+        .value("email", emails);
         
+        //.value("addresses", "{'home': { street: 'lol', city: 'lel', zip: 1234}}");
+        session.execute(statement);
+    
         return true;
     }
     
@@ -112,8 +105,6 @@ username,EncodedPassword, firstName.replace("'","''"), lastName.replace("'","''"
             System.out.println("Can't check your password");
             return false;
         }
-        
-
           Session session = cluster.connect("instagrim");
           PreparedStatement ps = session.prepare("update userprofiles set password= '" + EncodedPassword + "' where login = '" + username + "'");
 
@@ -224,29 +215,51 @@ username,EncodedPassword, firstName.replace("'","''"), lastName.replace("'","''"
     return false;  
     }
     
-    public boolean getDetails(String username)
+    public String getFName(String username)
     {
+        String first_name="";
+        
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select first_name, last_name, email, address from userprofiles where login =?");
+        PreparedStatement ps = session.prepare("select first_name from userprofiles where login =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         username));
         if (rs.isExhausted()) {
-            System.out.println("No valid user");
-            return true;
+   
         } else {
             for (Row row : rs) {
-
-                if (row.getString("login").compareTo(username) == 0)
-                {
-                    
-                }       
+               return  row.getString("first_name");   
             }
         }
         
-        return true;
+        return null;
+    }
+    
+    public String getSName(String username)
+    {
+        String last_name="";
+        
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select last_name from userprofiles where login =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        username));
+        if (rs.isExhausted()) {
+         
+            return last_name;
+        } else {
+            for (Row row : rs) {
+
+               last_name =  row.getString("last_name"); 
+               return last_name;
+            }
+        }
+        
+        return last_name;
     }
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;

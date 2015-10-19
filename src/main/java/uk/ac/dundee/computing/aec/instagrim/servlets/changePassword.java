@@ -54,8 +54,14 @@ public class changePassword extends HttpServlet {
            
             User us = new User();
             userDetails ud = new userDetails();
-           // ud.setFName(user.getFName(lg.getUsername()));
-           // ud.setFName(user.getSName(lg.getUsername()));
+            
+            us.setCluster(cluster);
+            
+            session.setAttribute("userDetails", ud);
+            
+            ud.setFName(us.getFName(lg.getUsername()));
+            ud.setSName(us.getSName(lg.getUsername()));
+        
            // ud.setFName(user.getEmail(lg.getUsername()));
            // ud.setFName(user.getAddress(lg.getUsername()));
             
@@ -95,10 +101,10 @@ public class changePassword extends HttpServlet {
         us.setCluster(cluster);
         
    
-        if(currPass.equals(lg.getPassword())){
+        if(us.IsValidUser(lg.getUsername(),currPass)){
        
-            if(!newPass.equals(""))
-            us.changePass(username, currPass, newPass);
+        if(!newPass.equals(""))
+        us.changePass(username, currPass, newPass);
         
          if(!firstName.equals(""))
             us.changeFName(username, firstName);
@@ -109,7 +115,7 @@ public class changePassword extends HttpServlet {
         if(!email.equals(""))
             us.changeEmail(username, email);
         
-       if(!address.equals(""))
+        if(!address.equals(""))
             us.changeAddress(username, address);
         
         
