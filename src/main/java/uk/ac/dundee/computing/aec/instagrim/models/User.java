@@ -13,12 +13,16 @@ import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Statement;
+import com.datastax.driver.core.UDTValue;
+import com.datastax.driver.core.UserType;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.add;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Set;
 import java.util.UUID;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
@@ -72,12 +76,20 @@ public class User {
             return false;
         }
         
+        
 
-       Session session = cluster.connect("instagrim");
-    
+        Session session = cluster.connect("instagrim");
+
+        //http://www.datastax.com/dev/blog/datastax-java-driver-2-1 personal ref 20/10/2015
+        UserType addressType = cluster.getMetadata().getKeyspace("instagrim").getUserType("address");
+        UDTValue addressIn = addressType.newValue().setString("street", street).setString("city", city).setInt("zip", zip);
+       
+        Hashtable<String, UDTValue> addresses = new Hashtable();  
+        addresses.put(address, addressIn);
+
         HashSet<String> emails = new HashSet();
         emails.add(email);
-       
+
         System.out.println(email);
          
         Statement statement = QueryBuilder.insertInto("userprofiles")
@@ -85,7 +97,8 @@ public class User {
         .value("password", EncodedPassword)
         .value("first_name", firstName)
         .value("last_name", lastName)
-        .value("email", emails);
+        .value("email", emails)
+        .value("addresses",addresses);
         
         //.value("addresses", "{'home': { street: 'lol', city: 'lel', zip: 1234}}");
         session.execute(statement);
