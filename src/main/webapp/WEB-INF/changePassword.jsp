@@ -4,6 +4,9 @@
     Author     : Connor131
 --%>
 
+<%@page import="java.util.HashSet"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.Iterator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
@@ -44,18 +47,38 @@
                 <form method="POST"  action="changePassword">
                 <div style ="text-align: center">
                 
-                <input type="text" name="currPass" placeholder = "Current Password" style = "margin-top: 0%;"></li>
+                <input type="password" name="currPass" placeholder = "Current Password" style = "margin-top: 0%;"></li>
                 <br/>
                 <br/>
                 <input type="password" name="newPass" placeholder = "New Password" style = "margin-top: 5px;"></li>
                 <br/>
-                <input type="text" name="firstName" placeholder = "<%=ud.getFname()%>" style = "margin-top: 5px;"></li>
+                <input type="text" name="firstName" value = "<%=ud.getFname()%>" style = "margin-top: 5px;"></li>
                 <br/>
-                <input type="text" name="surName" placeholder = "<%=ud.getSname()%>" style = "margin-top: 5px;"></li>
+                <input type="text" name="surName" value ="<%=ud.getSname()%>" style = "margin-top: 5px;"></li>
                 <br/>
-                <input type="text" name="email" placeholder = "New email" style = "margin-top: 5px;"></li>
+                
+                <%
+                    Set<String> emails = new HashSet();
+               
+                    emails = ud.getEmail();
+                    Iterator iterator = emails.iterator();
+                    while (iterator.hasNext()) {
+                    
+                %>
+                <input type="text" value = "<%=iterator.next()%>" name="email" style = "margin-top: 5px;"></li>
+                <br/>
+                <%
+                    }
+                %>
+                <input type="text" name="email" placeholder = "Add an email address" style = "margin-top: 5px;"></li>
                 <br/>
                 <input type="text" name="address" placeholder = "New address" style = "margin-top: 5px;"></li>
+                <br/>
+                <input type="text" name="street" placeholder = "New address" style = "margin-top: 5px;"></li>
+                <br/>
+                <input type="text" name="city" placeholder = "New address" style = "margin-top: 5px;"></li>
+                <br/>
+                <input type="text" name="zip" placeholder = "New address" style = "margin-top: 5px;"></li>
                 <br/>
                <input type="submit" value="Change" style = "margin-top: 10px;"> <!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
               <br/>

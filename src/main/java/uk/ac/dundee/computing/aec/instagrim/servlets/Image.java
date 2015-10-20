@@ -98,11 +98,8 @@ public class Image extends HttpServlet {
         PicModel tm = new PicModel();
         tm.setCluster(cluster);
         java.util.LinkedList<Pic> lsPics = tm.getPicsForUser(User);
-        
-        //HttpSession session=request.getSession();
-        
+
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UsersPics.jsp?");
-       
         request.setAttribute("Pics", lsPics);
         rd.forward(request, response);
    

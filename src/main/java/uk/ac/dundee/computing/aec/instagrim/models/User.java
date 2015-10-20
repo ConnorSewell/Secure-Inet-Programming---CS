@@ -18,6 +18,7 @@ import com.datastax.driver.core.UserType;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.add;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
+import static com.datastax.driver.core.querybuilder.QueryBuilder.set;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -26,6 +27,8 @@ import java.util.Hashtable;
 import java.util.Set;
 import java.util.UUID;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
+import uk.ac.dundee.computing.aec.instagrim.stores.Address;
+import uk.ac.dundee.computing.aec.instagrim.stores.userDetails;
 
 /**
  *
@@ -75,8 +78,6 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
-        
-        
 
         Session session = cluster.connect("instagrim");
 
@@ -163,17 +164,16 @@ public class User {
     }
     
        
-    public boolean changeEmail(String username, String email)
+    public boolean changeEmail(String username, Set<String> email)
     {
-       
-       Session session = cluster.connect("instagrim");
-       PreparedStatement ps = session.prepare("update userprofiles set email= '" + email + "' where login = '" + username + "'");
-
-        BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        ));
         
+        Session session = cluster.connect("instagrim");
+        Statement statement = QueryBuilder.update("userprofiles")
+        .with(set("email", email))
+        .where(eq("login", username));
+
+        session.execute(statement);
+
         return true;
         
     }
@@ -228,52 +228,44 @@ public class User {
     return false;  
     }
     
-    public String getFName(String username)
+    public Address getAddress(String username)
     {
-        String first_name="";
+        Address address = new Address();
         
-        Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select first_name from userprofiles where login =?");
-        ResultSet rs = null;
-        BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        username));
-        if (rs.isExhausted()) {
-   
-        } else {
-            for (Row row : rs) {
-               return  row.getString("first_name");   
-            }
-        }
         
-        return null;
+        return address;
     }
     
-    public String getSName(String username)
+   
+    
+    //Getting all relevant details
+    public userDetails getDetails(String username)
     {
-        String last_name="";
-        
+        userDetails ud = new userDetails();
+        Address address = new Address();
+        String fName;
+        String sName;
+        Set<String> emails;
+ 
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select last_name from userprofiles where login =?");
+        PreparedStatement ps = session.prepare("select email, first_name, last_name from userprofiles where login =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        username));
+        rs = session.execute(boundStatement.bind(username));
         if (rs.isExhausted()) {
-         
-            return last_name;
+               System.out.println("No valid email");
         } else {
             for (Row row : rs) {
-
-               last_name =  row.getString("last_name"); 
-               return last_name;
+               emails = row.getSet("email", String.class);  
+               fName = row.getString("first_name");
+               sName = row.getString("last_name");
+               ud.setDetails(fName, sName, emails);
+               return ud;
             }
-        }
-        
-        return last_name;
+        }        
+        return ud;
     }
+    
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }

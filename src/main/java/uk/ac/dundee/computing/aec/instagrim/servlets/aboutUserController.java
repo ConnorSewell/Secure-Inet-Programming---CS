@@ -58,6 +58,7 @@ public class aboutUserController extends HttpServlet {
           
             String aboutUser = about.getAbout(lg.getUsername());
             System.out.println("About: " + aboutUser);
+            
             au.setAbout(about.getAbout(lg.getUsername()));
             au.setUUID(about.getUserId(lg.getUsername()));
             au.setWallComments(about.getWallComments(lg.getUsername()));

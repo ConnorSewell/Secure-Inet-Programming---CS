@@ -5,6 +5,9 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.stores;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author Connor131
@@ -12,47 +15,73 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
 public class userDetails {
     String firstName=null;
     String surName=null;
-    String email=null;
-    String address=null;
+    Set<String> emails;
+    Address address;
     
-    
-    public void setFName(String firstName)
+    public void setAddress(Address address)
     {
-        this.firstName=firstName;
+        this.address=address;
     }
     
+    public Address getAddress()
+    {
+        return address;
+    }
+    
+    public void setDetails(String fName, String sName, Set<String> emails)
+    {
+        this.firstName=fName;
+        this.surName=sName;
+        this.emails=emails;
+    }
+    
+    public void setFName(String fName)
+    {
+        this.firstName = fName;
+    }
+    
+    public void setSName(String sName)
+    {
+        this.surName = sName;
+    }
+    
+    public void setEmail(Set<String> emails)
+    {
+        this.emails=emails;
+    }
+ 
     public String getFname()
     {
         return firstName;
-    }
-    
-    public void setSName(String surName)
-    {
-        this.surName=surName;
     }
     
     public String getSname()
     {
         return surName;
     }
+ 
     
-    public void setEmail(String email)
+    public Set<String> getEmail()
     {
-        this.email=email;
+        return emails;
     }
     
-    public String getEmail()
-    {
-        return email;
-    }
+     //public void setFName(String firstName)
+    //{
+     //   this.firstName=firstName;
+   // }
     
-    public void setAddress(String Address)
-    {
-        this.firstName=firstName;
-    }
+       
+    //public void setEmail(Set<String> emails)
+   // {
+   //     this.emails=emails;
+   // }
     
-    public String getAddress()
-    {
-        return address;
-    }
+      /// public void setSName(String surName)
+  /// {
+  //      this.surName=surName;
+ //   }
+    
+    
+ 
 }

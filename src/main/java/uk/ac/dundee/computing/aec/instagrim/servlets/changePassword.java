@@ -7,6 +7,8 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -52,18 +54,16 @@ public class changePassword extends HttpServlet {
             HttpSession session=request.getSession();
             LoggedIn lg = (LoggedIn )session.getAttribute("LoggedIn");
            
-            User us = new User();
-            userDetails ud = new userDetails();
-            
-            us.setCluster(cluster);
-            
-            session.setAttribute("userDetails", ud);
-            
-            ud.setFName(us.getFName(lg.getUsername()));
-            ud.setSName(us.getSName(lg.getUsername()));
-        
-           // ud.setFName(user.getEmail(lg.getUsername()));
-           // ud.setFName(user.getAddress(lg.getUsername()));
+              User us = new User();
+ 
+              us.setCluster(cluster);
+              userDetails ud = us.getDetails(lg.getUsername());
+              session.setAttribute("userDetails", ud);
+
+           // ud.setFName(us.getFName(lg.getUsername()));
+           // ud.setSName(us.getSName(lg.getUsername()));
+            //ud.setEmail(us.getEmail(lg.getUsername()));
+           // ud.setAddress(us.getAddress(lg.getUsername()));
             
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/changePassword.jsp");
             
@@ -94,32 +94,49 @@ public class changePassword extends HttpServlet {
         
         String firstName=request.getParameter("firstName");
         String surName=request.getParameter("surName");
-        String email=request.getParameter("email");
+        String[] email = request.getParameterValues("email"); //http://stackoverflow.com/questions/5342370/how-to-get-values-of-all-input-fields-which-have-the-same-name
+     
         String address=request.getParameter("address");
+        
+        Set<String> emails = new HashSet();
+       
+        for(int i = 0; i < email.length; i++)
+        {
+            emails.add(email[i]); 
+        }
 
         User us=new User();
         us.setCluster(cluster);
-        
-   
+
         if(us.IsValidUser(lg.getUsername(),currPass)){
        
         if(!newPass.equals(""))
         us.changePass(username, currPass, newPass);
         
-         if(!firstName.equals(""))
+         if(!firstName.equals(ud.getFname()))
+         {
+            ud.setFName(firstName);
             us.changeFName(username, firstName);
+         }
         
-         if(!surName.equals(""))
+        if(!surName.equals(ud.getSname()))
+        {
+            ud.setSName(surName);
             us.changeSName(username, surName);
-        
-        if(!email.equals(""))
-            us.changeEmail(username, email);
-        
-        if(!address.equals(""))
-            us.changeAddress(username, address);
-        
-        
         }
+        
+  
+        if(!emails.equals(ud.getEmail()))
+        {
+            ud.setEmail(emails);
+            us.changeEmail(username, emails);
+        }
+        
+         if(!address.equals(""))
+            us.changeAddress(username, address);
+        }
+        
+        
 	RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/changePassword.jsp");
             
         rd.forward(request, response);

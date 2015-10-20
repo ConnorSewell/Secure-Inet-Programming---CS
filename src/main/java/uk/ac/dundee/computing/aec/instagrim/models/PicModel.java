@@ -80,8 +80,8 @@ public class PicModel {
             int processedlength=processedb.length;
             Session session = cluster.connect("instagrim");
  
-            Pic pic = new Pic();
-            pic.setPic(thumbbuf, length, types[1]);
+            //Pic pic = new Pic();
+           // pic.setPic(thumbbuf, length, types[1]);
             
 
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
