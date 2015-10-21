@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.AboutUser;
+import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 
 /**
@@ -54,7 +54,7 @@ public class UserProfileDetails extends HttpServlet {
             About about = new About();
             about.setCluster(cluster);
             
-            AboutUser au = new AboutUser();
+            aboutUser au = new aboutUser();
           
             String aboutUser = about.getAbout(lg.getUsername());
             System.out.println("About: " + aboutUser);
@@ -68,7 +68,7 @@ public class UserProfileDetails extends HttpServlet {
          
             session.setAttribute("aboutUser", au);
 
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UserProfile.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
             
             rd.forward(request, response);
 

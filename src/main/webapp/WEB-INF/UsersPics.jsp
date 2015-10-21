@@ -21,9 +21,9 @@
         
              <div id ="navBar">
             <ul>
-                    <li><a href="/Instagrim/Home">Home</a></li>
+                    <li><a href="/Instagrim/home">Home</a></li>
                     <li><a href="/Instagrim/UserProfileDetails?id=profile">Profile</a></li>
-                    <li><a href="/Instagrim/UploadPage">Upload</a></li>
+                    <li><a href="/Instagrim/uploadPage">Upload</a></li>
                     <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
                     <li><a href="/Instagrim/SampleImages">Samples</a></li>
                     <li><a href="/Instagrim/ChangeDetails">Account</a></li>
@@ -65,7 +65,7 @@
                       
         %>
             <div class ="picAlbum">
-             <a href="/Instagrim/UserComment?date=<%=p.getPicAdded()%>&picId=<%=p.getSUUID()%>&picOwner=<%= p.getImageOwner()%>">  <img src="/Instagrim/Thumb/<%=p.getSUUID()%>" style = "height: 200px; width: 200px"></a><br/> 
+             <a href="/Instagrim/Images/userComment?date=<%=p.getPicAdded()%>&picId=<%=p.getSUUID()%>&picOwner=<%= p.getImageOwner()%>">  <img src="/Instagrim/Thumb/<%=p.getSUUID()%>" style = "height: 200px; width: 200px"></a><br/> 
             </div>
         <%
         

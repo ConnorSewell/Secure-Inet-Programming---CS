@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.Set;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.stores.Address;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserDetails;
+import uk.ac.dundee.computing.aec.instagrim.stores.userDetails;
 
 /**
  *
@@ -146,9 +146,9 @@ public class User {
     
     
     //Getting all relevant details
-    public UserDetails getDetails(String username)
+    public userDetails getDetails(String username)
     {
-        UserDetails ud = new UserDetails();
+        userDetails ud = new userDetails();
         Address address = new Address();
         String fName;
         String sName;

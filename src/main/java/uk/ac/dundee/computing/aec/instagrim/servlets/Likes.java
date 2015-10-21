@@ -66,7 +66,7 @@ public class Likes extends HttpServlet {
         
         comments.addLike(picId, username);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ImageView.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
         rd.forward(request, response);
     }
 

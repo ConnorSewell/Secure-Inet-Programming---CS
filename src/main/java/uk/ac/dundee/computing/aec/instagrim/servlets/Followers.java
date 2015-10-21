@@ -20,7 +20,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.models.Search;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserSearch;
+import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
  *
@@ -52,7 +52,7 @@ public class Followers extends HttpServlet {
         HttpSession session=request.getSession();
 
         LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn");
-        UserSearch us = (UserSearch)session.getAttribute("userSearch");
+        userSearch us = (userSearch)session.getAttribute("userSearch");
         
         About about = new About();
         about.setCluster(cluster);
@@ -62,7 +62,7 @@ public class Followers extends HttpServlet {
         about.addFollowing(lg.getUsername(), us.getSearchedUser());
         
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/SearchedUser.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedUser.jsp");
         rd.forward(request, response);
     }
 

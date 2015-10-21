@@ -18,8 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
+import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
+import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
+import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
  *
@@ -38,6 +41,15 @@ public class Login extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session=request.getSession();
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/initial.jsp");
+        rd.forward(request, response);
+    }
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -72,11 +84,9 @@ public class Login extends HttpServlet {
         if (isValid){
             lg.setLogedin();
             lg.setUsername(username);  
-         //   request.setAttribute("LoggedIn", lg);
-            
-            
+      
             System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+            RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/index.jsp");
 	    rd.forward(request,response);
             
         }else{

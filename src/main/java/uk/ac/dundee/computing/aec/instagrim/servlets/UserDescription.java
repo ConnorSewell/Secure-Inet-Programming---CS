@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.AboutUser;
+import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
 
 /**
  *
@@ -54,7 +54,7 @@ public class UserDescription extends HttpServlet {
         HttpSession session=request.getSession();
        
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        AboutUser au = (AboutUser) session.getAttribute("aboutUser");
+        aboutUser au = (aboutUser) session.getAttribute("aboutUser");
        
         if(au!=null)
         {
@@ -73,7 +73,7 @@ public class UserDescription extends HttpServlet {
        
        about.insertAbout(username, aboutIn);
 
-       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UserProfile.jsp");
+       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
        rd.forward(request, response);
             
         

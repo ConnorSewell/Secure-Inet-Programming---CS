@@ -21,7 +21,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserDetails;
+import uk.ac.dundee.computing.aec.instagrim.stores.userDetails;
 
 /**
  *
@@ -57,8 +57,8 @@ public class ChangeDetails extends HttpServlet {
               User us = new User();
  
               us.setCluster(cluster);
-              UserDetails ud = us.getDetails(lg.getUsername());
-              session.setAttribute("UserDetails", ud);
+              userDetails ud = us.getDetails(lg.getUsername());
+              session.setAttribute("userDetails", ud);
 
               RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ChangeDetails.jsp");
             
@@ -80,7 +80,7 @@ public class ChangeDetails extends HttpServlet {
         HttpSession session=request.getSession();
         
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        UserDetails ud = (UserDetails)session.getAttribute("UserDetails");
+        userDetails ud = (userDetails)session.getAttribute("userDetails");
         
         String username = lg.getUsername();
         String password = lg.getPassword();
