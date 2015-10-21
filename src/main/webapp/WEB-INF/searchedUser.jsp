@@ -20,23 +20,21 @@
 
           <div id ="navBar">
             <ul>
-                    <li><a href="/Instagrim/home">Home</a></li>
-                    <li><a href="/Instagrim/aboutUserController?id=profile">Profile</a></li>
+                    <li><a href="/Instagrim/Home">Home</a></li>
+                    <li><a href="/Instagrim/UserProfileDetails?id=profile">Profile</a></li>
                     <li><a href="/Instagrim/uploadPage">Upload</a></li>
                     <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
                     <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                    <li><a href="/Instagrim/changePassword">Change Password</a></li>
+                    <li><a href="/Instagrim/ChangeDetails">Account</a></li>
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
-                    
 
-            <form method="POST"  action="searchUser">
+                   <form method="POST"  action="SearchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
                 
-                <input type="text" name="user" placeholder = "Search for user">
+                   <input type="text" name="user" placeholder = "Search for user">
  
-                <input type="submit" value="Search"> <!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
-               
-            </form>
-  
+                   <input type="submit" value="Search"> 
+                   </form>
+      
              </ul>
                     </br>
                     
@@ -66,7 +64,7 @@
                      //  System.out.println("?.. " + tester.get(i));
                        %>
                       
-                        <a style = "display: block; text-align: center; margin-top: 2px;" href ="searchUser?user=<%=users.get(i)%>" class = "tester"><%=users.get(i)%></a>
+                        <a style = "display: block; text-align: center; margin-top: 2px;" href ="SearchUser?user=<%=users.get(i)%>" class = "tester"><%=users.get(i)%></a>
                         
                        <%
                    }

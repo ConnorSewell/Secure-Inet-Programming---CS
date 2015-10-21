@@ -37,7 +37,7 @@ public class Search {
       {
           
         java.util.LinkedList<String> allMatches = new java.util.LinkedList<>();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
         PreparedStatement ps = session.prepare("select login from userprofiles");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);

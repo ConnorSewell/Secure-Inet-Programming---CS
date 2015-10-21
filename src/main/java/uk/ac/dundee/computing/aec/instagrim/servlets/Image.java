@@ -141,7 +141,7 @@ public class Image extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String profilePic = request.getParameter("profilePic"); //http://www.coderanch.com/t/287125/JSP/java/boolean-parameters
-        String filter = request.getParameter("filter");
+        String[] filter = request.getParameterValues("filter");
         HttpSession session=request.getSession();
         Pic p = new Pic();
         session.setAttribute("Pic", p);
@@ -170,10 +170,8 @@ public class Image extends HttpServlet {
          
                 is.close();
             }
-            
-     
-            
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Upload.jsp");
+ 
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/upload.jsp");
             rd.forward(request, response);
         }
     }

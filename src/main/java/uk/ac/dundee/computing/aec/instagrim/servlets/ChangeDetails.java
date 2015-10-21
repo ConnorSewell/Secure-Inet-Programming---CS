@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
+import uk.ac.dundee.computing.aec.instagrim.stores.Address;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.userDetails;
 
@@ -79,20 +80,27 @@ public class ChangeDetails extends HttpServlet {
       
         HttpSession session=request.getSession();
         
+        Address newAddress = new Address();
+        
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
         userDetails ud = (userDetails)session.getAttribute("userDetails");
         
         String username = lg.getUsername();
         String password = lg.getPassword();
+        
         String currPass=request.getParameter("currPass");
         String newPass=request.getParameter("newPass");
         
         String firstName=request.getParameter("firstName");
         String surName=request.getParameter("surName");
-        String[] email = request.getParameterValues("email"); //http://stackoverflow.com/questions/5342370/how-to-get-values-of-all-input-fields-which-have-the-same-name
-     
-        String address=request.getParameter("address");
         
+        String addressName = request.getParameter("address");
+        String street = request.getParameter("street");
+        String city = request.getParameter("city");
+        int zip = Integer.parseInt(request.getParameter("zip"));
+        
+        String[] email = request.getParameterValues("email"); //http://stackoverflow.com/questions/5342370/how-to-get-values-of-all-input-fields-which-have-the-same-name
+
         Set<String> emails = new HashSet();
        
         for(int i = 0; i < email.length; i++)
@@ -100,7 +108,7 @@ public class ChangeDetails extends HttpServlet {
             if(!email[i].equals(""))
             emails.add(email[i]); 
         }
-
+  
         User us=new User();
         us.setCluster(cluster);
 
@@ -121,18 +129,16 @@ public class ChangeDetails extends HttpServlet {
             us.changeSName(username, surName);
         }
         
-  
         if(!emails.equals(ud.getEmail()))
         {
             ud.setEmail(emails);
             us.changeEmail(username, emails);
         }
         
-        if(!address.equals(""))
-            us.changeAddress(username, address);
+        if(!addressName.equals(ud.getAddressName()) || !street.equals(ud.getAddress().getStreet()) ||  !city.equals(ud.getAddress().getCity()) || (!(zip == ud.getAddress().getZip())))
+            us.changeAddress(username,addressName,street,city,zip);
         }
-        
-        
+
 	RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ChangeDetails.jsp");
             
         rd.forward(request, response);

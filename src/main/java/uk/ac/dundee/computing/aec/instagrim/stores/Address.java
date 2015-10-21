@@ -5,12 +5,16 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.stores;
 
+import static com.datastax.driver.core.DataType.Name.UDT;
+import com.datastax.driver.mapping.annotations.UDT;
+
 /**
  *
  * @author Connor131
  */
 
-//Idea for this: http://www.planetcassandra.org/blog/introducing-datastax-java-driver-2-1/ 20/10/2015
+//http://docs.datastax.com/en/developer/java-driver/2.1/java-driver/reference/mappingUdts.html 21/10/2015 21:00 -> Idea for this
+@UDT (keyspace = "ConnorSewellsInstagrim", name = "address")
 public class Address {
     String street;
     String city;

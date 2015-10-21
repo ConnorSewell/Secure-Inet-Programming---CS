@@ -34,7 +34,7 @@ public class About {
     */
       public void insertAbout(String user, String aboutUser)
       {
-          Session session = cluster.connect("instagrim");    
+          Session session = cluster.connect("ConnorSewellsInstagrim");    
           PreparedStatement psInsertAboutUser = session.prepare("update profilepage set about_user = '" + aboutUser.replace("'","''") + "' where user = '" + user + "'");
           BoundStatement bsInsertAboutUser = new BoundStatement(psInsertAboutUser);
           session.execute(bsInsertAboutUser.bind());
@@ -51,7 +51,7 @@ public class About {
     
         String userDesc=null;
 
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
 
         PreparedStatement ps = session.prepare("select about_user from profilepage where user =?");
         ResultSet rs = null;
@@ -81,7 +81,7 @@ public class About {
         
         java.util.UUID UUID=null;
         
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
 
         PreparedStatement ps = session.prepare("select picid from profilepage where user =?");
         ResultSet rs = null;
@@ -110,7 +110,7 @@ public class About {
     {
         java.util.List<String> wallComments=null;
         
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
     
         PreparedStatement ps = session.prepare("select wallComments from profilepage where user =?");
         ResultSet rs = null;
@@ -136,7 +136,7 @@ public class About {
     public void setWallComments(String user, String userFrom, String comment, Date date)
     {
             
-          Session session = cluster.connect("instagrim");
+          Session session = cluster.connect("ConnorSewellsInstagrim");
 
           String commentAdd = userFrom + "/" + date + "/" + comment; 
          
@@ -155,7 +155,7 @@ public class About {
         java.util.List<String> following=null;
         
              
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
     
         PreparedStatement ps = session.prepare("select following from profilepage where user =?");
         ResultSet rs = null;
@@ -183,7 +183,7 @@ public class About {
         java.util.List<String> followers=null;
         
              
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
     
         PreparedStatement ps = session.prepare("select followers from profilepage where user =?");
         ResultSet rs = null;
@@ -208,7 +208,7 @@ public class About {
     */
     public void addFollower(String user, String userFollowed)
     {
-          Session session = cluster.connect("instagrim");
+          Session session = cluster.connect("ConnorSewellsInstagrim");
 
           PreparedStatement ppInsertFollower = session.prepare("update profilepage set followers = followers + [' " + user + " '] where user = '" + userFollowed + "'");
           BoundStatement bsInsertFollower = new BoundStatement(ppInsertFollower);
@@ -222,7 +222,7 @@ public class About {
     */
     public void addFollowing(String user, String userFollowed)
     {
-          Session session = cluster.connect("instagrim");
+          Session session = cluster.connect("ConnorSewellsInstagrim");
 
           PreparedStatement ppInsertFollower = session.prepare("update profilepage set following = following + [' " + userFollowed + " '] where user = '" + user + "'");
           BoundStatement bsInsertFollower = new BoundStatement(ppInsertFollower);

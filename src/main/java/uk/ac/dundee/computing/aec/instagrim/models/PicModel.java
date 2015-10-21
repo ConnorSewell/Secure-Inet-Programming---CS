@@ -59,7 +59,7 @@ public class PicModel {
     /*
     * Inserting pic to database
     */
-    public void insertPic(byte[] b, String type, String name, String user, String profilePic, String filter) {
+    public void insertPic(byte[] b, String type, String name, String user, String profilePic, String[] filter) {
         try {
            
             Convertors convertor = new Convertors();
@@ -80,7 +80,7 @@ public class PicModel {
             byte[] processedb = picdecolour(picid.toString(),types[1], filter);
             ByteBuffer processedbuf=ByteBuffer.wrap(processedb);
             int processedlength=processedb.length;
-            Session session = cluster.connect("instagrim");
+            Session session = cluster.connect("ConnorSewellsInstagrim");
 
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
             PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
@@ -113,7 +113,7 @@ public class PicModel {
     /*
     * Resizing of picture
     */
-    public byte[] picresize(String picid,String type, String filter) {
+    public byte[] picresize(String picid,String type, String[] filter) {
         try {
             BufferedImage BI = ImageIO.read(new File("/var/tmp/instagrim/" + picid));
             BufferedImage thumbnail = createThumbnail(BI, filter);
@@ -134,7 +134,7 @@ public class PicModel {
     /*
     * ?
     */
-    public byte[] picdecolour(String picid,String type, String filter) {
+    public byte[] picdecolour(String picid,String type, String[] filter) {
         try {
             BufferedImage BI = ImageIO.read(new File("/var/tmp/instagrim/" + picid));
 
@@ -154,14 +154,40 @@ public class PicModel {
     /*
     * Creating thumbnail + applying selected filters
     */
-    public static BufferedImage createThumbnail(BufferedImage img, String filter) {
+    public static BufferedImage createThumbnail(BufferedImage img, String[] filter) {
         
-        img = resize(img, Method.SPEED, 250, OP_ANTIALIAS, OP_GRAYSCALE);
+        img = resize(img, Method.SPEED, 250, OP_ANTIALIAS);
+       
+        boolean colour=false;
         
-        if(filter.equals("rotate90"))
+        for(int i = 0; i < filter.length; i++)
         {
+            if(filter[i].equals("rotate90"))
+            {
             img = rotate(img, Scalr.Rotation.CW_90, OP_ANTIALIAS);
+            }
+            
+            if(filter[i].equals("rotate180"))
+            {
+            img = rotate(img, Scalr.Rotation.CW_180, OP_ANTIALIAS);
+            }
+            
+            if(filter[i].equals("rotate270"))
+            {
+            img = rotate(img, Scalr.Rotation.CW_270, OP_ANTIALIAS);
+            }
+            
+            if(filter[i].equals("addColour"))
+            {
+              colour = true;
+            }
         }
+        
+        if(!colour)
+        {
+            img = apply(img, OP_GRAYSCALE);
+        }
+        
 
         return pad(img, 2);
     }
@@ -169,15 +195,40 @@ public class PicModel {
      /*
     * Creating processed image + applying selected filters
     */
-   public static BufferedImage createProcessed(BufferedImage img, String filter) {
+   public static BufferedImage createProcessed(BufferedImage img, String[] filter) {
         int Width=img.getWidth()-1;
-        img = resize(img, Method.SPEED, Width, OP_ANTIALIAS, OP_GRAYSCALE);
+        img = resize(img, Method.SPEED, Width, OP_ANTIALIAS);
         
-        if(filter.equals("rotate90"))
+        boolean colour=false;
+        
+        for(int i = 0; i < filter.length; i++)
         {
+            if(filter[i].equals("rotate90"))
+            {
             img = rotate(img, Scalr.Rotation.CW_90, OP_ANTIALIAS);
+            }
+            
+            if(filter[i].equals("rotate180"))
+            {
+            img = rotate(img, Scalr.Rotation.CW_180, OP_ANTIALIAS);
+            }
+            
+            if(filter[i].equals("rotate270"))
+            {
+            img = rotate(img, Scalr.Rotation.CW_270, OP_ANTIALIAS);
+            }
+            
+            if(filter[i].equals("addColour"))
+            {
+              colour = true;
+            }
         }
-
+        
+        if(!colour)
+        {
+            img = apply(img, OP_GRAYSCALE);
+        }
+        
         return pad(img, 4);
     }
    
@@ -186,7 +237,7 @@ public class PicModel {
     */
     public java.util.LinkedList<Pic> getPicsForUser(String User) {
         java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
         PreparedStatement ps = session.prepare("select picid, pic_added from userpiclist where user =?");
     
         ResultSet rs = null;
@@ -223,7 +274,7 @@ public class PicModel {
     * Gets a pic
     */
     public Pic getPic(int image_type, java.util.UUID picid) {
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
         ByteBuffer bImage = null;
         String type = null;
         int length = 0;

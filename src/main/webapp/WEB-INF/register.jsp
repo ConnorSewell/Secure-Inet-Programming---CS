@@ -17,7 +17,7 @@
     <body>
        
         <header>
-        <h1>InstaGrim ! </h1>
+        <h1>InstaGrim!</h1>
         <h2>Register</h2>
         </header>
         
@@ -52,17 +52,21 @@
                     </br>
                     <input type="text" name="email" placeholder = "Email address" style = "margin-top: 5px;">
                     </br>
-                    <input type="text" name="location" placeholder = "location" style = "margin-top: 5px;">
+                    <input type="text" name="location" placeholder = "Address" style = "margin-top: 5px;">
                     </br>
-                    <input type="text" name="street" placeholder = "street" style = "margin-top: 5px;">
+                    <input type="text" name="street" placeholder = "Street" style = "margin-top: 5px;">
                     </br>
-                    <input type="text" name="city" placeholder = "city" style = "margin-top: 5px;">
+                    <input type="text" name="city" placeholder = "City" style = "margin-top: 5px;">
                     </br>
-                    <input type="text" name="zip" placeholder = "zip" style = "margin-top: 5px;">
+                    <input type="text" name="zip" placeholder = "Zip" style = "margin-top: 5px;">
                     </br>
                     <input type="submit" value="Register" style= "margin-top: 5px"> 
                 </form>
                 </div>
+                
+                <form method ="Post" action ="/initial.jsp">
+                    <input type ="submit" value ="To log in page">
+                </form>
  
         </article>
         
@@ -79,9 +83,6 @@
                 margin-top:30px;
             } 
             
-           // h1
-           // {
-             //   margin-top: 100px;
-           // }
+ 
         </style>
 </html>

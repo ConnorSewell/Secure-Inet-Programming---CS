@@ -79,16 +79,16 @@
                 Add Email Address <input type="text" name="email" placeholder = "Add an email address" style = "margin-top: 5px;"></li>
                 </div>
                 <div style = "padding-right: 0.7%">
-                Address <input type="text" name="address" placeholder = "" style = "margin-top: 5px;"></li>
+                Address <input type="text" name="address" value ="<%=ud.getAddressName()%>" style = "margin-top: 5px;"></li>
                 </div>
                 <div style = "padding-left: 0.36%">
-                Street <input type="text" name="street" placeholder = "" style = "margin-top: 5px;"></li>
+                    Street <input type="text" name="street" value = "<%=ud.getAddress().getStreet()%>" style = "margin-top: 5px;"></li>
                 </div>
                 <div style = "padding-left: 1.1%">
-                City <input type="text" name="city" placeholder = "" style = "margin-top: 5px;"></li>
+                City <input type="text" name="city" value = "<%=ud.getAddress().getCity()%>" style = "margin-top: 5px;"></li>
                 </div>
                 <div style = "padding-left: 0.4%">
-                Town <input type="text" name="zip" placeholder = "" style = "margin-top: 5px;"></li>
+                Zip <input type="text" name="zip" value = "<%=ud.getAddress().getZip()%>" style = "margin-top: 5px;"></li>
                 </div>
                <input type="submit" value="Change" style = "margin-top: 10px; margin-left: 3%"><!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
               <br/>

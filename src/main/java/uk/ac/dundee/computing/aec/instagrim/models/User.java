@@ -18,10 +18,14 @@ import com.datastax.driver.core.UserType;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.set;
+import com.datastax.driver.mapping.Mapper;
+import com.datastax.driver.mapping.MappingManager;
+import com.datastax.driver.mapping.UDTMapper;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.stores.Address;
@@ -52,7 +56,7 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
         PreparedStatement ps = session.prepare("select password from userprofiles where login =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -87,10 +91,10 @@ public class User {
             return false;
         }
 
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
 
-        //http://www.datastax.com/dev/blog/datastax-java-driver-2-1 personal ref 20/10/2015
-        UserType addressType = cluster.getMetadata().getKeyspace("instagrim").getUserType("address");
+        //http://www.datastax.com/dev/blog/datastax-java-driver-2-1 20/10/2015 20:30 for UDT
+        UserType addressType = cluster.getMetadata().getKeyspace("ConnorSewellsInstagrim").getUserType("address");
         UDTValue addressIn = addressType.newValue().setString("street", street).setString("city", city).setInt("zip", zip);
 
         HashSet<String> emails = new HashSet();
@@ -120,7 +124,7 @@ public class User {
       public boolean checkNameVal(String username)
     {
    
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
         PreparedStatement ps = session.prepare("select login from userprofiles where login =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -153,11 +157,15 @@ public class User {
         String fName;
         String sName;
         Set<String> emails;
+        String addressName=null;
  
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
         
-       // UDTMapper<Address> mapper = new MappingManager(getSession()).udtMapper(Address.class);
-        PreparedStatement ps = session.prepare("select email, first_name, last_name from userprofiles where login =?");
+        //http://docs.datastax.com/en/developer/java-driver/2.1/java-driver/reference/mappingUdts.html 20:54 21/10/2015   **
+        
+        UDTMapper<Address> mapper = new MappingManager(session).udtMapper(Address.class);
+
+        PreparedStatement ps = session.prepare("select email, first_name, last_name, addresses from userprofiles where login =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute(boundStatement.bind(username));
@@ -168,13 +176,40 @@ public class User {
                emails = row.getSet("email", String.class);  
                fName = row.getString("first_name");
                sName = row.getString("last_name");
-               ud.setDetails(fName, sName, emails);
+         
+              Map<String,UDTValue> addresses = row.getMap("addresses", String.class, UDTValue.class);
+              for(String key : addresses.keySet())
+              {
+                   address = mapper.fromUDT(addresses.get(key));
+                   addressName = key;
+              }
+  
+               ud.setDetails(fName, sName, emails, address, addressName);
                return ud;
             }
         }        
         return ud;
     }
     
+    
+    public boolean changeAddress(String username, String addressName, String street, String city, int zip)
+    {
+        
+         UserType addressType = cluster.getMetadata().getKeyspace("ConnorSewellsInstagrim").getUserType("address");
+         UDTValue addressIn = addressType.newValue().setString("street", street).setString("city", city).setInt("zip", zip);
+        
+         HashMap<String,UDTValue> addresses = new HashMap();
+         addresses.put(addressName, addressIn);
+        
+         Session session = cluster.connect("ConnorSewellsInstagrim");
+        
+         Statement statement = QueryBuilder.update("userprofiles")
+         .with(set("addresses", addresses))
+         .where(eq("login", username));
+         session.execute(statement);
+         return false;
+        
+    }
     /*
     * Changing password
     */
@@ -189,7 +224,7 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
-          Session session = cluster.connect("instagrim");
+          Session session = cluster.connect("ConnorSewellsInstagrim");
           PreparedStatement ps = session.prepare("update userprofiles set password= '" + EncodedPassword + "' where login = '" + username + "'");
 
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -206,7 +241,7 @@ public class User {
     */
     public boolean changeFName(String username, String firstName)
     {
-       Session session = cluster.connect("instagrim");
+       Session session = cluster.connect("ConnorSewellsInstagrim");
        PreparedStatement ps = session.prepare("update userprofiles set first_name= '" + firstName + "' where login = '" + username + "'");
 
        BoundStatement boundStatement = new BoundStatement(ps);
@@ -220,7 +255,7 @@ public class User {
     */
     public boolean changeSName(String username, String surName)
     {
-       Session session = cluster.connect("instagrim");
+       Session session = cluster.connect("ConnorSewellsInstagrim");
        PreparedStatement ps = session.prepare("update userprofiles set last_name= '" + surName + "' where login = '" + username + "'");
 
        BoundStatement boundStatement = new BoundStatement(ps);
@@ -234,7 +269,7 @@ public class User {
     */
     public boolean changeEmail(String username, Set<String> email)
     {
-        Session session = cluster.connect("instagrim");
+        Session session = cluster.connect("ConnorSewellsInstagrim");
         Statement statement = QueryBuilder.update("userprofiles")
         .with(set("email", email))
         .where(eq("login", username));
@@ -249,7 +284,7 @@ public class User {
     */
     public boolean changeAddress(String username, String address)
     {
-       Session session = cluster.connect("instagrim");
+       Session session = cluster.connect("ConnorSewellsInstagrim");
        PreparedStatement ps = session.prepare("update userprofiles set address= '" + address + "' where login = '" + username + "'");
 
         BoundStatement boundStatement = new BoundStatement(ps);

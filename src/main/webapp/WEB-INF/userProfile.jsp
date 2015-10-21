@@ -24,22 +24,23 @@
              java.util.List<String> following = au.getFollowing();%>
            <div id ="navBar">
             <ul>
-                    <li><a href="/Instagrim/home">Home</a></li>
-                    <li><a href="/Instagrim/aboutUserController?id=profile">Profile</a></li>
+                    <li><a href="/Instagrim/Home">Home</a></li>
+                    <li><a href="/Instagrim/UserProfileDetails?id=profile">Profile</a></li>
                     <li><a href="/Instagrim/uploadPage">Upload</a></li>
                     <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
                     <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                    <li><a href="/Instagrim/changePassword">Change Password</a></li>
+                    <li><a href="/Instagrim/ChangeDetails">Account</a></li>
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
-                               
-                   <form method="POST"  action="searchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+
+                   <form method="POST"  action="SearchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
                 
                    <input type="text" name="user" placeholder = "Search for user">
  
                    <input type="submit" value="Search"> 
+                   
                    </form>
             </ul> 
-                    </br
+                    </br>
                 
            </div>
         
@@ -108,7 +109,7 @@
        </div>
         
         <div id ="aboutForm">
-        <form method ="POST" action="aboutUserController">
+        <form method ="POST" action="/Instagrim/UserDescription">
             <div style ="height: 300px; width: 300px; float:left">
             <textarea style = "height: 98%; width: 98%; float:left" name="aboutUser" rows="5" columns="20" wrap ="virtual"><%=au.getAbout()%></textarea>
             </div>

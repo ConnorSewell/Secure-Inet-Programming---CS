@@ -28,7 +28,7 @@ public class Comments {
         */
        public void addLike(java.util.UUID picId, String user)        
        {
-          Session session = cluster.connect("instagrim");
+          Session session = cluster.connect("ConnorSewellsInstagrim");
 
           PreparedStatement psInsertLikeToPic = session.prepare("update usercomments set likes= ['" + user + "'] + likes where picid = " + picId);
           BoundStatement bsInsertLikeToPic = new BoundStatement(psInsertLikeToPic);
@@ -43,7 +43,7 @@ public class Comments {
        public void addComment(String comment, java.util.UUID picId)
        {
        
-          Session session = cluster.connect("instagrim");
+          Session session = cluster.connect("ConnorSewellsInstagrim");
 
           PreparedStatement psInsertPicToUser = session.prepare("update usercomments set comments= ['" + comment + "'] + comments where picid = " + picId);
           BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
@@ -60,7 +60,7 @@ public class Comments {
        {
             java.util.List<String> allLikes = null;
 
-            Session session = cluster.connect("instagrim");
+            Session session = cluster.connect("ConnorSewellsInstagrim");
 
             PreparedStatement ps = session.prepare("select likes from usercomments where picid =?");
             ResultSet rs = null;
@@ -91,7 +91,7 @@ public class Comments {
        {
             java.util.List<String> allComments = null;
 
-            Session session = cluster.connect("instagrim");
+            Session session = cluster.connect("ConnorSewellsInstagrim");
 
             PreparedStatement ps = session.prepare("select comments from usercomments where picid =?");
             ResultSet rs = null;

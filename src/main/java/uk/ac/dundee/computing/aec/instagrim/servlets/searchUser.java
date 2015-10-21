@@ -25,7 +25,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
  *
  * @author Connor131
  */
-@WebServlet(name = "searchUser", urlPatterns = {"/searchUser"})
+@WebServlet(name = "SearchUser", urlPatterns = {"/SearchUser"})
 public class searchUser extends HttpServlet {
 
      private Cluster cluster;   
@@ -39,7 +39,7 @@ public class searchUser extends HttpServlet {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
-     *
+     * Outputs users
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -61,7 +61,7 @@ public class searchUser extends HttpServlet {
 
         session.setAttribute("aboutUser", au);
         
-        au.setUUID(about.getUserId(user));
+        au.setUUID(about.getPicId(user));
         au.setAbout(about.getAbout(user));
         au.setWallComments(about.getWallComments(us.getSearchedUser()));
         au.setIdValid();
@@ -75,7 +75,7 @@ public class searchUser extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
-     *
+     * Starts searching for users
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs

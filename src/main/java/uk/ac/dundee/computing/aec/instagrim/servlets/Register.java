@@ -38,7 +38,7 @@ public class Register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Register.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
         rd.forward(request,response);
     }
     /**
@@ -66,7 +66,7 @@ public class Register extends HttpServlet {
         
         if(username.equals("") || password.equals("") || firstName.equals("") || lastName.equals("")|| email.equals("")|| address.equals("") || street.equals("") || city.equals("") || zip.equals(""))
         {
-             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Register.jsp");
+             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
              rd.forward(request, response);
         }
         
@@ -77,7 +77,7 @@ public class Register extends HttpServlet {
         if(!username.matches("[0-9A-Za-z_-]+"))
         {   
             lg.setInvalidIn(true);
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Register.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
             rd.forward(request, response);
         }
         
@@ -94,13 +94,13 @@ public class Register extends HttpServlet {
                    lg.setLogedin();
                    lg.setUsername(username);
                    System.out.println("User is...: " + lg.getUsername());
-                   RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Index.jsp");
+                   RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
                    rd.forward(request, response);
             }
             
         }
         
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Register.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
 	rd.forward(request, response);
         
     }
