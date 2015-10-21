@@ -11,7 +11,7 @@
    </error-page>
    
    <welcome-file-list>
-       <welcome-file>initial.jsp</welcome-file> <!-- http://stackoverflow.com/questions/17247863/index-jsp-default-in-java-ee-project-in-netbeans-where -->
+       <welcome-file>Initial.jsp</welcome-file> <!-- http://stackoverflow.com/questions/17247863/index-jsp-default-in-java-ee-project-in-netbeans-where -->
    </welcome-file-list>
 </web-app>
 

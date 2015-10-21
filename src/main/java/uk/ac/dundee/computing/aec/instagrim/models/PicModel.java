@@ -56,7 +56,9 @@ public class PicModel {
     }
 
   
-    
+    /*
+    * Inserting pic to database
+    */
     public void insertPic(byte[] b, String type, String name, String user, String profilePic, String filter) {
         try {
            
@@ -79,10 +81,6 @@ public class PicModel {
             ByteBuffer processedbuf=ByteBuffer.wrap(processedb);
             int processedlength=processedb.length;
             Session session = cluster.connect("instagrim");
- 
-            //Pic pic = new Pic();
-           // pic.setPic(thumbbuf, length, types[1]);
-            
 
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
             PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
@@ -112,6 +110,9 @@ public class PicModel {
         }
     }
 
+    /*
+    * Resizing of picture
+    */
     public byte[] picresize(String picid,String type, String filter) {
         try {
             BufferedImage BI = ImageIO.read(new File("/var/tmp/instagrim/" + picid));
@@ -130,6 +131,9 @@ public class PicModel {
         return null;
     }
     
+    /*
+    * ?
+    */
     public byte[] picdecolour(String picid,String type, String filter) {
         try {
             BufferedImage BI = ImageIO.read(new File("/var/tmp/instagrim/" + picid));
@@ -147,6 +151,9 @@ public class PicModel {
         return null;
     }
 
+    /*
+    * Creating thumbnail + applying selected filters
+    */
     public static BufferedImage createThumbnail(BufferedImage img, String filter) {
         
         img = resize(img, Method.SPEED, 250, OP_ANTIALIAS, OP_GRAYSCALE);
@@ -159,6 +166,9 @@ public class PicModel {
         return pad(img, 2);
     }
     
+     /*
+    * Creating processed image + applying selected filters
+    */
    public static BufferedImage createProcessed(BufferedImage img, String filter) {
         int Width=img.getWidth()-1;
         img = resize(img, Method.SPEED, Width, OP_ANTIALIAS, OP_GRAYSCALE);
@@ -171,6 +181,9 @@ public class PicModel {
         return pad(img, 4);
     }
    
+    /*
+    * Gets all pictures belonging to user
+    */
     public java.util.LinkedList<Pic> getPicsForUser(String User) {
         java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
         Session session = cluster.connect("instagrim");
@@ -206,6 +219,9 @@ public class PicModel {
         return Pics;
     }
 
+     /*
+    * Gets a pic
+    */
     public Pic getPic(int image_type, java.util.UUID picid) {
         Session session = cluster.connect("instagrim");
         ByteBuffer bImage = null;

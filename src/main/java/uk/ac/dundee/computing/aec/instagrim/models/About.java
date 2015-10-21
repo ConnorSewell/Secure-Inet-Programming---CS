@@ -11,8 +11,6 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
-import com.datastax.driver.core.Statement;
-import com.datastax.driver.core.querybuilder.QueryBuilder;
 import java.util.Date;
 
 
@@ -31,12 +29,12 @@ public class About {
         this.cluster = cluster;
      }
      
-      //Method for inserting the users about section!
+    /*
+    * Inserting about user section
+    */
       public void insertAbout(String user, String aboutUser)
       {
-       
-          Session session = cluster.connect("instagrim");
-         
+          Session session = cluster.connect("instagrim");    
           PreparedStatement psInsertAboutUser = session.prepare("update profilepage set about_user = '" + aboutUser.replace("'","''") + "' where user = '" + user + "'");
           BoundStatement bsInsertAboutUser = new BoundStatement(psInsertAboutUser);
           session.execute(bsInsertAboutUser.bind());
@@ -45,6 +43,9 @@ public class About {
      
     }
       
+    /*
+    * Gets any value user has input previously for their about section
+    */
     public String getAbout(String User)
     {
     
@@ -70,9 +71,12 @@ public class About {
         
     
         return userDesc;
-}
+    }
     
-    public java.util.UUID getUserId(String user)
+    /*
+    * Gets the pic id of the users profile picture
+    */
+    public java.util.UUID getPicId(String user)
     {
         
         java.util.UUID UUID=null;
@@ -99,6 +103,9 @@ public class About {
         return UUID;
     }
     
+    /*
+    * Gets all wall comments
+    */
     public java.util.List<String> getWallComments(String user)
     {
         java.util.List<String> wallComments=null;
@@ -123,6 +130,9 @@ public class About {
         return wallComments;
     }
     
+    /*
+    * Inserts wall comments to database
+    */
     public void setWallComments(String user, String userFrom, String comment, Date date)
     {
             
@@ -137,6 +147,9 @@ public class About {
           session.close();
     }
     
+    /*
+    * Gets all users current user is following
+    */
     public java.util.List<String> getFollowing(String user)
     {
         java.util.List<String> following=null;
@@ -162,7 +175,10 @@ public class About {
         return following;
     }
     
-       public java.util.List<String> getFollowers(String user)
+    /*
+    * Gets all users followers
+    */
+    public java.util.List<String> getFollowers(String user)
     {
         java.util.List<String> followers=null;
         
@@ -186,10 +202,10 @@ public class About {
 
         return followers;
     }
-    
-    
-    
-    
+
+    /*
+    * Adds a follower to users profile in database
+    */
     public void addFollower(String user, String userFollowed)
     {
           Session session = cluster.connect("instagrim");
@@ -201,6 +217,9 @@ public class About {
           session.close();
     }
     
+    /*
+    * Adds a user that user has followed to the users profile in database
+    */
     public void addFollowing(String user, String userFollowed)
     {
           Session session = cluster.connect("instagrim");

@@ -23,7 +23,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
-import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
+
 
 /**
  * Servlet implementation class Image
@@ -64,7 +64,9 @@ public class Image extends HttpServlet {
     }
 
     /**
+     * 
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     * Determines which type of image to display, e.g. single image, list of images etc.
      * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -94,6 +96,9 @@ public class Image extends HttpServlet {
         }   
     }
 
+    /*
+    * Display a list of images
+    */
     private void DisplayImageList(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PicModel tm = new PicModel();
         tm.setCluster(cluster);
@@ -102,11 +107,11 @@ public class Image extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UsersPics.jsp?");
         request.setAttribute("Pics", lsPics);
         rd.forward(request, response);
-   
-
-
     }
 
+    /*
+    * Display an image
+    */
     private void DisplayImage(int type,String Image, HttpServletResponse response) throws ServletException, IOException {
         
         
@@ -118,9 +123,8 @@ public class Image extends HttpServlet {
         OutputStream out = response.getOutputStream();
         
         response.setContentType(p.getType());
-        //response.setContentType("image/jpg");
         response.setContentLength(p.getLength());
-        //****out.write(Image);
+       
         InputStream is = new ByteArrayInputStream(p.getBytes());
         BufferedInputStream input = new BufferedInputStream(is);
         byte[] buffer = new byte[8192];
@@ -131,7 +135,9 @@ public class Image extends HttpServlet {
     
  }
    
-
+    /*
+    * Writing an image to database
+    */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String profilePic = request.getParameter("profilePic"); //http://www.coderanch.com/t/287125/JSP/java/boolean-parameters
@@ -167,12 +173,14 @@ public class Image extends HttpServlet {
             
      
             
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/upload.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Upload.jsp");
             rd.forward(request, response);
         }
-
     }
 
+    /*
+    * Handling input error
+    */
     private void error(String mess, HttpServletResponse response) throws ServletException, IOException {
 
         PrintWriter out = null;

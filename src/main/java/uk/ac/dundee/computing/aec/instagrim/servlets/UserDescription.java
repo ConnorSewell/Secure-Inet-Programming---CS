@@ -7,6 +7,7 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -16,32 +17,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.Comments;
+import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
-
+import uk.ac.dundee.computing.aec.instagrim.stores.AboutUser;
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "Likes", urlPatterns = {"/Likes"})
-public class Likes extends HttpServlet {
+@WebServlet(name = "UserDescription", urlPatterns = {"/UserDescription"})
+public class UserDescription extends HttpServlet {
+
+    private Cluster cluster;
 
 
-        
-     private Cluster cluster;   
-
-     public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
 
-   
-     
     /**
      * Handles the HTTP <code>POST</code> method.
-     * Handling likes controller
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -50,25 +47,38 @@ public class Likes extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          
-        String username="majed";
-
+           
+        String username = "majed";
+        String aboutIn = "about";
+       
         HttpSession session=request.getSession();
        
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        Pic p = (Pic)session.getAttribute("Pic");
-   
-        Comments comments = new Comments();
-        comments.setCluster(cluster);
-        
-        username = lg.getUsername();
-        java.util.UUID picId = p.returnUUID();
-        
-        comments.addLike(picId, username);
+        AboutUser au = (AboutUser) session.getAttribute("aboutUser");
+       
+        if(au!=null)
+        {
+           aboutIn=request.getParameter("aboutUser");
+           au.setAbout(aboutIn);
+        }
+       
+        if(lg!=null)
+        {
+            username=lg.getUsername();
+        }
+ 
+       About about = new About();
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ImageView.jsp");
-        rd.forward(request, response);
+       about.setCluster(cluster);
+       
+       about.insertAbout(username, aboutIn);
+
+       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UserProfile.jsp");
+       rd.forward(request, response);
+            
+        
     }
+
 
     /**
      * Returns a short description of the servlet.

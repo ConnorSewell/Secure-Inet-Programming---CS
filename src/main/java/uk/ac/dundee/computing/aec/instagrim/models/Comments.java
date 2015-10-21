@@ -23,6 +23,9 @@ public class Comments {
        
        public Comments(){}
        
+       /*
+        * Adding user to the list of users who like the picture associated with picId
+        */
        public void addLike(java.util.UUID picId, String user)        
        {
           Session session = cluster.connect("instagrim");
@@ -34,6 +37,9 @@ public class Comments {
           session.close();
        }
        
+       /*
+        * Adds a comment to the list of comments associated with picId
+       */
        public void addComment(String comment, java.util.UUID picId)
        {
        
@@ -46,7 +52,41 @@ public class Comments {
           session.close();
 
         }
+       
+       /*
+        * Gets all the likes the picture associated with picId has
+        */
+        public java.util.List<String> getLikes(java.util.UUID picId)
+       {
+            java.util.List<String> allLikes = null;
 
+            Session session = cluster.connect("instagrim");
+
+            PreparedStatement ps = session.prepare("select likes from usercomments where picid =?");
+            ResultSet rs = null;
+            BoundStatement boundStatement = new BoundStatement(ps);
+            rs = session.execute( // this is where the query is executed
+            boundStatement.bind( // here you are binding the 'boundStatement'
+                        picId));
+            if (rs.isExhausted()) {
+            
+            System.out.println("No valid user");
+            return allLikes;
+            } else {
+            for (Row row : rs) {
+                
+                  allLikes = row.getList("likes", String.class);
+            }
+        }
+
+            return allLikes;
+            
+        
+    }
+
+        /*
+        * Gets all the comments associated with picId
+        */
        public java.util.List<String> getComments(java.util.UUID picId)
        {
             java.util.List<String> allComments = null;

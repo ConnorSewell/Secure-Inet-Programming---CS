@@ -21,14 +21,14 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.userDetails;
+import uk.ac.dundee.computing.aec.instagrim.stores.UserDetails;
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "changePassword", urlPatterns = {"/changePassword"})
-public class changePassword extends HttpServlet {
+@WebServlet(name = "ChangeDetails", urlPatterns = {"/ChangeDetails"})
+public class ChangeDetails extends HttpServlet {
  
     private Cluster cluster;
 
@@ -42,7 +42,7 @@ public class changePassword extends HttpServlet {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
-     *
+     * Retrieves users details.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -57,22 +57,17 @@ public class changePassword extends HttpServlet {
               User us = new User();
  
               us.setCluster(cluster);
-              userDetails ud = us.getDetails(lg.getUsername());
-              session.setAttribute("userDetails", ud);
+              UserDetails ud = us.getDetails(lg.getUsername());
+              session.setAttribute("UserDetails", ud);
 
-           // ud.setFName(us.getFName(lg.getUsername()));
-           // ud.setSName(us.getSName(lg.getUsername()));
-            //ud.setEmail(us.getEmail(lg.getUsername()));
-           // ud.setAddress(us.getAddress(lg.getUsername()));
+              RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ChangeDetails.jsp");
             
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/changePassword.jsp");
-            
-            rd.forward(request, response);
+              rd.forward(request, response);
     }
 
     /**
      * Handles the HTTP <code>POST</code> method.
-     *
+     * Sets users details
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -85,7 +80,7 @@ public class changePassword extends HttpServlet {
         HttpSession session=request.getSession();
         
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        userDetails ud = (userDetails)session.getAttribute("userDetails");
+        UserDetails ud = (UserDetails)session.getAttribute("UserDetails");
         
         String username = lg.getUsername();
         String password = lg.getPassword();
@@ -102,6 +97,7 @@ public class changePassword extends HttpServlet {
        
         for(int i = 0; i < email.length; i++)
         {
+            if(!email[i].equals(""))
             emails.add(email[i]); 
         }
 
@@ -132,12 +128,12 @@ public class changePassword extends HttpServlet {
             us.changeEmail(username, emails);
         }
         
-         if(!address.equals(""))
+        if(!address.equals(""))
             us.changeAddress(username, address);
         }
         
         
-	RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/changePassword.jsp");
+	RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ChangeDetails.jsp");
             
         rd.forward(request, response);
     }

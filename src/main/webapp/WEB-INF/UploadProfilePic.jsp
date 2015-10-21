@@ -1,12 +1,11 @@
 <%-- 
-    Document   : Sample Images
-    Created on : 14-Oct-2015, 21:03:12
+    Document   : uploadProfilePic
+    Created on : 11-Oct-2015, 13:59:02
     Author     : Connor131
 --%>
 
-<%@page import="java.util.*"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,11 +14,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-              <% LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); %>
-        
-             <div id ="navBar">
+        <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn"); %>
+          <div id ="navBar">
             <ul>
-                    
                     <li><a href="/Instagrim/Home">Home</a></li>
                     <li><a href="/Instagrim/UserProfileDetails?id=profile">Profile</a></li>
                     <li><a href="/Instagrim/UploadPage">Upload</a></li>
@@ -33,35 +30,21 @@
                    <input type="text" name="user" placeholder = "Search for user">
  
                    <input type="submit" value="Search"> 
+                
                    </form>
-        
-                 
             </ul> 
-
+                    </br></br></br></br></br></br>
+                
            </div>
-                 <h1 style ="text-align: center">Sample Images</h1>
-         
-        <div id ="MovingMarg">
-    <div class ="picAlbum">
-        <img src = "Sample1.PNG"></imgsrc>
-    </div>
-    <div class="picAlbum">
-        <img src = "Sample2.PNG"></imgsrc>
-     </div>
-         </div>
-                   
+                    
+        <h1>Upload...</h1>
+       
+            <h3>File Upload</h3>
+            <form method="POST" enctype="multipart/form-data" action="Image?<%=request.getParameter("profilePic")%>">
+               <input type="file" name="upfile"><br/>
+
+                <br/>
+                <input type="submit" value="Add to library"> to upload the file!
+            </form>
     </body>
-    <style>
-           .picAlbum
-        {
-            float:left; 
-            margin-left: 2.1%;
-            margin-top: 20px;
-           
-        }
-            #MovingMarg{
-            margin-left: 1%;
-           
-        }
-        </style>
 </html>

@@ -22,6 +22,7 @@ public class Pic {
     private int length;
     private String type;
     private java.util.UUID UUID=null;
+    private java.util.List<String> likes;
     private Date pic_added = new Date();
     private String imageOwner=null;
     private java.util.List<String> comment;
@@ -30,6 +31,16 @@ public class Pic {
     
     public void Pic() {
 
+    }
+    
+    public void setLikes(java.util.List<String> likes)
+    {
+        this.likes=likes;
+    }
+    
+      public java.util.List<String> getLikes()
+    {
+        return likes;
     }
     
     public void setBufferedImage(BufferedImage image)

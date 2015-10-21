@@ -16,59 +16,64 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.Comments;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
-
+import uk.ac.dundee.computing.aec.instagrim.stores.AboutUser;
+import uk.ac.dundee.computing.aec.instagrim.models.About;
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "Likes", urlPatterns = {"/Likes"})
-public class Likes extends HttpServlet {
-
-
-        
-     private Cluster cluster;   
+@WebServlet(name = "UserProfileDetails", urlPatterns = {"/UserProfileDetails"})
+public class UserProfileDetails extends HttpServlet {
+    
+    private Cluster cluster;   
 
      public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
+     
 
-   
      
     /**
-     * Handles the HTTP <code>POST</code> method.
-     * Handling likes controller
+     * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    
+            HttpSession session=request.getSession();
+            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+           
+            About about = new About();
+            about.setCluster(cluster);
+            
+            AboutUser au = new AboutUser();
           
-        String username="majed";
+            String aboutUser = about.getAbout(lg.getUsername());
+            System.out.println("About: " + aboutUser);
+            
+            au.setAbout(about.getAbout(lg.getUsername()));
+            au.setUUID(about.getPicId(lg.getUsername()));
+            au.setWallComments(about.getWallComments(lg.getUsername()));
+            au.setFollowers(about.getFollowers(lg.getUsername()));
+            au.setFollowing(about.getFollowing(lg.getUsername()));
+            au.setIdValid();
+         
+            session.setAttribute("aboutUser", au);
 
-        HttpSession session=request.getSession();
-       
-        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        Pic p = (Pic)session.getAttribute("Pic");
-   
-        Comments comments = new Comments();
-        comments.setCluster(cluster);
-        
-        username = lg.getUsername();
-        java.util.UUID picId = p.returnUUID();
-        
-        comments.addLike(picId, username);
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UserProfile.jsp");
+            
+            rd.forward(request, response);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ImageView.jsp");
-        rd.forward(request, response);
     }
+    
 
     /**
      * Returns a short description of the servlet.

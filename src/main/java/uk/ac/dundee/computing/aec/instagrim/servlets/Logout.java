@@ -24,7 +24,7 @@ public class Logout extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
+     * Invalides session, therefore logging user out
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -36,7 +36,7 @@ public class Logout extends HttpServlet {
              HttpSession session=request.getSession();
              session.invalidate();
              
-        RequestDispatcher rd = request.getRequestDispatcher("initial.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("Initial.jsp");
 	rd.forward(request, response);
              //response.sendRedirect("/Instagrim");
            

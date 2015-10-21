@@ -6,6 +6,7 @@
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,14 +18,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Connor131
  */
-@WebServlet(name = "SampleImages", urlPatterns = {"/SampleImages"})
-public class SampleImages extends HttpServlet {
+@WebServlet(name = "Home", urlPatterns = {"/Home"})
+public class Home extends HttpServlet {
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
-     * Directs to SampleImages
+     * Directs to Index
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -33,11 +34,12 @@ public class SampleImages extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/SampleImages.jsp");
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Index.jsp");
             
         rd.forward(request, response);
     }
+
 
     /**
      * Returns a short description of the servlet.

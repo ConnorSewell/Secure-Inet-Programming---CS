@@ -7,6 +7,7 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -16,32 +17,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.Comments;
+import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
-
+import uk.ac.dundee.computing.aec.instagrim.stores.AboutUser;
+import uk.ac.dundee.computing.aec.instagrim.stores.UserSearch;
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "Likes", urlPatterns = {"/Likes"})
-public class Likes extends HttpServlet {
+@WebServlet(name = "WallComment", urlPatterns = {"/WallComment"})
+public class WallComment extends HttpServlet {
 
-
-        
-     private Cluster cluster;   
+    private Cluster cluster;   
 
      public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
 
-   
-     
     /**
      * Handles the HTTP <code>POST</code> method.
-     * Handling likes controller
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -50,24 +47,36 @@ public class Likes extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          
+        
         String username="majed";
-
+        String wallComment = request.getParameter("wallComment");
+        String postTo = request.getParameter("who");
         HttpSession session=request.getSession();
        
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        Pic p = (Pic)session.getAttribute("Pic");
-   
-        Comments comments = new Comments();
-        comments.setCluster(cluster);
+        AboutUser au = (AboutUser) session.getAttribute("aboutUser");
+        UserSearch us = (UserSearch) session.getAttribute("useSearch");
         
-        username = lg.getUsername();
-        java.util.UUID picId = p.returnUUID();
-        
-        comments.addLike(picId, username);
+        String userFrom = lg.getUsername();
+        About about = new About();
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ImageView.jsp");
-        rd.forward(request, response);
+        about.setCluster(cluster);
+       
+       Date date = new Date();
+       about.setWallComments(postTo, userFrom, wallComment, date);
+       au.setWallComments(about.getWallComments(postTo));
+        
+      if(!postTo.equals(lg.getUsername()))
+      {
+         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/SearchedProfile.jsp");
+         rd.forward(request, response);
+      }
+       
+      
+       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UserProfile.jsp");
+       rd.forward(request, response);
+        
+        
     }
 
     /**

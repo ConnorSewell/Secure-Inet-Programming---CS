@@ -29,7 +29,10 @@ public class Search {
      }
       
      
-      
+       /*
+        * Gets all users that meet the search criteria (searched user is contained within user 
+        * OR user is contained within searched user)
+        */
       public java.util.LinkedList<String> getUsers(String name)
       {
           

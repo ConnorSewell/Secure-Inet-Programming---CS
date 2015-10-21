@@ -32,15 +32,18 @@ public class Register extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
     
+    /*
+    * Directs to Register
+    */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Register.jsp");
         rd.forward(request,response);
     }
     /**
      * Handles the HTTP <code>POST</code> method.
-     *
+     * Controls registration process
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -63,7 +66,7 @@ public class Register extends HttpServlet {
         
         if(username.equals("") || password.equals("") || firstName.equals("") || lastName.equals("")|| email.equals("")|| address.equals("") || street.equals("") || city.equals("") || zip.equals(""))
         {
-             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
+             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Register.jsp");
              rd.forward(request, response);
         }
         
@@ -74,7 +77,7 @@ public class Register extends HttpServlet {
         if(!username.matches("[0-9A-Za-z_-]+"))
         {   
             lg.setInvalidIn(true);
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Register.jsp");
             rd.forward(request, response);
         }
         
@@ -91,13 +94,13 @@ public class Register extends HttpServlet {
                    lg.setLogedin();
                    lg.setUsername(username);
                    System.out.println("User is...: " + lg.getUsername());
-                   RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+                   RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Index.jsp");
                    rd.forward(request, response);
             }
             
         }
         
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Register.jsp");
 	rd.forward(request, response);
         
     }

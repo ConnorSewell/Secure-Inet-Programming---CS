@@ -30,6 +30,7 @@ public final class Keyspaces {
                     + " name  varchar,"
                     + " PRIMARY KEY (picid)"
                     + ")";
+            
             String Createuserpiclist = "CREATE TABLE if not exists instagrim.userpiclist (\n"
                     + "picid uuid,\n"
                     + "user varchar,\n"
@@ -37,17 +38,12 @@ public final class Keyspaces {
                     + "PRIMARY KEY (user,pic_added)\n"
                     + ") WITH CLUSTERING ORDER BY (pic_added desc);";
          
-            String CreateUserComments = "CREATE TABLE if not exists instagrim.usercomments (\n"
-                    + "picid uuid PRIMARY KEY,\n"
-                    + "likes list<text>,\n"
-                    + "comments list<text>,\n"
-                    + " );";
-          
             String CreateAddressType = "CREATE TYPE if not exists instagrim.address (\n"
                     + "      street text,\n"
                     + "      city text,\n"
                     + "      zip int\n"
                     + "  );";
+           
             String CreateUserProfile = "CREATE TABLE if not exists instagrim.userprofiles (\n"
                     + "      login text PRIMARY KEY,\n"
                     + "      password text,\n"
@@ -65,6 +61,12 @@ public final class Keyspaces {
                     + "       followers list<text>, \n"
                     + "       following list<text>, \n"
                     + "  );";
+            
+               String CreateUserComments = "CREATE TABLE if not exists instagrim.usercomments (\n"
+                    + "picid uuid PRIMARY KEY,\n"
+                    + "likes list<text>,\n"
+                    + "comments list<text>,\n"
+                    + " );";
             
             Session session = c.connect();
             //now add some column families 

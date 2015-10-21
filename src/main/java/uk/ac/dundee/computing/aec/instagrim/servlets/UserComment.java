@@ -5,9 +5,9 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
-import com.datastax.driver.core.Cluster;
+
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,25 +17,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
-import uk.ac.dundee.computing.aec.instagrim.models.About;
+import com.datastax.driver.core.Cluster;
+import java.util.Date;
+import javax.servlet.RequestDispatcher;
+import uk.ac.dundee.computing.aec.instagrim.models.Comments;
+import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+
+
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "aboutUserController", urlPatterns = {"/aboutUserController"})
-public class aboutUserController extends HttpServlet {
-    
+@WebServlet(name = "UserComment", urlPatterns = {"/UserComment"})
+public class UserComment extends HttpServlet {
+
     private Cluster cluster;   
 
      public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
-     
 
-     
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -47,35 +51,26 @@ public class aboutUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       
+        HttpSession session=request.getSession();
+
+        Pic p = new Pic();
+        Comments comments = new Comments();
+       
+        comments.setCluster(cluster);
+        
+        session.setAttribute("Pic", p);
+       
+        p.setUUID(java.util.UUID.fromString(request.getParameter("picId")));
+        p.setComment(comments.getComments(p.returnUUID()));
+        p.setLikes(comments.getLikes(p.returnUUID()));
+ 
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ImageView.jsp");
+        System.out.println("Pic is.. " + p.getPicAdded());
+        rd.forward(request, response);
     
-            HttpSession session=request.getSession();
-            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-           
-            About about = new About();
-            about.setCluster(cluster);
-            
-            aboutUser au = new aboutUser();
-          
-            String aboutUser = about.getAbout(lg.getUsername());
-            System.out.println("About: " + aboutUser);
-            
-            au.setAbout(about.getAbout(lg.getUsername()));
-            au.setUUID(about.getUserId(lg.getUsername()));
-            au.setWallComments(about.getWallComments(lg.getUsername()));
-            au.setFollowers(about.getFollowers(lg.getUsername()));
-            au.setFollowing(about.getFollowing(lg.getUsername()));
-            
-            au.setIdValid();
-         
-            session.setAttribute("aboutUser", au);
-
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
-            
-            rd.forward(request, response);
-
+        
     }
-    
-
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -88,36 +83,27 @@ public class aboutUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           
-        String username = "majed";
-        String aboutIn = "about";
-       
+    
+  
         HttpSession session=request.getSession();
        
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        aboutUser au = (aboutUser) session.getAttribute("aboutUser");
-       
-        if(au!=null)
-        {
-           aboutIn=request.getParameter("aboutUser");
-           au.setAbout(aboutIn);
-        }
-       
-        if(lg!=null)
-        {
-            username=lg.getUsername();
-        }
- 
-       About about = new About();
-
-       about.setCluster(cluster);
-       
-       about.insertAbout(username, aboutIn);
-
-       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
-       rd.forward(request, response);
-            
+        Pic p = (Pic)session.getAttribute("Pic");
         
+        Comments comments = new Comments();
+        comments.setCluster(cluster);
+        
+        String commentBy = lg.getUsername();
+        Date commentDate = new Date();
+        String comment = commentBy + "/" + commentDate + "/" + request.getParameter("comment");
+        java.util.UUID picId = p.returnUUID();
+
+        comments.addComment(comment, picId);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
+        rd.forward(request, response);
+        
+       // response.sendRedirect("/imageView.jsp");
     }
 
     /**
