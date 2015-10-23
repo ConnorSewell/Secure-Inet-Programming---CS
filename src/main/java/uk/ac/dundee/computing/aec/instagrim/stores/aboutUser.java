@@ -13,14 +13,24 @@ public class aboutUser {
     
     String about_User=null;
     java.util.UUID UUID=null;
-    java.util.List<String> commentList;
-    java.util.List<String> followers;
-    java.util.List<String> following;
+    java.util.LinkedList<WallComments> wallComments;
+    java.util.LinkedList<String> followers;
+    java.util.LinkedList<String> following;
     boolean idValid;
    
     public aboutUser()
     {
         
+    }
+    
+    public void setWallComment(java.util.LinkedList<WallComments> wallComments)
+    {
+        this.wallComments = wallComments;
+    }
+    
+    public java.util.LinkedList<WallComments> getWallComment()
+    {
+        return wallComments;
     }
     
     public boolean getIdValid()
@@ -60,32 +70,23 @@ public class aboutUser {
         return about_User ;
     }
     
-    public void setWallComments(java.util.List<String> list)
-    {
-        this.commentList=list;
-    }
-    
-    public java.util.List<String> getWallComments()
-    {
-        return commentList;
-    }
-    
-    public void setFollowers(java.util.List<String> followers)
+   
+    public void setFollowers(java.util.LinkedList<String> followers)
     {
         this.followers=followers;
     }
     
-    public java.util.List<String> getFollowers()
+    public java.util.LinkedList<String> getFollowers()
     {
         return followers;
     }
     
-    public void setFollowing(java.util.List<String> following)
+    public void setFollowing(java.util.LinkedList<String> following)
     {
         this.following=following;
     }
 
-    public java.util.List<String> getFollowing()
+    public java.util.LinkedList<String> getFollowing()
     {
         return following;
     }

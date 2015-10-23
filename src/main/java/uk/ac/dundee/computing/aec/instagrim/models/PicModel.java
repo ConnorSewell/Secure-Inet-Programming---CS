@@ -84,13 +84,17 @@ public class PicModel {
 
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
             PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
+            PreparedStatement psInsertPicToFollowers = session.prepare("insert into followpics (user, picTime, picid) values(?,?,?)");
+            
             BoundStatement bsInsertPic = new BoundStatement(psInsertPic);
             BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
-
+            BoundStatement bsInsertPicToFollowers = new BoundStatement(psInsertPicToFollowers);
+            
             Date DateAdded = new Date();
             System.out.println("Date is... " + DateAdded);
             session.execute(bsInsertPic.bind(picid, buffer, thumbbuf,processedbuf, user, DateAdded, length,thumblength,processedlength, type, name));
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
+            session.execute(bsInsertPicToFollowers.bind(user, DateAdded, picid));
             
                if(profilePic.equals("true"))
               {

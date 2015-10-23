@@ -15,39 +15,39 @@
     </head>
     <body>
 
-     <header>
-         </header>
-       
-         <div id ="pageContent">
-             
-           <h1>InstaGrim!</h1> 
-           <h2>Your world in Black and White</h2> 
+        <header>
+        </header>
 
-           <img src = "/Instagrim/Logo.jpg" alt = "testing logo" align = "middle" style = "width: 300px; height: 300px; margin: 0 auto; display:block; margin-top: 0px;"> 
-       
-           <h3>Share it</h3>
-         
-         </div>
-     
-            <form method="POST"  action="Login">
-                <div style ="text-align: center">
-                
-               <input type="text" name="username" placeholder = "Username" style = "margin-top: 0%;"></li>
+        <div id ="pageContent">
+
+            <h1>InstaGrim!</h1> 
+            <h2>Your world in Black and White</h2> 
+
+            <img src = "/Instagrim/Logo.jpg" alt = "testing logo" align = "middle" style = "width: 300px; height: 300px; margin: 0 auto; display:block; margin-top: 0px;"> 
+
+            <h3>Share it</h3>
+
+        </div>
+
+        <form method="POST"  action="Login">
+            <div style ="text-align: center">
+
+                <input type="text" name="username" placeholder = "Username" style = "margin-top: 0%;"></li>
                 <br/>
                 <input type="password" name="password" placeholder = "Password" style = "margin-top: 5px;"></li>
-                
+
                 <br/>
-               <input type="submit" value="Login" style = "margin-top: 10px;"> <!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
-              <br/>
-              
+                <input type="submit" value="Login" style = "margin-top: 10px;"> <!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
+                <br/>
+
             </div>
-            </form>
-        
+        </form>
+
         <div id ="register">
-        <a href="/Instagrim/Register">Don't have an account?</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+            <a href="/Instagrim/Register">Don't have an account?</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
         </div>
-       
-       
+
+
     </body>
     <style>
         #register {
@@ -55,45 +55,43 @@
             display: block;
             text-align: center;
         }
-           
-     
+
+
 
         label{
             float: left;
             width: 150px;
             text-align:right;
-            
+
             padding-right: 10px;
             margin-top: 12px;
             clear: left;
         }
-        </style>
-    
+    </style>
+
     <%
-        
+
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-          
-          if(lg != null)
-          {
-             if(lg.getPasswordState())
-             {
-                 %>
-                     <h4>Incorrect User Details</h4>
-                 <%
-             }
-          }
-                 
-          
+
+        if (lg != null) {
+            if (lg.getPasswordState()) {
     %>
-   
+    <h4>Incorrect User Details</h4>
+    <%
+            }
+        }
+
+
+    %>
+
 
     <style>
         #pageContent {
-        width: 650px ;
-        margin-left: auto ;
-        margin-right: auto ;
+            width: 650px ;
+            margin-left: auto ;
+            margin-right: auto ;
         }
-        
+
         h1{
             text-align:center;
             margin-top:8%;
@@ -111,5 +109,5 @@
             margin-top:1.5%;
         }
     </style>
-            
+
 </html>

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
+import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
@@ -24,18 +25,16 @@ import uk.ac.dundee.computing.aec.instagrim.models.About;
  *
  * @author Connor131
  */
-@WebServlet(name = "UserProfileDetails", urlPatterns = {"/UserProfileDetails"})
-public class UserProfileDetails extends HttpServlet {
-    
-    private Cluster cluster;   
+@WebServlet(name = "Profile", urlPatterns = {"/Profile"})
+public class Profile extends HttpServlet {
 
-     public void init(ServletConfig config) throws ServletException {
+    private Cluster cluster;
+
+    public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
-     
 
-     
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -47,33 +46,38 @@ public class UserProfileDetails extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
-            HttpSession session=request.getSession();
-            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-           
-            About about = new About();
-            about.setCluster(cluster);
-            
-            aboutUser au = new aboutUser();
-          
-            String aboutUser = about.getAbout(lg.getUsername());
-            System.out.println("About: " + aboutUser);
-            
-            au.setAbout(about.getAbout(lg.getUsername()));
-            au.setUUID(about.getPicId(lg.getUsername()));
-            au.setWallComment(about.getWallComments(lg.getUsername()));
-            au.setFollowers(about.getFollowers(lg.getUsername()));
-            au.setFollowing(about.getFollowing(lg.getUsername()));
-            au.setIdValid();
-         
-            session.setAttribute("aboutUser", au);
 
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
-            
-            rd.forward(request, response);
+        //String args[] = Convertors.SplitRequestPath(request);
+        
+        HttpSession session = request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        
+        //System.out.println("First: " + args[0] + "Second: " + args[1] + "Third: " + args[2]);
+
+        About about = new About();
+        about.setCluster(cluster);
+
+        aboutUser au = new aboutUser();
+
+        String aboutUser = about.getAbout(lg.getUsername());
+        System.out.println("About: " + aboutUser);
+
+        au.setAbout(about.getAbout(lg.getUsername()));
+        au.setUUID(about.getPicId(lg.getUsername()));
+
+        au.setFollowers(about.getFollowers(lg.getUsername()));
+        au.setFollowing(about.getFollowing(lg.getUsername()));
+
+        au.setIdValid();
+
+        au.setWallComment(about.getWallComments(lg.getUsername()));
+
+        session.setAttribute("aboutUser", au);
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
+
+        rd.forward(request, response);
 
     }
-    
 
     /**
      * Returns a short description of the servlet.

@@ -15,31 +15,29 @@
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
     <body>
-       
+
         <header>
-        <h1>InstaGrim!</h1>
-        <h2>Register</h2>
+            <h1>InstaGrim!</h1>
+            <h2>Register</h2>
         </header>
-        
+
         <nav>
-          
+
         </nav>
-       
+
         <article>
             <h3>Register to start sharing your memories</h3>
-            
-            <%LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn");
-            if(lg!=null)
-            {
-            if(lg.getInvalidIn())
-            {
-                %>
-                     <h4> invalid username.</h4>
-                <%
-            }
-            }
+
+            <%LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                if (lg != null) {
+                    if (lg.getInvalidIn()) {
             %>
-            
+            <h4> invalid username.</h4>
+            <%
+                    }
+                }
+            %>
+
             <form method="POST"  action="Register">
                 <div style = "text-align: center">
                     <input type="text" name="username" placeholder = "Username" style = "margin-top: 5px;">
@@ -61,28 +59,28 @@
                     <input type="text" name="zip" placeholder = "Zip" style = "margin-top: 5px;">
                     </br>
                     <input type="submit" value="Register" style= "margin-top: 5px"> 
-                </form>
+                    </form>
                 </div>
-                
+
                 <form method ="Post" action ="/initial.jsp">
                     <input type ="submit" value ="To log in page">
                 </form>
- 
+
         </article>
-        
-            
-       
-        
+
+
+
+
     </body>
-    
+
     <style>
-         ul
-            {
-               
-                margin-left: 530px;
-                margin-top:30px;
-            } 
-            
- 
-        </style>
+        ul
+        {
+
+            margin-left: 530px;
+            margin-top:30px;
+        } 
+
+
+    </style>
 </html>

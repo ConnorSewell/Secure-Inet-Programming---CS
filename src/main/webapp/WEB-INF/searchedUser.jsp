@@ -15,84 +15,83 @@
         <title>Searching for users...</title>
     </head>
     <body>
-         
-        <% LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); %>
 
-          <div id ="navBar">
+        <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
+
+        <div id ="navBar">
             <ul>
-                    <li><a href="/Instagrim/home">Home</a></li>
-                    <li><a href="/Instagrim/UserProfileDetails?id=profile">Profile</a></li>
-                    <li><a href="/Instagrim/uploadPage">Upload</a></li>
-                    <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
-                    <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                    <li><a href="/Instagrim/ChangeDetails">Account</a></li>
-                    <li><a href="/Instagrim/Logout">Log Out</a></li>
+                <li><a href="/Instagrim/home">Home</a></li>
+                <li><a href="/Instagrim/UserProfileDetails?id=profile">Profile</a></li>
+                <li><a href="/Instagrim/uploadPage">Upload</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
+                <li><a href="/Instagrim/FollowingGallery">Following</a></li>
+                <li><a href="/Instagrim/SampleImages">Samples</a></li>
+                <li><a href="/Instagrim/ChangeDetails">Account</a></li>
+                <li><a href="/Instagrim/Logout">Log Out</a></li>
 
-                   <form method="POST"  action="SearchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
-                
-                   <input type="text" name="user" placeholder = "Search for user">
- 
-                   <input type="submit" value="Search"> 
-                   </form>
-      
-             </ul>
-                    </br>
-                    
-                    
-             </div>
-                    
+                <form method="POST"  action="SearchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
 
-             <%
-               userSearch us = (userSearch) session.getAttribute("userSearch");
-               java.util.LinkedList<String> users = us.getUsers();
-               %>
-                <h1>Searching for user: <%=us.getSearchedUser()%></h1>
-               <%
-               
-               if (users == null) {
+                    <input type="text" name="user" placeholder = "Search for user">
+
+                    <input type="submit" value="Search"> 
+                </form>
+
+            </ul>
+            </br>
+
+
+        </div>
+
+
+        <%
+            userSearch us = (userSearch) session.getAttribute("userSearch");
+            java.util.LinkedList<String> users = us.getUsers();
+        %>
+        <h1>Searching for user: <%=us.getSearchedUser()%></h1>
+        <%
+
+            if (users == null) {
         %>
         <p>No matches found</p>
         <%
         } else {
-                   %>
-                   <h2> All Matches: </h2>
-                   
-                   <%
-                   
-                   for(int i = 0; i < users.size(); i++)
-                   {
-                     //  System.out.println("?.. " + tester.get(i));
-                       %>
-                      
-                        <a style = "display: block; text-align: center; margin-top: 2px;" href ="SearchUser?user=<%=users.get(i)%>" class = "tester"><%=users.get(i)%></a>
-                        
-                       <%
-                   }
-               }
+        %>
+        <h2> All Matches: </h2>
+
+        <%
+            for (int i = 0; i < users.size(); i++) {
+          //  System.out.println("?.. " + tester.get(i));
+%>
+
+        <a style = "display: block; text-align: center; margin-top: 2px;" href ="Profile/<%=users.get(i)%>" class = "tester"><%=users.get(i)%></a>
+
+        <%
+                }
+            }
         %>
         </br> 
-         
+
         </br>
         </br>
 
     </body>
-    
+
     <style>
-        
+
         //http://www.webdesignerforum.co.uk/topic/727-how-do-i-style-multiple-li-list-tags/
- 
-      
-    body, html{
-        margin:0;
-    }
-    
-        form{
-           margin-top: 8px;
-           display:in-line;
-           float:right;
-           margin-right: 50px;
+
+
+        body, html{
+            margin:0;
         }
-        
+
+        form{
+            margin-top: 8px;
+            display:in-line;
+            float:right;
+            margin-right: 50px;
+        }
+
         h1,h2{
             margin-top:0px;
             text-align:center;

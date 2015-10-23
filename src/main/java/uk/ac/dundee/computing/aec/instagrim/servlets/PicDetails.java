@@ -29,8 +29,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
  *
  * @author Connor131
  */
-@WebServlet(name = "UserComment", urlPatterns = {"/UserComment"})
-public class UserComment extends HttpServlet {
+@WebServlet(name = "userComment", urlPatterns = {"/Images/comments"})
+public class PicDetails extends HttpServlet {
 
     private Cluster cluster;   
 
@@ -52,20 +52,20 @@ public class UserComment extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
+        
         HttpSession session=request.getSession();
 
         Pic p = new Pic();
         Comments comments = new Comments();
        
         comments.setCluster(cluster);
-        
         session.setAttribute("Pic", p);
-       
-        p.setUUID(java.util.UUID.fromString(request.getParameter("picId")));
-        p.setComment(comments.getComments(p.returnUUID()));
-        p.setLikes(comments.getLikes(p.returnUUID()));
  
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ImageView.jsp");
+        p.setUUID(java.util.UUID.fromString(request.getParameter("picId")));
+        p.setPicComment(comments.getComments(java.util.UUID.fromString(request.getParameter("picId"))));
+        p.setPicLikes(comments.getLikes(java.util.UUID.fromString(request.getParameter("picId"))));
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
         System.out.println("Pic is.. " + p.getPicAdded());
         rd.forward(request, response);
     
@@ -95,10 +95,10 @@ public class UserComment extends HttpServlet {
         
         String commentBy = lg.getUsername();
         Date commentDate = new Date();
-        String comment = commentBy + "/" + commentDate + "/" + request.getParameter("comment");
+        String comment = request.getParameter("comment");
         java.util.UUID picId = p.returnUUID();
 
-        comments.addComment(comment, picId);
+        comments.addComment(comment, picId, commentBy, commentDate);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
         rd.forward(request, response);

@@ -17,85 +17,83 @@
         <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
     </head>
     <body>
-              <% LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); %>
-        
-             <div id ="navBar">
+        <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");%>
+
+        <div id ="navBar">
             <ul>
-                    <li><a href="/Instagrim/home">Home</a></li>
-                    <li><a href="/Instagrim/UserProfileDetails?id=profile">Profile</a></li>
-                    <li><a href="/Instagrim/uploadPage">Upload</a></li>
-                    <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
-                    <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                    <li><a href="/Instagrim/ChangeDetails">Account</a></li>
-                    <li><a href="/Instagrim/Logout">Log Out</a></li>
+                <li><a href="/Instagrim/home">Home</a></li>
+                <li><a href="/Instagrim/UserProfileDetails?id=profile">Profile</a></li>
+                <li><a href="/Instagrim/uploadPage">Upload</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>?id=Images">Your Images</a></li>
+                <li><a href="/Instagrim/SampleImages">Samples</a></li>
+                <li><a href="/Instagrim/ChangeDetails">Account</a></li>
+                <li><a href="/Instagrim/Logout">Log Out</a></li>
 
-                   <form method="POST"  action="SearchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
-                
-                   <input type="text" name="user" placeholder = "Search for user">
- 
-                   <input type="submit" value="Search"> 
-                   
-                   </form>
+                <form method="POST"  action="SearchUser" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+
+                    <input type="text" name="user" placeholder = "Search for user">
+
+                    <input type="submit" value="Search"> 
+
+                </form>
             </ul> 
-                   
-                
-           </div>
-                   
-                    <h1>Gallery</h1>
-   
-        <article>
-            
-            <div id ="MovingMarg">
-         
-        <%
-            java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
-            if (lsPics == null) {
-        %>
-        <p>No Pictures found</p>
-        <%
-        } else {
-            Iterator<Pic> iterator;
-            iterator = lsPics.iterator();
-            while (iterator.hasNext()) {
-                Pic p = (Pic) iterator.next();
-                %>
-               
-                <%
-                        
-                      
-        %>
-            <div class ="picAlbum">
-             <a href="/Instagrim/Images/userComment?date=<%=p.getPicAdded()%>&picId=<%=p.getSUUID()%>&picOwner=<%= p.getImageOwner()%>">  <img src="/Instagrim/Thumb/<%=p.getSUUID()%>" style = "height: 200px; width: 200px"></a><br/> 
-            </div>
-        <%
-        
 
-            }
-            }
-        %>
-        
+
+        </div>
+
+        <h1>Gallery</h1>
+
+        <article>
+
+            <div id ="MovingMarg">
+
+                <%
+                    java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
+                    if (lsPics == null) {
+                %>
+                <p>No Pictures found</p>
+                <%
+                } else {
+                    Iterator<Pic> iterator;
+                    iterator = lsPics.iterator();
+                    while (iterator.hasNext()) {
+                        Pic p = (Pic) iterator.next();
+                %>
+
+                <%
+
+                %>
+                <div class ="picAlbum">
+                    <a href="/Instagrim/Images/comments?date=<%=p.getPicAdded()%>&picId=<%=p.getSUUID()%>&picOwner=<%= p.getImageOwner()%>">  <img src="/Instagrim/Thumb/<%=p.getSUUID()%>" style = "height: 200px; width: 200px"></a><br/> 
+                </div>
+                <%
+
+                        }
+                    }
+                %>
+
             </div>
 
         </article>
-     
+
     </body>
-    
+
     <style>
         .picAlbum
         {
             float:left; 
             margin-left: 2.1%;
             margin-top: 20px;
-           
+
         }
         #MovingMarg{
             margin-left: 1%;
-           
+
         }
         h1{
             text-align:center;
             margin-top:30px;
         }
-       
+
     </style>
 </html>

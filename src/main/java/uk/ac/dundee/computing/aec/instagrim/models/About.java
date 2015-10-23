@@ -14,6 +14,9 @@ import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Statement;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import java.util.Date;
+import java.util.Iterator;
+import uk.ac.dundee.computing.aec.instagrim.servlets.FollowingGallery;
+import uk.ac.dundee.computing.aec.instagrim.stores.FollowingPicDetails;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.WallComments;
 
@@ -216,6 +219,40 @@ public class About {
         }
 
         return followers;
+    }
+    
+    public java.util.LinkedList<FollowingPicDetails> getFollowingPics(java.util.LinkedList<String> following)
+    {
+        java.util.LinkedList<FollowingPicDetails> followingPics = new java.util.LinkedList<FollowingPicDetails>();
+        Session session = cluster.connect("ConnorSewellsInstagrim");
+       
+       PreparedStatement ps = session.prepare("select pictime, picid from followpics where user =?");
+       BoundStatement boundStatement = new BoundStatement(ps);
+        Iterator<String> iterate;
+        iterate = following.iterator();
+        while (iterate.hasNext()) {
+        //iterate.next();
+        
+       // System.out.println("Follower 1: " + iterate.next());
+        
+      
+        ResultSet rs = null;
+       // BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute(boundStatement.bind(iterate.next()));
+        if(rs.isExhausted())
+        {
+           return followingPics;
+        }
+        else
+        {
+            for(Row row: rs)
+            {
+                System.out.println("user... :" + row.getDate("pictime") + " picid..: " + row.getUUID("picid"));
+            }
+        }
+        }
+        
+        return followingPics;
     }
 
     /*

@@ -140,6 +140,7 @@ public final class Convertors {
         String args[] = null;
 
         StringTokenizer st = SplitString(request.getRequestURI());
+        System.out.println("Request URI is: " + request.getRequestURI());
         args = new String[st.countTokens()];
 		//Lets assume the number is the last argument
 
@@ -160,6 +161,7 @@ public final class Convertors {
 
 	//so now they'll be in the args array.  
         // argv[0] should be the user directory
+        System.out.println("argv[0] is: " + args[0]);
         return args;
     }
 
