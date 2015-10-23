@@ -7,6 +7,8 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -20,7 +22,6 @@ import uk.ac.dundee.computing.aec.instagrim.models.Comments;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
-
 /**
  *
  * @author Connor131
@@ -28,46 +29,39 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 @WebServlet(name = "Likes", urlPatterns = {"/Likes"})
 public class Likes extends HttpServlet {
 
+  
+    Cluster cluster=null;
 
-        
-     private Cluster cluster;   
 
-     public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
 
+  
    
-     
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     * Handling likes controller
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          
-        String username="majed";
-
+        
         HttpSession session=request.getSession();
        
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
         Pic p = (Pic)session.getAttribute("Pic");
-   
+        
         Comments comments = new Comments();
         comments.setCluster(cluster);
         
-        username = lg.getUsername();
+        String likedBy = lg.getUsername();
+        Date likeDate = new Date();
+      
         java.util.UUID picId = p.returnUUID();
-        
-        comments.addLike(picId, username);
+
+        comments.addLike(picId, likedBy, likeDate);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
         rd.forward(request, response);
+        
     }
 
     /**

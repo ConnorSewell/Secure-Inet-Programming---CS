@@ -93,7 +93,7 @@ public class User {
 
         Session session = cluster.connect("ConnorSewellsInstagrim");
 
-        //http://www.datastax.com/dev/blog/datastax-java-driver-2-1 20/10/2015 20:30 for UDT
+        //http://www.datastax.com/dev/blog/datastax-java-driver-2-1 20/10/2015 20:30 for creation of addressType/addressIn UDT
         UserType addressType = cluster.getMetadata().getKeyspace("ConnorSewellsInstagrim").getUserType("address");
         UDTValue addressIn = addressType.newValue().setString("street", street).setString("city", city).setInt("zip", zip);
 
@@ -161,7 +161,9 @@ public class User {
  
         Session session = cluster.connect("ConnorSewellsInstagrim");
         
-        //http://docs.datastax.com/en/developer/java-driver/2.1/java-driver/reference/mappingUdts.html 20:54 21/10/2015   **
+        //- for retrieving the mapped data (addresses)
+        //http://docs.datastax.com/en/developer/java-driver/2.1/java-driver/reference/mappingUdts.html 20:54 21/10/2015 
+        
         
         UDTMapper<Address> mapper = new MappingManager(session).udtMapper(Address.class);
 
@@ -177,12 +179,12 @@ public class User {
                fName = row.getString("first_name");
                sName = row.getString("last_name");
          
-              Map<String,UDTValue> addresses = row.getMap("addresses", String.class, UDTValue.class);
-              for(String key : addresses.keySet())
-              {
+               Map<String,UDTValue> addresses = row.getMap("addresses", String.class, UDTValue.class);
+               for(String key : addresses.keySet())
+               {
                    address = mapper.fromUDT(addresses.get(key));
                    addressName = key;
-              }
+               }
   
                ud.setDetails(fName, sName, emails, address, addressName);
                return ud;
@@ -194,7 +196,7 @@ public class User {
     
     public boolean changeAddress(String username, String addressName, String street, String city, int zip)
     {
-        
+         //http://www.datastax.com/dev/blog/datastax-java-driver-2-1 21/10/2015 22:30 for creation of addressType/addressIn UDT
          UserType addressType = cluster.getMetadata().getKeyspace("ConnorSewellsInstagrim").getUserType("address");
          UDTValue addressIn = addressType.newValue().setString("street", street).setString("city", city).setInt("zip", zip);
         

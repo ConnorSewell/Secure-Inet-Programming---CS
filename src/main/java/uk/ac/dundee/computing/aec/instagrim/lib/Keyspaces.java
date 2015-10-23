@@ -57,17 +57,47 @@ public final class Keyspaces {
                     + "       user varchar PRIMARY KEY, \n"
                     + "       about_user text, \n"
                     + "       picid uuid, \n"
-                    + "       wallComments list<text>, \n"
-                    + "       followers list<text>, \n"
-                    + "       following list<text>, \n"
                     + "  );";
             
-               String CreateUserComments = "CREATE TABLE if not exists ConnorSewellsInstagrim.usercomments (\n"
-                    + "picid uuid PRIMARY KEY,\n"
-                    + "likes list<text>,\n"
-                    + "comments list<text>,\n"
-                    + " );";
-            
+
+                   String CreateWallComments = "CREATE TABLE if not exists ConnorSewellsInstagrim.wallcomments (\n"
+                    + "user text,\n"
+                    + "commentid uuid,\n"
+                    + "comment_added timestamp,\n"
+                    + "commenter text, \n"
+                    + "comment text, \n"
+                    + "PRIMARY KEY (user, comment_added)\n"
+                    + ") WITH CLUSTERING ORDER BY (comment_added desc);";
+                   
+                   String CreatePicComments = "CREATE TABLE if not exists ConnorSewellsInstagrim.piccomments (\n"
+                   + "picid uuid, \n"
+                   + "comment_added timestamp, \n"
+                   + "commenter text, \n"
+                   + "comment text, \n"
+                   + "PRIMARY KEY (picid,comment_added)\n"
+                   + ") WITH CLUSTERING ORDER BY (comment_added desc);";
+                   
+                   String CreatePicLikes = "CREATE TABLE if not exists ConnorSewellsInstagrim.piclikes (\n"
+                   + "picid uuid, \n"
+                   + "user text, \n"
+                   + "dateLiked timestamp, \n"
+                   + "PRIMARY KEY (picid, dateLiked)\n"
+                   + ");";
+                   
+                   String CreateFollowers = "CREATE TABLE if not exists ConnorSewellsInstagrim.followers (\n"
+                   + "following text, \n"
+                   + "user text, \n"
+                   + "date_followed timestamp, \n"
+                   + "PRIMARY KEY (following, date_followed)\n"
+                   + ") WITH CLUSTERING ORDER BY (date_followed desc);";
+                   
+                   String CreateFollowing = "CREATE TABLE if not exists ConnorSewellsInstagrim.following (\n"
+                   + "user text, \n"
+                   + "following text, \n"
+                   + "date_followed timestamp, \n"
+                   + "PRIMARY KEY (user, date_followed)\n"
+                   + ") WITH CLUSTERING ORDER BY (date_followed desc);";
+                   
             Session session = c.connect();
             //now add some column families 
             try {
@@ -81,6 +111,23 @@ public final class Keyspaces {
             } catch (Exception et) {
                 System.out.println("Can't create instagrim " + et);
             }
+            
+               try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreateFollowers);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create followers table " + et);
+            }
+            System.out.println("" + Createuserpiclist);
+            
+            
+                 try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreateFollowing);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create following table " + et);
+            }
+            System.out.println("" + Createuserpiclist);
           
             try {
                 SimpleStatement cqlQuery = new SimpleStatement(CreatePicTable);
@@ -90,13 +137,29 @@ public final class Keyspaces {
             }
             System.out.println("" + Createuserpiclist);
             
-            try {
-                SimpleStatement cqlQuery = new SimpleStatement(CreateUserComments);
+               try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreatePicLikes);
                 session.execute(cqlQuery);
             } catch (Exception et) {
-                System.out.println("Can't create tweet table " + et);
+                System.out.println("Can't create piclikes table " + et);
             }
             System.out.println("" + Createuserpiclist);
+            
+           try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreateWallComments);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create wallcomment table " + et);
+            }
+           
+             try {
+                SimpleStatement cqlQuery = new SimpleStatement(CreatePicComments);
+                session.execute(cqlQuery);
+            } catch (Exception et) {
+                System.out.println("Can't create piccomments table " + et);
+            }
+        
+   
 
             try {
                 SimpleStatement cqlQuery = new SimpleStatement(Createuserpiclist);

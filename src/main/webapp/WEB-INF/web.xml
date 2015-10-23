@@ -7,7 +7,7 @@
     </session-config>
     <error-page>
        <error-code>404</error-code>
-    <location>/404 page.jsp</location> <!-- stackoverflow.com/questions/2956167/how-can-i-catch-all-errors-to-same-page-from-web-xml !-->
+    <location>/WEB-INF/404 page.jsp</location> <!-- stackoverflow.com/questions/2956167/how-can-i-catch-all-errors-to-same-page-from-web-xml !-->
    </error-page>
    
    <welcome-file-list>

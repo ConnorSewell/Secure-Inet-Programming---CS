@@ -13,12 +13,13 @@ import com.datastax.driver.mapping.annotations.UDT;
  * @author Connor131
  */
 
-//http://docs.datastax.com/en/developer/java-driver/2.1/java-driver/reference/mappingUdts.html 21/10/2015 21:00 -> Idea for this
+//Idea for this entire bean
+//http://docs.datastax.com/en/developer/java-driver/2.1/java-driver/reference/mappingUdts.html 21/10/2015 21:00 
 @UDT (keyspace = "ConnorSewellsInstagrim", name = "address")
 public class Address {
-    String street;
-    String city;
-    int zip;
+    private String street;
+    private String city;
+    private int zip;
     
     public void setStreet(String street)
     {

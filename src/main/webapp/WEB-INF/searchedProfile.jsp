@@ -20,7 +20,7 @@
             <% aboutUser au = (aboutUser)session.getAttribute("aboutUser"); 
                userSearch us = (userSearch)session.getAttribute("userSearch");
                LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn"); 
-               java.util.List<String> wcomments = au.getWallComments(); %>
+             //  java.util.List<String> wcomments = au.getWallComments(); %>
            <div id ="navBar">
             <ul>
                     <li><a href="/Instagrim/home">Home</a></li>
@@ -87,18 +87,18 @@
             
              <div style ="width: 620px; height: 100px; overflow-x: hidden; overflow-y: scroll; margin-top:20px">
             <% 
-            if(wcomments!=null)
-            {
-            for(int i = 0; i < wcomments.size(); i++)
-            {
-                String[] userComment = wcomments.get(i).split("/");
-                %>
+          //  if(wcomments!=null)
+       //   /  {
+         //   for(int i = 0; i < wcomments.size(); i++)
+         //   {
+         //       String[] userComment = wcomments.get(i).split("/");
+        //        %>
              
-                <p style = "overflow-x: hidden;">User: <%=userComment[0]%> on <%=userComment[1]%> </br> <%=userComment[2]%></p> 
+                <p style = "overflow-x: hidden;">User: <%//=userComment[0]%> on <%//=userComment[1]%> </br> <%//=userComment[2]%></p> 
                
                    <%
-            }
-            }
+         //   }
+        //    }
              %>
              </div>
 

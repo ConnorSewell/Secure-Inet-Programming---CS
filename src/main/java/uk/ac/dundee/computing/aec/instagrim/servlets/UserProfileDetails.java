@@ -61,7 +61,7 @@ public class UserProfileDetails extends HttpServlet {
             
             au.setAbout(about.getAbout(lg.getUsername()));
             au.setUUID(about.getPicId(lg.getUsername()));
-            au.setWallComments(about.getWallComments(lg.getUsername()));
+            au.setWallComment(about.getWallComments(lg.getUsername()));
             au.setFollowers(about.getFollowers(lg.getUsername()));
             au.setFollowing(about.getFollowing(lg.getUsername()));
             au.setIdValid();

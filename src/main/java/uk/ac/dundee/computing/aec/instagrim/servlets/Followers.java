@@ -8,6 +8,7 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -58,8 +59,10 @@ public class Followers extends HttpServlet {
         about.setCluster(cluster);
         System.out.println("Searched user is: " + lg.getUsername());
         
-        about.addFollower(lg.getUsername(), us.getSearchedUser());
-        about.addFollowing(lg.getUsername(), us.getSearchedUser());
+        Date date = new Date();
+        
+        about.addFollower(lg.getUsername(), us.getSearchedUser(), date);
+        about.addFollowing(lg.getUsername(), us.getSearchedUser(), date);
         
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedUser.jsp");

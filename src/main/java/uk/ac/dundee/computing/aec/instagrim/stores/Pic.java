@@ -22,27 +22,39 @@ public class Pic {
     private int length;
     private String type;
     private java.util.UUID UUID=null;
-    private java.util.List<String> likes;
+    //private java.util.List<String> likes;
     private Date pic_added = new Date();
     private String imageOwner=null;
     private java.util.List<String> comment;
     private boolean profilePic;
     private BufferedImage bi;
-    
+    private java.util.LinkedList<PicDetails> picComment; 
+    private java.util.LinkedList<String> likes;
     public void Pic() {
 
     }
     
-    public void setLikes(java.util.List<String> likes)
+    public void setPicLikes(java.util.LinkedList<String> likes)
     {
         this.likes=likes;
     }
     
-      public java.util.List<String> getLikes()
+    public java.util.LinkedList<String> getLikes()
     {
         return likes;
     }
     
+    public void setPicComment(java.util.LinkedList<PicDetails> picComment)
+    {
+        this.picComment = picComment;
+    }
+    
+    public java.util.LinkedList<PicDetails> getPicComment()
+    {
+        return picComment;
+    }
+    
+   
     public void setBufferedImage(BufferedImage image)
     {
         this.bi=image;

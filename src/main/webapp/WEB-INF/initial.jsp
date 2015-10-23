@@ -23,7 +23,7 @@
            <h1>InstaGrim!</h1> 
            <h2>Your world in Black and White</h2> 
 
-           <img src = "Logo.jpg" alt = "testing logo" align = "middle" style = "width: 300px; height: 300px; margin: 0 auto; display:block; margin-top: 0px;"> 
+           <img src = "/Instagrim/Logo.jpg" alt = "testing logo" align = "middle" style = "width: 300px; height: 300px; margin: 0 auto; display:block; margin-top: 0px;"> 
        
            <h3>Share it</h3>
          

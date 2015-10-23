@@ -63,7 +63,7 @@ public class searchUser extends HttpServlet {
         
         au.setUUID(about.getPicId(user));
         au.setAbout(about.getAbout(user));
-        au.setWallComments(about.getWallComments(us.getSearchedUser()));
+        au.setWallComment(about.getWallComments(us.getSearchedUser()));
         au.setIdValid();
         
         us.setSearchedUser(user);
