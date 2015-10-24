@@ -40,7 +40,6 @@ public class SearchedListBox extends HttpServlet {
             throws ServletException, IOException {
 
         String user = request.getParameter("user");
-
         response.sendRedirect("/Instagrim/search/"+ user);
 
     }

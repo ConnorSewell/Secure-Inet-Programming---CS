@@ -80,6 +80,7 @@ public class PicModel {
             byte[] processedb = picdecolour(picid.toString(),types[1], filter);
             ByteBuffer processedbuf=ByteBuffer.wrap(processedb);
             int processedlength=processedb.length;
+           
             Session session = cluster.connect("ConnorSewellsInstagrim");
 
             PreparedStatement psInsertProfilePic = session.prepare("update profilepage set picid= " + picid + " where user = '" + user + "'"); 
@@ -98,16 +99,13 @@ public class PicModel {
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
             session.execute(bsInsertPicToFollowers.bind(user, DateAdded, picid));
             
-               if(profilePic.equals("profilepic"))
+               if(profilePic.equals("profile"))
               {
                    
                    session.execute(bsInsertProfilePic.bind());
               }
                 
-            PreparedStatement psInsertCommentTab = session.prepare("insert into usercomments (picid) values (?)");
-            BoundStatement bsInsertCommentTab = new BoundStatement(psInsertCommentTab);
-            session.execute(bsInsertCommentTab.bind(picid));
-
+    
             session.close();
 
         } catch (IOException ex) {

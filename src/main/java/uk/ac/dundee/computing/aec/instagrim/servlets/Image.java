@@ -71,7 +71,8 @@ public class Image extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-
+      //  Pic p = new Pic();
+       
         
         String args[] = Convertors.SplitRequestPath(request);
         int command;
@@ -81,7 +82,9 @@ public class Image extends HttpServlet {
             error("Bad Operator", response);
             return;
         }
+      //  p.setImageOwner(args[2]);
         switch (command) {
+            
             case 1:
                 DisplayImage(Convertors.DISPLAY_PROCESSED,args[2], response);
                 break;
@@ -142,16 +145,11 @@ public class Image extends HttpServlet {
 
        // String profilePic = request.getParameter("pic"); //http://www.coderanch.com/t/287125/JSP/java/boolean-parameters
         String[] filter = request.getParameterValues("filter");
+        String pictype = request.getParameter("pictype");
         HttpSession session=request.getSession();
         Pic p = new Pic();
         session.setAttribute("Pic", p);
-        
-        String args[] = Convertors.SplitRequestPath(request);
-        
-        String pictype = args[2];
-        
-        System.out.println("profilePic here is... " + pictype);
-        
+
         for (Part part : request.getParts()) {
             System.out.println("Part Name: " + part.getName());
           

@@ -35,12 +35,9 @@ public class Comments {
      * Adding user to the list of users who like the picture associated with picId
      */
     public void addLike(java.util.UUID picId, String user, Date date) {
+       
         Session session = cluster.connect("ConnorSewellsInstagrim");
 
-        PreparedStatement psInsertLikeToPic = session.prepare("update usercomments set likes= ['" + user + "'] + likes where picid = " + picId);
-        BoundStatement bsInsertLikeToPic = new BoundStatement(psInsertLikeToPic);
-        session.execute(bsInsertLikeToPic);
-        
            Statement statement = QueryBuilder.insertInto("piclikes")
                 .value("picid", picId)
                 .value("user", user)
@@ -56,10 +53,6 @@ public class Comments {
     public void addComment(String comment, java.util.UUID picId, String commenter, Date comment_added) {
 
         Session session = cluster.connect("ConnorSewellsInstagrim");
-
-        PreparedStatement psInsertPicToUser = session.prepare("update usercomments set comments= ['" + comment + "'] + comments where picid = " + picId);
-        BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
-        session.execute(bsInsertPicToUser);
 
         Statement statement = QueryBuilder.insertInto("piccomments")
                 .value("picid", picId)

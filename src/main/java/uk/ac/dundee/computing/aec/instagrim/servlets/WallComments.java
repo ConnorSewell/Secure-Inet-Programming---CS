@@ -92,7 +92,7 @@ public class WallComments extends HttpServlet {
          response.sendRedirect("/Instagrim/profile");
 
        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
-        rd.forward(request, response);
+       rd.forward(request, response);
 
     }
 

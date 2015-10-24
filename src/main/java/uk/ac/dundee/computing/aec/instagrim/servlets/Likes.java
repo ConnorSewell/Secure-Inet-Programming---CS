@@ -21,12 +21,13 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.Comments;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "Likes", urlPatterns = {"/Likes"})
+@WebServlet(name = "Likes", urlPatterns = {"/Images/Likes"})
 public class Likes extends HttpServlet {
 
   
@@ -47,7 +48,10 @@ public class Likes extends HttpServlet {
         HttpSession session=request.getSession();
        
         LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
+        userSearch us = (userSearch)session.getAttribute("userSearch");
         Pic p = (Pic)session.getAttribute("Pic");
+        
+        String owner = request.getParameter("picOwner");
         
         Comments comments = new Comments();
         comments.setCluster(cluster);
@@ -59,8 +63,12 @@ public class Likes extends HttpServlet {
 
         comments.addLike(picId, likedBy, likeDate);
 
+        p.setPicLikes(comments.getLikes(p.returnUUID()));
+ 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
+        System.out.println("Pic is.. " + p.getPicAdded());
         rd.forward(request, response);
+      
         
     }
 

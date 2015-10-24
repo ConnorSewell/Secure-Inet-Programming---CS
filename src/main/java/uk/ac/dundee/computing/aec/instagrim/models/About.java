@@ -15,7 +15,6 @@ import com.datastax.driver.core.Statement;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import java.util.Date;
 import java.util.Iterator;
-import uk.ac.dundee.computing.aec.instagrim.servlets.FollowingGallery;
 import uk.ac.dundee.computing.aec.instagrim.stores.FollowingPicDetails;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.WallComments;

@@ -29,7 +29,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
  *
  * @author Connor131
  */
-@WebServlet(name = "userComment", urlPatterns = {"/Images/comments"})
+@WebServlet(name = "picdetails", urlPatterns = {"/Images/picdetails"})
 public class PicDetails extends HttpServlet {
 
     private Cluster cluster;   
@@ -85,23 +85,7 @@ public class PicDetails extends HttpServlet {
             throws ServletException, IOException {
     
   
-        HttpSession session=request.getSession();
        
-        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        Pic p = (Pic)session.getAttribute("Pic");
-        
-        Comments comments = new Comments();
-        comments.setCluster(cluster);
-        
-        String commentBy = lg.getUsername();
-        Date commentDate = new Date();
-        String comment = request.getParameter("comment");
-        java.util.UUID picId = p.returnUUID();
-
-        comments.addComment(comment, picId, commentBy, commentDate);
-
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
-        rd.forward(request, response);
         
        // response.sendRedirect("/imageView.jsp");
     }

@@ -18,27 +18,24 @@
     </head>
     <body>
 
-        <% aboutUser au = (aboutUser) session.getAttribute("aboutUser"); %>
-        <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-           userSearch us = (userSearch) session.getAttribute("userSearch");
-            //  java.util.List<String> wcomments = au.getWallComment();
-            //   java.util.List<String> followers = au.getFollowers();
-            //   java.util.List<String> following = au.getFollowing();%>
+        <% aboutUser au = (aboutUser) session.getAttribute("aboutUser");
+            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+            userSearch us = (userSearch) session.getAttribute("userSearch");
+        %>
         <div id ="navBar">
             <ul>
-               <li><a href="/Instagrim/Home">Home</a></li>
-                <li><a href="/Instagrim/profile">Profile</a></li>
-                <li><a href="/Instagrim/upload">Upload</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="/Instagrim/FollowingGallery">Following</a></li>
-                <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                <li><a href="/Instagrim/ChangeDetails">Account</a></li>
-                <li><a href="/Instagrim/Logout">Log Out</a></li>
+             <li><a href="Home">Home</a></li>
+                    <li><a href="profile">Profile</a></li>
+                    <li><a href="upload/gallery">Upload</a></li>
+                    <li><a href="Images/<%=lg.getUsername()%>">Your Images</a></li>
+                    <li><a href="SampleImages">Samples</a></li>
+                    <li><a href="ChangeDetails">Account</a></li>
+                    <li><a href="Logout">Log Out</a></li>
 
-               <form method="GET"  action="SearchedListBox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
-               <input type="text" name="user" placeholder = "Search for user">
-               <input type="submit" value="Search"> 
-               </form>
+                    <form method="GET"  action="searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                        <input type="text" name="user" placeholder = "Search for user">
+                        <input type="submit" value="Search"> 
+                    </form>
             </ul> 
             </br>
 
@@ -58,7 +55,7 @@
                            for (int i = 0; i < followers.size(); i++) {
 
                    %>
-                <p> <a href = "/Instagrim/profile/<%=followers.get(i)%>"><%=followers.get(i)%></a></p>
+                <p>    <a href = "/Instagrim/profile/<%=followers.get(i)%>"><%=followers.get(i)%></a> </p>
                 <%
                         }
 
@@ -94,12 +91,6 @@
                         }
                     %>
 
-
-                    <form action="/Instagrim/upload/profile">
-                        <div style ="text-align:center">
-                            <button style = "margin-top: 4%">Edit profile picture</button>
-                        </div>
-                    </form>
                 </div>
 
                 <div id ="aboutForm">
@@ -107,14 +98,12 @@
                         <div style ="height: 300px; width: 300px; float:left">
                             <textarea style = "height: 98%; width: 98%; float:left" name="aboutUser" rows="5" columns="20" wrap ="virtual"><%=au.getAbout()%></textarea>
                         </div>
-                        <div style ="text-align: center">
-                            <input type="submit" value="Change details" style = "margin-top: 4%">
-                        </div>
+
                     </form>
                 </div>
 
 
-                <div style = " margin-left: 5%; margin-top:0%; height: 300px;">
+                <div style = " margin-left: 85%; margin-top:0%; height: 300px;">
                     <p style = "margin-top: 0%; font-weight: bold">Following:</p>
                     <div style ="overflow-x: scroll; overflow-y: scroll; height: 265px; "
                          <p style = "overflow-x: hidden; margin-top: 0%;padding-right: 20px; text-align: center"
@@ -125,13 +114,13 @@
                                for (int i = 0; i < following.size(); i++) {
 
                        %>
-                    <p> <a href = "/Instagrim/profile/<%=following.get(i)%>"><%=following.get(i)%></a></p>
-                        <%
-                                }
-
+                    <p>  <a href = "/Instagrim/profile/<%=following.get(i)%>"><%=following.get(i)%></a> </p>
+                    <%
                             }
 
-                        %>
+                        }
+
+                    %>
                     </p>
                 </div>
             </div>
@@ -181,6 +170,10 @@
             </div>
         </div>
     </div>
+
+    <form method="POST" action="Followers" style = "margin-top:5px; margin-left: 86%">
+        <input type="submit" value="Follow">
+    </form>
 
 
 

@@ -12,42 +12,42 @@ import com.datastax.driver.mapping.annotations.UDT;
  *
  * @author Connor131
  */
-
 //Idea for this entire bean
 //http://docs.datastax.com/en/developer/java-driver/2.1/java-driver/reference/mappingUdts.html 21/10/2015 21:00 
-@UDT (keyspace = "ConnorSewellsInstagrim", name = "address")
+@UDT(keyspace = "ConnorSewellsInstagrim", name = "address")
 public class Address {
+
     private String street;
     private String city;
     private int zip;
-    
-    public void setStreet(String street)
-    {
-        this.street=street;
+
+    public void setStreet(String street) {
+        this.street = street;
     }
-    
-    public void setCity(String city)
-    {
-        this.city=city;
+
+    public void setCity(String city) {
+        this.city = city;
     }
-    
-    public void setZip(int zip)
-    {
-        this.zip=zip;
+
+    public void setZip(int zip) {
+        this.zip = zip;
     }
-    
-    public String getStreet()
-    {
+
+    public String getStreet() {
         return street;
     }
-    
-    public String getCity()
-    {
+
+    public String getCity() {
         return city;
     }
-    
-    public int getZip()
-    {
+
+    public int getZip() {
         return zip;
+    }
+
+    public void setAddress(String street, String city, int zip) {
+        this.street = street;
+        this.city = city;
+        this.zip = zip;
     }
 }

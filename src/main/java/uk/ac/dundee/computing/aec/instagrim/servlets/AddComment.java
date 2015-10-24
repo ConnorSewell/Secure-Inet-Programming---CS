@@ -8,6 +8,8 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,25 +18,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.About;
-import uk.ac.dundee.computing.aec.instagrim.stores.FollowingPicDetails;
+import uk.ac.dundee.computing.aec.instagrim.models.Comments;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
+import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "FollowingGallery", urlPatterns = {"/FollowingGallery"})
-public class FollowingGallery extends HttpServlet {
+@WebServlet(name = "AddComment", urlPatterns = {"/Images/comments"})
+public class AddComment extends HttpServlet {
 
-  private Cluster cluster;   
+    private Cluster cluster;
 
-     public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -46,24 +46,30 @@ public class FollowingGallery extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          
         HttpSession session = request.getSession();
+
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        Pic p = (Pic) session.getAttribute("Pic");
 
-        About about = new About();
-        about.setCluster(cluster);
+        Comments comments = new Comments();
+        comments.setCluster(cluster);
 
-        aboutUser au = new aboutUser();
-        
-        au.setFollowing(about.getFollowing(lg.getUsername()));
-        System.out.println("size is: " + (au.getFollowing()).size());
-        java.util.LinkedList<FollowingPicDetails> followingPics = about.getFollowingPics(au.getFollowing());
-        
-        System.out.println("First: " + followingPics.get(0).getUser());
-        
+        String commentBy = lg.getUsername();
+        Date commentDate = new Date();
+        String comment = request.getParameter("comment");
+        java.util.UUID picId = p.returnUUID();
+
+        comments.addComment(comment, picId, commentBy, commentDate);
+
+        p.setPicComment(comments.getComments(p.returnUUID()));
+       
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
+        rd.forward(request, response);
     }
+
     /**
      * Returns a short description of the servlet.
      *

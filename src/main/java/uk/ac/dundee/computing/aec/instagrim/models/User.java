@@ -280,23 +280,7 @@ public class User {
         return true;
         
     }
-    
-    /*
-    * Changing address
-    */
-    public boolean changeAddress(String username, String address)
-    {
-       Session session = cluster.connect("ConnorSewellsInstagrim");
-       PreparedStatement ps = session.prepare("update userprofiles set address= '" + address + "' where login = '" + username + "'");
 
-        BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        ));
-        
-        return true;
-        
-    }
     
 
        public void setCluster(Cluster cluster) {

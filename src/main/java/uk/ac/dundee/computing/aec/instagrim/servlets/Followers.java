@@ -27,7 +27,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
  *
  * @author Connor131
  */
-@WebServlet(name = "Followers", urlPatterns = {"/Followers"})
+@WebServlet(name = "Followers", urlPatterns = {"/profile/Followers"})
 public class Followers extends HttpServlet {
     
      private Cluster cluster;   
@@ -66,8 +66,7 @@ public class Followers extends HttpServlet {
         
         System.out.println("Searched user is: " + us.getSearchedUser());
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
-        rd.forward(request, response);
+        response.sendRedirect("/Instagrim/profile/"+us.getSearchedUser());
     }
 
     /**

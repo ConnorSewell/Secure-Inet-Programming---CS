@@ -22,19 +22,18 @@
 
         <div id ="navBar">
             <ul>
-               <li><a href="/Instagrim/Home">Home</a></li>
-                <li><a href="/Instagrim/profile">Profile</a></li>
-                <li><a href="/Instagrim/upload">Upload</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="/Instagrim/FollowingGallery">Following</a></li>
-                <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                <li><a href="/Instagrim/ChangeDetails">Account</a></li>
-                <li><a href="/Instagrim/Logout">Log Out</a></li>
+            <li><a href="Home">Home</a></li>
+                    <li><a href="profile">Profile</a></li>
+                    <li><a href="upload/gallery">Upload</a></li>
+                    <li><a href="Images/<%=lg.getUsername()%>">Your Images</a></li>
+                    <li><a href="SampleImages">Samples</a></li>
+                    <li><a href="ChangeDetails">Account</a></li>
+                    <li><a href="Logout">Log Out</a></li>
 
-               <form method="GET"  action="SearchedListBox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
-               <input type="text" name="user" placeholder = "Search for user">
-               <input type="submit" value="Search"> 
-               </form>
+                    <form method="GET"  action="searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                        <input type="text" name="user" placeholder = "Search for user">
+                        <input type="submit" value="Search"> 
+                    </form>
             </ul> 
 
 
