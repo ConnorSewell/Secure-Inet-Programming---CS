@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
+import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.Search;
 import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
@@ -35,18 +36,21 @@ public class SearchedList extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+   
         HttpSession session=request.getSession();
         
+        String user;
+        String args[] = Convertors.SplitRequestPath(request);
+        
+        user = args[2];
+
         userSearch us = new userSearch();
        
         Search search = new Search();
         search.setCluster(cluster);
         
-        String user=request.getParameter("user");
-
         us.setSearchedUser(user);
         us.setUsers(search.getUsers(user));
         

@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Connor131
  */
-@WebServlet(name = "UploadPage", urlPatterns = {"/UploadPage"})
-public class UploadPage extends HttpServlet {
+@WebServlet(name = "upload", urlPatterns = {"/upload"})
+public class Upload extends HttpServlet {
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -35,7 +35,7 @@ public class UploadPage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Upload.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/upload.jsp");
             
         rd.forward(request, response);
     }

@@ -27,8 +27,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
  *
  * @author Connor131
  */
-@WebServlet(name = "SearchUser", urlPatterns = {"/Profile/*"})
-public class searchUser extends HttpServlet {
+@WebServlet(name = "SearchedProfile", urlPatterns = {"/profile/*"})
+public class SearchedProfile extends HttpServlet {
 
      private Cluster cluster;   
 

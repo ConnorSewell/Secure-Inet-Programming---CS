@@ -60,10 +60,10 @@
 
         <%
             for (int i = 0; i < users.size(); i++) {
-          //  System.out.println("?.. " + tester.get(i));
+        
 %>
 
-        <a style = "display: block; text-align: center; margin-top: 2px;" href ="Profile/<%=users.get(i)%>" class = "tester"><%=users.get(i)%></a>
+        <a style = "display: block; text-align: center; margin-top: 2px;" href ="/Instagrim/profile/<%=users.get(i)%>" class = "tester"><%=users.get(i)%></a>
 
         <%
                 }

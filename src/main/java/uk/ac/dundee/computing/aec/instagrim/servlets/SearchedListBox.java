@@ -7,6 +7,7 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -17,16 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
-import uk.ac.dundee.computing.aec.instagrim.models.About;
+import uk.ac.dundee.computing.aec.instagrim.models.Search;
+import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "profile", urlPatterns = {"/profile"})
-public class Profile extends HttpServlet {
+@WebServlet(name = "SearchedListBox", urlPatterns = {"/SearchedListBox"})
+public class SearchedListBox extends HttpServlet {
 
     private Cluster cluster;
 
@@ -35,48 +35,26 @@ public class Profile extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //String args[] = Convertors.SplitRequestPath(request);
-        
         HttpSession session = request.getSession();
-        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        
-        //System.out.println("First: " + args[0] + "Second: " + args[1] + "Third: " + args[2]);
 
-        About about = new About();
-        about.setCluster(cluster);
+        String user = request.getParameter("user");
+   
+        userSearch us = new userSearch();
 
-        aboutUser au = new aboutUser();
+        Search search = new Search();
+        search.setCluster(cluster);
 
-        String aboutUser = about.getAbout(lg.getUsername());
-        System.out.println("About: " + aboutUser);
+        us.setSearchedUser(user);
+        us.setUsers(search.getUsers(user));
 
-        au.setAbout(about.getAbout(lg.getUsername()));
-        au.setUUID(about.getPicId(lg.getUsername()));
+        session.setAttribute("userSearch", us);
 
-        au.setFollowers(about.getFollowers(lg.getUsername()));
-        au.setFollowing(about.getFollowing(lg.getUsername()));
-
-        au.setIdValid();
-
-        au.setWallComment(about.getWallComments(lg.getUsername()));
-
-        session.setAttribute("aboutUser", au);
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
-
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedUser.jsp");
         rd.forward(request, response);
-
     }
 
     /**

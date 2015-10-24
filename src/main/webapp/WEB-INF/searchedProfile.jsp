@@ -170,10 +170,12 @@
         </div>
 
 
-        <!--   <form method="POST" action="/Instagrim/Followers">
+          <form method="POST" action="/Instagrim/Followers">
            <button>Follow this user</button>
            </form>
-        --> 
+                    
+                <a href = "/Instagrim/Images/<%=us.getSearchedUser()%>">Gallery!</a>
+        
         </body>
 
         <style>

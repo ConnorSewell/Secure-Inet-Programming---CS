@@ -164,6 +164,9 @@ public class PicModel {
        
         boolean colour=false;
         
+        if(filter!=null)
+        {
+        
         for(int i = 0; i < filter.length; i++)
         {
             if(filter[i].equals("rotate90"))
@@ -186,11 +189,13 @@ public class PicModel {
               colour = true;
             }
         }
-        
+        }
         if(!colour)
         {
             img = apply(img, OP_GRAYSCALE);
         }
+        
+        
         
 
         return pad(img, 2);
@@ -205,6 +210,8 @@ public class PicModel {
         
         boolean colour=false;
         
+        if(filter!=null)
+        {
         for(int i = 0; i < filter.length; i++)
         {
             if(filter[i].equals("rotate90"))
@@ -228,6 +235,7 @@ public class PicModel {
             }
         }
         
+        }
         if(!colour)
         {
             img = apply(img, OP_GRAYSCALE);

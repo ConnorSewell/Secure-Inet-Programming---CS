@@ -19,21 +19,37 @@ import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.AboutUser;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserSearch;
+import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
+//import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
+import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "WallComment", urlPatterns = {"/WallComment"})
-public class WallComment extends HttpServlet {
+@WebServlet(name = "wallComment", urlPatterns = {"/wallComment"})
+public class WallComments extends HttpServlet {
 
-    private Cluster cluster;   
+    private Cluster cluster;
 
-     public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
     }
 
     /**
@@ -47,36 +63,34 @@ public class WallComment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String username="majed";
+
+        String username = "majed";
         String wallComment = request.getParameter("wallComment");
         String postTo = request.getParameter("who");
-        HttpSession session=request.getSession();
-       
-        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        AboutUser au = (AboutUser) session.getAttribute("aboutUser");
-        UserSearch us = (UserSearch) session.getAttribute("useSearch");
-        
+        HttpSession session = request.getSession();
+
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        aboutUser au = (aboutUser) session.getAttribute("aboutUser");
+        userSearch us = (userSearch) session.getAttribute("useSearch");
+
         String userFrom = lg.getUsername();
         About about = new About();
 
         about.setCluster(cluster);
+
+        Date date = new Date();
+        about.setWallComments(postTo, userFrom, wallComment, date);
+        au.setWallComment(about.getWallComments(postTo));
        
-       Date date = new Date();
-       about.setWallComments(postTo, userFrom, wallComment, date);
-       au.setWallComments(about.getWallComments(postTo));
-        
-      if(!postTo.equals(lg.getUsername()))
-      {
-         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/SearchedProfile.jsp");
-         rd.forward(request, response);
-      }
-       
-      
-       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UserProfile.jsp");
-       rd.forward(request, response);
-        
-        
+
+        if (!postTo.equals(lg.getUsername())) {
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
+            rd.forward(request, response);
+        }
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
+        rd.forward(request, response);
+
     }
 
     /**

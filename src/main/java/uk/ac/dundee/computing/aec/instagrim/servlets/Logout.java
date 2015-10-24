@@ -33,13 +33,12 @@ public class Logout extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-             HttpSession session=request.getSession();
-             session.invalidate();
+        HttpSession session=request.getSession();
+        session.invalidate();
              
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/initial.jsp");
 	rd.forward(request, response);
-             //response.sendRedirect("/Instagrim");
-           
+
         }
     }
    
