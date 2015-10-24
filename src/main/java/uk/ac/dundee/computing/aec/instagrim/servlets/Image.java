@@ -140,11 +140,17 @@ public class Image extends HttpServlet {
     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String profilePic = request.getParameter("profilePic"); //http://www.coderanch.com/t/287125/JSP/java/boolean-parameters
+       // String profilePic = request.getParameter("pic"); //http://www.coderanch.com/t/287125/JSP/java/boolean-parameters
         String[] filter = request.getParameterValues("filter");
         HttpSession session=request.getSession();
         Pic p = new Pic();
         session.setAttribute("Pic", p);
+        
+        String args[] = Convertors.SplitRequestPath(request);
+        
+        String pictype = args[2];
+        
+        System.out.println("profilePic here is... " + pictype);
         
         for (Part part : request.getParts()) {
             System.out.println("Part Name: " + part.getName());
@@ -166,13 +172,13 @@ public class Image extends HttpServlet {
                 System.out.println("Length : " + b.length);
                 PicModel tm = new PicModel();
                 tm.setCluster(cluster);
-                tm.insertPic(b, type, filename, username, profilePic, filter);
+                tm.insertPic(b, type, filename, username, pictype, filter);
          
                 is.close();
             }
  
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/upload.jsp");
-            rd.forward(request, response);
+            response.sendRedirect("/Instagrim/upload/" + pictype);
+           // rd.forward(request, response);
         }
     }
 

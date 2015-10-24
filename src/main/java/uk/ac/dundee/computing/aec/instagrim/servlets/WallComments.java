@@ -84,11 +84,14 @@ public class WallComments extends HttpServlet {
        
 
         if (!postTo.equals(lg.getUsername())) {
+          //response.sendRedirect("/Instagrim/profile/test2");
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
             rd.forward(request, response);
         }
+        
+         response.sendRedirect("/Instagrim/profile");
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
+       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
         rd.forward(request, response);
 
     }

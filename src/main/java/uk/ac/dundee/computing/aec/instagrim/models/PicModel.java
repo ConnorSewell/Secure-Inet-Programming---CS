@@ -82,6 +82,7 @@ public class PicModel {
             int processedlength=processedb.length;
             Session session = cluster.connect("ConnorSewellsInstagrim");
 
+            PreparedStatement psInsertProfilePic = session.prepare("update profilepage set picid= " + picid + " where user = '" + user + "'"); 
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
             PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
             PreparedStatement psInsertPicToFollowers = session.prepare("insert into followpics (user, picTime, picid) values(?,?,?)");
@@ -89,6 +90,7 @@ public class PicModel {
             BoundStatement bsInsertPic = new BoundStatement(psInsertPic);
             BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
             BoundStatement bsInsertPicToFollowers = new BoundStatement(psInsertPicToFollowers);
+            BoundStatement bsInsertProfilePic = new BoundStatement(psInsertProfilePic);
             
             Date DateAdded = new Date();
             System.out.println("Date is... " + DateAdded);
@@ -96,11 +98,10 @@ public class PicModel {
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
             session.execute(bsInsertPicToFollowers.bind(user, DateAdded, picid));
             
-               if(profilePic.equals("true"))
+               if(profilePic.equals("profilepic"))
               {
-                   PreparedStatement ps = session.prepare("update profilepage set picid= " + picid + " where user = '" + user + "'");
-                   BoundStatement boundStatement = new BoundStatement(ps);
-                   session.execute(boundStatement.bind());
+                   
+                   session.execute(bsInsertProfilePic.bind());
               }
                 
             PreparedStatement psInsertCommentTab = session.prepare("insert into usercomments (picid) values (?)");

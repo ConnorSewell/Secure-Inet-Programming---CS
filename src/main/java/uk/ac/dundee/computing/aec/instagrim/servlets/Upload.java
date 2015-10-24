@@ -13,14 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "upload", urlPatterns = {"/upload"})
+@WebServlet(name = "upload", urlPatterns = {"/upload/profile", "/upload/gallery"})
 public class Upload extends HttpServlet {
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,9 +34,20 @@ public class Upload extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/upload.jsp");
-            
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/404page.jsp");
+
+        String args[] = Convertors.SplitRequestPath(request);
+
+        if (args[2].equals("profile")) 
+        {
+            rd = request.getRequestDispatcher("/WEB-INF/upload.jsp?pic=profile");
+        } 
+        else if (args[2].equals("gallery")) 
+        {
+            rd = request.getRequestDispatcher("/WEB-INF/upload.jsp?pic=gallery");
+        }
+
         rd.forward(request, response);
     }
 
@@ -51,7 +62,7 @@ public class Upload extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

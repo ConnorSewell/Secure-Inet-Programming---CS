@@ -47,12 +47,8 @@ public class Profile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //String args[] = Convertors.SplitRequestPath(request);
-        
         HttpSession session = request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        
-        //System.out.println("First: " + args[0] + "Second: " + args[1] + "Third: " + args[2]);
 
         About about = new About();
         about.setCluster(cluster);

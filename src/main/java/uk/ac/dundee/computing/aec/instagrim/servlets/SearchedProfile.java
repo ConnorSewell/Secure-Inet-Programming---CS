@@ -63,16 +63,15 @@ public class SearchedProfile extends HttpServlet {
 
         aboutUser au = new aboutUser();
         userSearch us = new userSearch();
+        LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn");
 
         String aboutUser = about.getAbout(profileOf);
         System.out.println("About: " + aboutUser);
 
         au.setAbout(about.getAbout(profileOf));
         au.setUUID(about.getPicId(profileOf));
-
         au.setFollowers(about.getFollowers(profileOf));
         au.setFollowing(about.getFollowing(profileOf));
-
         au.setWallComment(about.getWallComments(profileOf));
         
         au.setIdValid();
@@ -83,7 +82,19 @@ public class SearchedProfile extends HttpServlet {
         session.setAttribute("aboutUser", au);
         session.setAttribute("userSearch", us);
         
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
+         RequestDispatcher rd = null;
+      
+        
+        if(lg.getUsername().equals(profileOf))
+        {
+            rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
+        }
+        else
+        {
+            rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
+        }
+        
+        
 
         rd.forward(request, response);
     }

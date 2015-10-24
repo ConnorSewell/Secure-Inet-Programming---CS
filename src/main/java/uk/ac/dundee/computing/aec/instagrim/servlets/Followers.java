@@ -64,8 +64,9 @@ public class Followers extends HttpServlet {
         about.addFollower(lg.getUsername(), us.getSearchedUser(), date);
         about.addFollowing(lg.getUsername(), us.getSearchedUser(), date);
         
+        System.out.println("Searched user is: " + us.getSearchedUser());
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedUser.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
         rd.forward(request, response);
     }
 

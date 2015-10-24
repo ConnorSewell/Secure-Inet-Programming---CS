@@ -72,9 +72,11 @@ public class UserDescription extends HttpServlet {
        about.setCluster(cluster);
        
        about.insertAbout(username, aboutIn);
+       
+       response.sendRedirect("/Instagrim/profile");
 
-       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
-       rd.forward(request, response);
+      // RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
+     //  rd.forward(request, response);
             
         
     }

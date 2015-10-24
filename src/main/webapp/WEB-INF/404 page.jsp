@@ -37,7 +37,7 @@
         else
         {
              %>
-             <h3> <a href = "/Instagrim/home">Click here to be redirected...  </a></h3>
+             <h3> <a href = "/Instagrim/Home">Click here to be redirected...  </a></h3>
             <%
         }
         

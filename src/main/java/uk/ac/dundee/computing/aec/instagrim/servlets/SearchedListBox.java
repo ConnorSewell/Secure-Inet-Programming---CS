@@ -25,7 +25,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
  *
  * @author Connor131
  */
-@WebServlet(name = "SearchedListBox", urlPatterns = {"/SearchedListBox"})
+@WebServlet(name = "SearchBox", urlPatterns = {"/searchbox"})
 public class SearchedListBox extends HttpServlet {
 
     private Cluster cluster;
@@ -39,22 +39,10 @@ public class SearchedListBox extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-
         String user = request.getParameter("user");
-   
-        userSearch us = new userSearch();
 
-        Search search = new Search();
-        search.setCluster(cluster);
+        response.sendRedirect("/Instagrim/search/"+ user);
 
-        us.setSearchedUser(user);
-        us.setUsers(search.getUsers(user));
-
-        session.setAttribute("userSearch", us);
-
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedUser.jsp");
-        rd.forward(request, response);
     }
 
     /**
