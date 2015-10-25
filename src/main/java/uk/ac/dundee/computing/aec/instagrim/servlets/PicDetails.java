@@ -16,9 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import com.datastax.driver.core.Cluster;
-import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import uk.ac.dundee.computing.aec.instagrim.models.Comments;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
@@ -29,7 +27,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
  *
  * @author Connor131
  */
-@WebServlet(name = "picdetails", urlPatterns = {"/Images/picdetails"})
+@WebServlet(name = "picdetails", urlPatterns = {"/Images/pic"})
 public class PicDetails extends HttpServlet {
 
     private Cluster cluster;   
@@ -42,7 +40,7 @@ public class PicDetails extends HttpServlet {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
-     *
+     * Responsible for getting the details of a picture e.g. its comments, likes 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs

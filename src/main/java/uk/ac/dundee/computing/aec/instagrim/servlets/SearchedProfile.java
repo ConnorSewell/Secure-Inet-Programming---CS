@@ -5,7 +5,6 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
-
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -18,30 +17,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
-import uk.ac.dundee.computing.aec.instagrim.models.Search;
 import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
+
 /**
  *
  * @author Connor131
  */
-@WebServlet(name = "SearchedProfile", urlPatterns = {"/profile/*"})
+@WebServlet(name = "SearchedProfile", urlPatterns = {"/Profiles/*"})
 public class SearchedProfile extends HttpServlet {
 
-     private Cluster cluster;   
+    private Cluster cluster;
 
-     public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
-     
-  
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
-     * Handles the HTTP <code>GET</code> method.
-     * Outputs users
+     * Handles the HTTP <code>GET</code> method. Servlet responsible for getting
+     * the searched users profile page details
+     * Responsible for getting the details of the user whose been searched for
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -50,12 +48,11 @@ public class SearchedProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
         HttpSession session = request.getSession();
-        
+
         String args[] = Convertors.SplitRequestPath(request);
-       
+
         String profileOf = args[2];
 
         About about = new About();
@@ -63,7 +60,8 @@ public class SearchedProfile extends HttpServlet {
 
         aboutUser au = new aboutUser();
         userSearch us = new userSearch();
-        LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn");
+        
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
 
         String aboutUser = about.getAbout(profileOf);
         System.out.println("About: " + aboutUser);
@@ -73,35 +71,28 @@ public class SearchedProfile extends HttpServlet {
         au.setFollowers(about.getFollowers(profileOf));
         au.setFollowing(about.getFollowing(profileOf));
         au.setWallComment(about.getWallComments(profileOf));
-        
+
         au.setIdValid();
-        
+
         us.setSearchedUser(profileOf);
-        
 
         session.setAttribute("aboutUser", au);
         session.setAttribute("userSearch", us);
-        
-         RequestDispatcher rd = null;
-      
-        
-        if(lg.getUsername().equals(profileOf))
-        {
-            rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
-        }
-        else
-        {
+
+        RequestDispatcher rd = null;
+
+        if (lg.getUsername().equals(profileOf)) {
+            response.sendRedirect("/Instagrim/profile");
+        } else {
             rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
         }
-        
-        
 
         rd.forward(request, response);
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
-     * Starts searching for users
+     * Handles the HTTP <code>POST</code> method. Starts searching for users
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -110,8 +101,7 @@ public class SearchedProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-    
+
     }
 
     /**

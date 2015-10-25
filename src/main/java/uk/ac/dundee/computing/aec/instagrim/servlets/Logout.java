@@ -24,7 +24,7 @@ public class Logout extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     * Invalides session, therefore logging user out
+     * Invalidates session, therefore logging user out
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs

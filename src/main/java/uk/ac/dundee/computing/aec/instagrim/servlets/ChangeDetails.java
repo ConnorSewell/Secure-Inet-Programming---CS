@@ -6,10 +6,7 @@
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.UDTValue;
-import com.datastax.driver.core.UserType;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import javax.servlet.RequestDispatcher;
@@ -21,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.Address;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
@@ -31,7 +27,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.userDetails;
  *
  * @author Connor131
  */
-@WebServlet(name = "ChangeDetails", urlPatterns = {"/ChangeDetails"})
+@WebServlet(name = "ChangeDetails", urlPatterns = {"/Account"})
 public class ChangeDetails extends HttpServlet {
 
     private Cluster cluster;
@@ -41,10 +37,9 @@ public class ChangeDetails extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method. Retrieves users details.
-     *
+     * Servlet responsible for getting the users account details
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -53,17 +48,17 @@ public class ChangeDetails extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession session = request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
 
         User us = new User();
-
         us.setCluster(cluster);
+
         userDetails ud = us.getDetails(lg.getUsername());
         session.setAttribute("userDetails", ud);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ChangeDetails.jsp");
-
         rd.forward(request, response);
     }
 
@@ -87,7 +82,7 @@ public class ChangeDetails extends HttpServlet {
         userDetails ud = (userDetails) session.getAttribute("userDetails");
 
         String username = lg.getUsername();
-       
+
         String currPass = request.getParameter("currPass");
         String newPass = request.getParameter("newPass");
 
@@ -113,6 +108,8 @@ public class ChangeDetails extends HttpServlet {
         us.setCluster(cluster);
 
         if (us.IsValidUser(lg.getUsername(), currPass)) {
+            
+            lg.setPasswordState(true);
 
             if (!newPass.equals("")) {
                 us.changePass(username, currPass, newPass);
@@ -139,7 +136,10 @@ public class ChangeDetails extends HttpServlet {
                 ud.setAddressName(addressName);
                 us.changeAddress(username, addressName, street, city, zip);
             }
-
+        }
+        else
+        {
+            lg.setPasswordState(false);
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ChangeDetails.jsp");

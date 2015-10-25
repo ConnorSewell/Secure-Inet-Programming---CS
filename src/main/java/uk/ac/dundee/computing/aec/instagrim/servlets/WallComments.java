@@ -20,7 +20,6 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
-//import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
 import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
@@ -37,23 +36,11 @@ public class WallComments extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method. Responsible for adding a new
+     * wall comment to the users page. Directs to searched page or user page
+     * depending on whose wall the user comments on. E.g. would go to /profile
+     * if the user is commenting on their own page
      *
      * @param request servlet request
      * @param response servlet response
@@ -64,15 +51,13 @@ public class WallComments extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = "majed";
         String wallComment = request.getParameter("wallComment");
         String postTo = request.getParameter("who");
         HttpSession session = request.getSession();
 
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         aboutUser au = (aboutUser) session.getAttribute("aboutUser");
-        userSearch us = (userSearch) session.getAttribute("useSearch");
-
+       
         String userFrom = lg.getUsername();
         About about = new About();
 
@@ -80,19 +65,15 @@ public class WallComments extends HttpServlet {
 
         Date date = new Date();
         about.setWallComments(postTo, userFrom, wallComment, date);
-        au.setWallComment(about.getWallComments(postTo));
        
 
         if (!postTo.equals(lg.getUsername())) {
-          //response.sendRedirect("/Instagrim/profile/test2");
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
-            rd.forward(request, response);
+            response.sendRedirect("/Instagrim/Profiles/" + postTo);
+           // RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
+           // r//d.forward(request, response);
         }
-        
-         response.sendRedirect("/Instagrim/profile");
 
-       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
-       rd.forward(request, response);
+       response.sendRedirect("/Instagrim/Profile");
 
     }
 

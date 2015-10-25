@@ -7,7 +7,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -30,46 +29,39 @@ import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 @WebServlet(name = "Likes", urlPatterns = {"/Images/Likes"})
 public class Likes extends HttpServlet {
 
-  
-    Cluster cluster=null;
-
+    Cluster cluster = null;
 
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
 
-  
-   
     @Override
+    /**
+     * Controls the process of adding a like to a picture
+     *
+     * @param: request/response of servlet
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session=request.getSession();
-       
-        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
-        userSearch us = (userSearch)session.getAttribute("userSearch");
-        Pic p = (Pic)session.getAttribute("Pic");
-        
-        String owner = request.getParameter("picOwner");
-        
+
+        HttpSession session = request.getSession();
+
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        Pic p = (Pic) session.getAttribute("Pic");
+
         Comments comments = new Comments();
         comments.setCluster(cluster);
-        
+
         String likedBy = lg.getUsername();
         Date likeDate = new Date();
-      
+
         java.util.UUID picId = p.returnUUID();
 
         comments.addLike(picId, likedBy, likeDate);
-
-        p.setPicLikes(comments.getLikes(p.returnUUID()));
- 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
-        System.out.println("Pic is.. " + p.getPicAdded());
-        rd.forward(request, response);
-      
         
+        response.sendRedirect("/Instagrim/Images/pic?picId="+p.getSUUID());
+
     }
 
     /**

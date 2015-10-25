@@ -7,7 +7,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -26,7 +25,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
  *
  * @author Connor131
  */
-@WebServlet(name = "AddComment", urlPatterns = {"/Images/comments"})
+@WebServlet(name = "AddComment", urlPatterns = {"/Images/Addcomment"})
 public class AddComment extends HttpServlet {
 
     private Cluster cluster;
@@ -36,10 +35,10 @@ public class AddComment extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
-     *
+     * Responsible for controlling the adding of a comment functionality, and updating the session with the new 
+     * comments.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -48,27 +47,23 @@ public class AddComment extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
 
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         Pic p = (Pic) session.getAttribute("Pic");
 
+        Date commentDate = new Date();
         Comments comments = new Comments();
         comments.setCluster(cluster);
 
         String commentBy = lg.getUsername();
-        Date commentDate = new Date();
         String comment = request.getParameter("comment");
         java.util.UUID picId = p.returnUUID();
 
-        comments.addComment(comment, picId, commentBy, commentDate);
-
-        p.setPicComment(comments.getComments(p.returnUUID()));
-       
-
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
-        rd.forward(request, response);
+        comments.addComment(comment.replace("'", "''"), picId, commentBy, commentDate);
+      
+        response.sendRedirect("/Instagrim/Images/pic?picId="+p.getSUUID());
     }
 
     /**

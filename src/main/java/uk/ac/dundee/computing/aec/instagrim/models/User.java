@@ -17,7 +17,6 @@ import com.datastax.driver.core.UserType;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.set;
-import com.datastax.driver.mapping.Mapper;
 import com.datastax.driver.mapping.MappingManager;
 import com.datastax.driver.mapping.UDTMapper;
 import java.io.UnsupportedEncodingException;
@@ -47,7 +46,7 @@ public class User {
      *
      * @param username: inputted username
      * @param password: inputted password
-     * @return true if valid, false if invalid
+     * @return true if valid, false if invalid or password cant be checked
      */
     public boolean IsValidUser(String username, String password) {
 
@@ -85,14 +84,14 @@ public class User {
         return false;
     }
 
-       
-     /**
+    /**
      * Registers a user
      *
      * @param username: inputted username
      * @param password: inputted password
-     * @params lastName, email, address, street, city, zip: user personal details
-     * @return true if valid, false if invalid
+     * @params lastName, email, address, street, city, zip: user personal
+     * details
+     * @return true if registered, false if the password cant be checked
      */
     public boolean RegisterUser(String username, String password, String firstName, String lastName, String email, String address, String street, String city, int zip) {
 
@@ -131,7 +130,8 @@ public class User {
     }
 
     /**
-     * Checks if the the username the user is trying to register with is already taken
+     * Checks if the the username the user is trying to register with is already
+     * taken
      *
      * @param username: inputted username
      * @return true if valid, false if invalid
@@ -150,8 +150,6 @@ public class User {
             return true;
         } else {
             for (Row row : rs) {
-
-                //  String StoredPass = row.getString("password");
                 if (row.getString("login").compareTo(username) == 0) {
                     return false;
                 }
@@ -161,12 +159,11 @@ public class User {
         return true;
     }
 
-     /**
+    /**
      * Checks if the login details are valid
      *
      * @param username: inputted username
-     * @param password: inputted password
-     * @return true if valid, false if invalid
+     * @return returns an object representing the users details
      */
     public userDetails getDetails(String username) {
 
@@ -208,7 +205,13 @@ public class User {
         return ud;
     }
 
-    public boolean changeAddress(String username, String addressName, String street, String city, int zip) {
+    /**
+     * Changes any element of the users address
+     *
+     * @param username: User whose address is to be changed
+     * @param addressName, street, city, zip: Details of the users new address
+     */
+    public void changeAddress(String username, String addressName, String street, String city, int zip) {
         //http://www.datastax.com/dev/blog/datastax-java-driver-2-1 21/10/2015 22:30 for creation of addressType/addressIn UDT
         UserType addressType = cluster.getMetadata().getKeyspace("ConnorSewellsInstagrim").getUserType("address");
         UDTValue addressIn = addressType.newValue().setString("street", street).setString("city", city).setInt("zip", zip);
@@ -222,14 +225,16 @@ public class User {
                 .with(set("addresses", addresses))
                 .where(eq("login", username));
         session.execute(statement);
-        return false;
-
     }
-    /*
-     * Changing password
-     */
 
-    public boolean changePass(String username, String currPass, String newPass) {
+    /**
+     * Changes the users password
+     *
+     * @param username: User whose password is to be changed
+     * @param currPass: Used to confirm that the user has the correct password
+     * @param newPass: The users new password
+     */
+    public void changePass(String username, String currPass, String newPass) {
 
         AeSimpleSHA1 sha1handler = new AeSimpleSHA1();
         String EncodedPassword = null;
@@ -237,58 +242,58 @@ public class User {
             EncodedPassword = sha1handler.SHA1(newPass);
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException et) {
             System.out.println("Can't check your password");
-            return false;
         }
+
         Session session = cluster.connect("ConnorSewellsInstagrim");
         PreparedStatement ps = session.prepare("update userprofiles set password= '" + EncodedPassword + "' where login = '" + username + "'");
-
         BoundStatement boundStatement = new BoundStatement(ps);
-        session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                ));
-
-        return true;
-
+        session.execute(boundStatement.bind());
     }
 
-    /*
-     * Changing forename
+    /**
+     * Changes the users first name
+     *
+     * @param username: User whose first name is to be changed
+     * @param forename: The users new first name
      */
-    public boolean changeFName(String username, String firstName) {
+    public void changeFName(String username, String forename) {
+
         Session session = cluster.connect("ConnorSewellsInstagrim");
-        PreparedStatement ps = session.prepare("update userprofiles set first_name= '" + firstName + "' where login = '" + username + "'");
+        PreparedStatement ps = session.prepare("update userprofiles set first_name= '" + forename + "' where login = '" + username + "'");
 
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute(boundStatement.bind());
 
-        return true;
     }
 
-    /*
-     * Changing surname
+    /**
+     * Changes the users surname
+     *
+     * @param username: User whose surname is to be changed
+     * @param surname: The users new surname
      */
-    public boolean changeSName(String username, String surName) {
+    public void changeSName(String username, String surname) {
         Session session = cluster.connect("ConnorSewellsInstagrim");
-        PreparedStatement ps = session.prepare("update userprofiles set last_name= '" + surName + "' where login = '" + username + "'");
+        PreparedStatement ps = session.prepare("update userprofiles set last_name= '" + surname + "' where login = '" + username + "'");
 
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute(boundStatement.bind());
-
-        return true;
     }
 
-    /*
-     * Changing email
+    
+     /**
+     * Changes the users email address
+     *
+     * @param username: User whose email is to be changed
+     * @param email: The users new email address
      */
-    public boolean changeEmail(String username, Set<String> email) {
+    public void changeEmail(String username, Set<String> email) {
         Session session = cluster.connect("ConnorSewellsInstagrim");
         Statement statement = QueryBuilder.update("userprofiles")
                 .with(set("email", email))
                 .where(eq("login", username));
 
         session.execute(statement);
-        return true;
-
     }
 
     public void setCluster(Cluster cluster) {

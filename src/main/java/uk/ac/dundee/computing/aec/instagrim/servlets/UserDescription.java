@@ -7,7 +7,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -30,14 +29,14 @@ public class UserDescription extends HttpServlet {
 
     private Cluster cluster;
 
-
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method. Responsible for changing the
+     * users description on their profile page
      *
      * @param request servlet request
      * @param response servlet response
@@ -47,41 +46,32 @@ public class UserDescription extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           
+
         String username = "majed";
-        String aboutIn = "about";
-       
-        HttpSession session=request.getSession();
-       
-        LoggedIn lg= (LoggedIn)session.getAttribute("LoggedIn");
+        String aboutIn = "No description to be shown";
+
+        HttpSession session = request.getSession();
+
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         aboutUser au = (aboutUser) session.getAttribute("aboutUser");
-       
-        if(au!=null)
-        {
-           aboutIn=request.getParameter("aboutUser");
-           au.setAbout(aboutIn);
-        }
-       
-        if(lg!=null)
-        {
-            username=lg.getUsername();
-        }
- 
-       About about = new About();
 
-       about.setCluster(cluster);
-   
-       
-       about.insertAbout(username, aboutIn);
-       
-      // response.sendRedirect("/Instagrim/profile");
+        if (au != null) {
+            aboutIn = request.getParameter("aboutUser");
+            au.setAbout(aboutIn);
+        }
 
-       RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
-       rd.forward(request, response);
-            
-        
+        if (lg != null) {
+            username = lg.getUsername();
+        }
+
+        About about = new About();
+        about.setCluster(cluster);
+        about.insertAbout(username, aboutIn);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
+        rd.forward(request, response);
+
     }
-
 
     /**
      * Returns a short description of the servlet.

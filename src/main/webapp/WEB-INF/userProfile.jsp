@@ -25,11 +25,11 @@
         <div id ="navBar">
             <ul>
                 <li><a href="/Instagrim/Home">Home</a></li>
-                <li><a href="/Instagrim/profile">Profile</a></li>
-                <li><a href="/Instagrim/upload/gallery">Upload</a></li>
+                <li><a href="/Instagrim/Profile">Profile</a></li>
+                <li><a href="/Instagrim/Upload/Gallery">Upload</a></li>
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
                 <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                <li><a href="/Instagrim/ChangeDetails">Account</a></li>
+                <li><a href="/Instagrim/Account">Account</a></li>
                 <li><a href="/Instagrim/Logout">Log Out</a></li>
 
                 <form method="GET"  action="/Instagrim/searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
@@ -92,7 +92,7 @@
                     %>
 
 
-                    <form action="/Instagrim/upload/profile">
+                    <form action="/Instagrim/Upload/Profile">
                         <div style ="text-align:center">
                             <button style = "margin-top: 4%">Edit profile picture</button>
                         </div>

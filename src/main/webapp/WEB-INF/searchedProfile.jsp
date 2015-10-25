@@ -24,19 +24,18 @@
         %>
         <div id ="navBar">
             <ul>
-             <li><a href="Home">Home</a></li>
-                     <li><a href="/Instagrim/Home">Home</a></li>
-                    <li><a href="/Instagrim/profile">Profile</a></li>
-                    <li><a href="/Instagrim/upload/gallery">Upload</a></li>
-                    <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                    <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                    <li><a href="/Instagrim/ChangeDetails">Account</a></li>
-                    <li><a href="/Instagrim/Logout">Log Out</a></li>
+                <li><a href="/Instagrim/Home">Home</a></li>
+                <li><a href="/Instagrim/Profile">Profile</a></li>
+                <li><a href="/Instagrim/Upload/Gallery">Upload</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/Instagrim/SampleImages">Samples</a></li>
+                <li><a href="/Instagrim/Account">Account</a></li>
+                <li><a href="/Instagrim/Logout">Log Out</a></li>
 
-                    <form method="GET"  action="/Instagrim/searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
-                        <input type="text" name="user" placeholder = "Search for user">
-                        <input type="submit" value="Search"> 
-                    </form>
+                <form method="GET"  action="/Instagrim/searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                    <input type="text" name="user" placeholder = "Search for user">
+                    <input type="submit" value="Search"> 
+                </form>
             </ul> 
             </br>
 
@@ -65,6 +64,10 @@
 
                 </p>
             </div>
+            <form method="POST" action="/Instagrim/profile/Followers" style = "margin-top:5px; margin-left: 10%">
+                <input type="submit" value="Follow">
+            </form>
+
         </div>
 
 
@@ -73,6 +76,7 @@
                 if (au.getIdValid() == true) {
                     String id = au.getUUID();
             %>
+
 
             <div id ="imgbut">
                 <div style = "height: 300px; width: 300px;">
@@ -84,8 +88,8 @@
                 } else {
                 %>
                 <div id ="imgbut">
-                    <div style = "height: 300px; width: 300px;">
-                        <img style = "height: 100%; width: 100%" src="anonymous.jpg">
+                    <div style = "height: 300px; width: 300px; background:black">
+
                     </div>
 
                     <%
@@ -160,11 +164,11 @@
 
 
             <div style ="margin-left: 1.2%; margin-top: 5px; width: 500px">
-                <form method="POST" action="wallComment?who=<%=lg.getUsername()%>">
+                <form method="POST" action="/Instagrim/wallComment?who=<%=us.getSearchedUser()%>">
                     <div>
                         <textarea style = "width: 614px; height: 50px" name="wallComment" placeholder = "Post to your wall" wrap="virtual"></textarea>
                     </div>
-                    <div style = "margin-left: 55%">
+                    <div style = "margin-left: 57%; margin-top: 10px">
                         <input style = "width: 30%" type="submit" value="Post">
                     </div>
                 </form>
@@ -172,10 +176,10 @@
         </div>
     </div>
 
-    <form method="POST" action="Followers" style = "margin-top:5px; margin-left: 86%">
-        <input type="submit" value="Follow">
-    </form>
 
+    <div style ="text-align:center; margin-top: 20px">
+        <a href ="/Instagrim/Images/<%=us.getSearchedUser()%>"><%=us.getSearchedUser()%>'s Gallery</a>
+    </div>
 
 
 

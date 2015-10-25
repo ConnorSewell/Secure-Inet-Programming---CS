@@ -7,19 +7,13 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
-import uk.ac.dundee.computing.aec.instagrim.models.Search;
-import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
 /**
  *
@@ -35,12 +29,22 @@ public class SearchedListBox extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     * Redirects to the searchlist servlet when the search bar is used. This servlet is used as a work around to stick to REST
+     * else I would require a parameter to be sent in the URI, making /search?id= and /search/ which is
+     * confusing to the user. This servlet is NOT called when searching via direct URI
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String user = request.getParameter("user");
-        response.sendRedirect("/Instagrim/search/"+ user);
+        response.sendRedirect("/Instagrim/Search/"+ user);
 
     }
 

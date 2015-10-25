@@ -55,9 +55,9 @@ public class LoggedIn {
         return Password;
     }
     
-    public void setPasswordState()
+    public void setPasswordState(boolean state)
     {
-        invalidPass=true;
+        invalidPass=state;
     }
     
     public boolean getPasswordState()

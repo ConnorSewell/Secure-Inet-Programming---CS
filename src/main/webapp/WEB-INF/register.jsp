@@ -17,8 +17,8 @@
     <body>
 
         <header>
-            <h1>InstaGrim!</h1>
-            <h2>Register</h2>
+            <h1 style = "text-align: center">InstaGrim</h1>
+            <h2 style = "text-align: center">Register</h2>
         </header>
 
         <nav>
@@ -26,13 +26,13 @@
         </nav>
 
         <article>
-            <h3>Register to start sharing your memories</h3>
+            <h3 style = "text-align: center">Register to start sharing your memories</h3>
 
             <%LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                 if (lg != null) {
                     if (lg.getInvalidIn()) {
             %>
-            <h4> invalid username.</h4>
+            <h4 style = "text-align: center"> Invalid Account Details </h4>
             <%
                     }
                 }
@@ -62,7 +62,7 @@
                     </form>
                 </div>
 
-                <form method ="Post" action ="/initial.jsp">
+                <form method ="Post" action ="/initial.jsp" style = "margin-left: 46.5%; margin-top:10px">
                     <input type ="submit" value ="To log in page">
                 </form>
 

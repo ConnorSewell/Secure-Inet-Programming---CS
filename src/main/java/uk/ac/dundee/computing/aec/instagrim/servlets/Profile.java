@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
-import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
@@ -25,7 +24,7 @@ import uk.ac.dundee.computing.aec.instagrim.models.About;
  *
  * @author Connor131
  */
-@WebServlet(name = "profile", urlPatterns = {"/profile"})
+@WebServlet(name = "profile", urlPatterns = {"/Profile"})
 public class Profile extends HttpServlet {
 
     private Cluster cluster;
@@ -37,7 +36,7 @@ public class Profile extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
-     *
+     * Responsible for getting the details of a users profile, and loading it
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs

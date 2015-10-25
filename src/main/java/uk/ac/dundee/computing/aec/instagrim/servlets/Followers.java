@@ -7,9 +7,7 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
-import uk.ac.dundee.computing.aec.instagrim.models.Search;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
 
@@ -40,7 +37,7 @@ public class Followers extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
-     * Adds followers/following
+     * Servlet responsible for adding followers/following
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -59,14 +56,14 @@ public class Followers extends HttpServlet {
         about.setCluster(cluster);
         System.out.println("Searched user is: " + lg.getUsername());
         
-        Date date = new Date();
+        Date followDate = new Date();
         
-        about.addFollower(lg.getUsername(), us.getSearchedUser(), date);
-        about.addFollowing(lg.getUsername(), us.getSearchedUser(), date);
+        about.addFollower(lg.getUsername(), us.getSearchedUser(), followDate);
+        about.addFollowing(lg.getUsername(), us.getSearchedUser(), followDate);
         
         System.out.println("Searched user is: " + us.getSearchedUser());
 
-        response.sendRedirect("/Instagrim/profile/"+us.getSearchedUser());
+        response.sendRedirect("/Instagrim/Profiles/"+us.getSearchedUser());
     }
 
     /**

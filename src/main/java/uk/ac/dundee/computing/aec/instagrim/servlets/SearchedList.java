@@ -7,7 +7,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -25,7 +24,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
  *
  * @author Connor131
  */
-@WebServlet(name = "SearchedList", urlPatterns = {"/SearchedList/", "/search/*"})
+@WebServlet(name = "SearchedList", urlPatterns = {"/Search/*"})
 public class SearchedList extends HttpServlet {
 
     private Cluster cluster;
@@ -35,16 +34,23 @@ public class SearchedList extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
+    /**
+     * Handles the HTTP <code>GET</code> method. Responsible for returning a
+     * list of users matching the search criteria
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
 
-        String user;
         String args[] = Convertors.SplitRequestPath(request);
-
-        user = args[2];
+        String user = args[2];
 
         userSearch us = new userSearch();
 

@@ -33,8 +33,13 @@ public class Register extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
-    /*
-     * Directs to Register
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     * Responsible for redirecting to the register page
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +50,7 @@ public class Register extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method. Controls registration process
-     *
+     * Responsible for registering a user
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -64,17 +69,19 @@ public class Register extends HttpServlet {
         String street = request.getParameter("street");
         String city = request.getParameter("city");
         String zip = request.getParameter("zip");
+        
+        HttpSession session = request.getSession();
+        LoggedIn lg = new LoggedIn();
+        session.setAttribute("LoggedIn", lg);
        
         //http://www.datastax.com/dev/blog/cql-in-2-1
 
         if (username.equals("") || password.equals("") || firstName.equals("") || lastName.equals("") || email.equals("") || address.equals("") || street.equals("") || city.equals("") || zip.equals("")) {
+            lg.setInvalidIn(true);
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
             rd.forward(request, response);
         }
 
-        HttpSession session = request.getSession();
-        LoggedIn lg = new LoggedIn();
-        session.setAttribute("LoggedIn", lg);
 
         if (!username.matches("[0-9A-Za-z_-]+") || !zip.matches("[0-9]+")) {
             lg.setInvalidIn(true);
@@ -90,6 +97,7 @@ public class Register extends HttpServlet {
 
                 lg.setLogedin();
                 lg.setUsername(username);
+                lg.setInvalidIn(false);
                 System.out.println("User is...: " + lg.getUsername());
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
                 rd.forward(request, response);

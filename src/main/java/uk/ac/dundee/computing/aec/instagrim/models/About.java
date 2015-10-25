@@ -55,7 +55,7 @@ public class About {
      */
     public String getAbout(String user) {
 
-        String userDesc = "User has not enterred a description";
+        String userDesc = "No description to show";
 
         Session session = cluster.connect("ConnorSewellsInstagrim");
 
@@ -122,16 +122,11 @@ public class About {
 
         Session session = cluster.connect("ConnorSewellsInstagrim");
 
-        System.out.println("you even here?");
-
         PreparedStatement ps = session.prepare("select comment_added, commenter, comment from wallcomments where user =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        user));
+        rs = session.execute(boundStatement.bind(user));
         if (rs.isExhausted()) {
-
             return wc;
         } else {
             for (Row row : rs) {

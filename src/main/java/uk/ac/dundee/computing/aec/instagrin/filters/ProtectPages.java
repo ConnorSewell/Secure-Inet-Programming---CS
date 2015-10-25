@@ -27,7 +27,9 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
  *
  * @author Administrator
  */
-@WebFilter(filterName = "ProtectPages", urlPatterns = {"/Image","/Logout","/SampleImages","/aboutUserController","/Home","/changePassword","/imgPreview","/searchUser","/uploadPage","/userComment","/wallComment"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE})
+@WebFilter(filterName = "ProtectPages", urlPatterns = {"/Home","/Images/Addcomment","/Account","/profile/Followers",  "/Image",
+    "/Image/*", "/Thumb/*", "/Images", "/Images/*", "/Images/Likes", "/Logout","/Images/pic","/Profile","/SampleImages","/Search/*",
+    "/searchbox", "/Profile", "/Profiles/*","/Upload/Profile", "/Upload/Gallery", "/UserDescription", "/wallComment"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE})
 public class ProtectPages implements Filter {
     
     private static final boolean debug = true;
@@ -117,8 +119,8 @@ public class ProtectPages implements Filter {
 	LoggedIn li=(LoggedIn)session.getAttribute("LoggedIn");
         System.out.println("Session in filter "+session);
         if ((li == null)  || (li.getlogedin()==false)){
-               System.out.println("Foward to login");
-                RequestDispatcher rd=request.getRequestDispatcher("/initial.jsp");
+                System.out.println("Foward to login");
+                RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/initial.jsp");
 		rd.forward(request,response);
 
             

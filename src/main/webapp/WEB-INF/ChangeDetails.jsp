@@ -14,36 +14,44 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
-        <title>Change Details</title>
+        <title>Account</title>
     </head>
     <body>
         <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-            userDetails ud = (userDetails) session.getAttribute("userDetails");%>
+            userDetails ud = (userDetails) session.getAttribute("userDetails");
+        %>
 
         <div id ="navBar">
             <ul>
-            <li><a href="Home">Home</a></li>
-                    <li><a href="/Instagrim/Home">Home</a></li>
-                    <li><a href="/Instagrim/profile">Profile</a></li>
-                    <li><a href="/Instagrim/upload/gallery">Upload</a></li>
-                    <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                    <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                    <li><a href="/Instagrim/ChangeDetails">Account</a></li>
-                    <li><a href="/Instagrim/Logout">Log Out</a></li>
 
-                    <form method="GET"  action="/Instagrim/searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
-                        <input type="text" name="user" placeholder = "Search for user">
-                        <input type="submit" value="Search"> 
-                    </form>
+                <li><a href="/Instagrim/Home">Home</a></li>
+                <li><a href="/Instagrim/Profile">Profile</a></li>
+                <li><a href="/Instagrim/Upload/Gallery">Upload</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/Instagrim/SampleImages">Samples</a></li>
+                <li><a href="/Instagrim/Account">Account</a></li>
+                <li><a href="/Instagrim/Logout">Log Out</a></li>
+
+                <form method="GET"  action="/Instagrim/searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                    <input type="text" name="user" placeholder = "Search for user">
+                    <input type="submit" value="Search"> 
+                </form>
             </ul> 
-
-
         </div>
 
         <h1 style = "text-align: center">Change password</h1>
         <h2 style = "text-align: center">Confirm current password before changing details</h2>
+        
+        <%
+            if(!lg.getPasswordState())
+            {
+                %>
+                <h3 style = "text-align: center"> Incorrect password </h3>
+                <%
+            }
+        %>
         </br>
-        <form method="POST"  action="ChangeDetails">
+        <form method="POST"  action="/Instagrim/Account">
             <div style ="text-align: center">
                 <div style ="padding-right: 5%">
                     Current Password <input type="password" name="currPass" placeholder = "Current Password" style = "margin-top: 0%;"></li>
@@ -86,10 +94,10 @@
                 <div style = "padding-left: 1.1%">
                     City <input type="text" name="city" value = "<%=ud.getAddress().getCity()%>" style = "margin-top: 5px;"></li>
                 </div>
-                <div style = "padding-left: 0.4%">
+                <div style = "padding-left: 1.5%">
                     Zip <input type="text" name="zip" value = "<%=ud.getAddress().getZip()%>" style = "margin-top: 5px;"></li>
                 </div>
-                <input type="submit" value="Change" style = "margin-top: 10px; margin-left: 3%"><!-- Moving log in button: http://stackoverflow.com/questions/3126090/css-position-a-submit-button-after-the-last-control-on-a-form -->
+                <input type="submit" value="Change" style = "margin-top: 10px; margin-left: 3%">
                 <br/>
 
             </div>
