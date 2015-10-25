@@ -18,7 +18,7 @@
     </head>
     <body>
         <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-           userDetails ud = (userDetails) session.getAttribute("userDetails");
+           UsersDetails ud = (UsersDetails) session.getAttribute("UsersDetails");
         %>
 
         <div id ="navBar">

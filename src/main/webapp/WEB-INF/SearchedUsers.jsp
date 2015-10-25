@@ -41,7 +41,7 @@
 
 
         <%
-            userSearch us = (userSearch) session.getAttribute("userSearch");
+            UserSearched us = (UserSearched) session.getAttribute("UserSearched");
             java.util.LinkedList<String> users = us.getUsers();
         %>
         <h1>Searching for user: <%=us.getSearchedUser()%></h1>

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
+import uk.ac.dundee.computing.aec.instagrim.stores.UserSearched;
 
 /**
  *
@@ -50,7 +50,7 @@ public class Followers extends HttpServlet {
         HttpSession session=request.getSession();
 
         LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn");
-        userSearch us = (userSearch)session.getAttribute("userSearch");
+        UserSearched us = (UserSearched)session.getAttribute("UserSearched");
         
         About about = new About();
         about.setCluster(cluster);

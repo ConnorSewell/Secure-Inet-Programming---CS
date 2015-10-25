@@ -36,7 +36,6 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
         rd.forward(request, response);
@@ -73,11 +72,12 @@ public class Login extends HttpServlet {
         System.out.println("Session in servlet " + session);
 
         session.setAttribute("LoggedIn", lg);
+        
         if (isValid) {
             lg.setLogedin();
             lg.setUsername(username);
             lg.setPasswordState(true);
-            
+
             System.out.println("Session in servlet " + session);
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Home.jsp");
             rd.forward(request, response);

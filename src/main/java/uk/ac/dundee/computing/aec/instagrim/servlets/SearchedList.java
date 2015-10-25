@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.Search;
-import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
+import uk.ac.dundee.computing.aec.instagrim.stores.UserSearched;
 
 /**
  *
@@ -52,7 +52,7 @@ public class SearchedList extends HttpServlet {
         String args[] = Convertors.SplitRequestPath(request);
         String user = args[2];
 
-        userSearch us = new userSearch();
+        UserSearched us = new UserSearched();
 
         Search search = new Search();
         search.setCluster(cluster);
@@ -60,7 +60,7 @@ public class SearchedList extends HttpServlet {
         us.setSearchedUser(user);
         us.setUsers(search.getUsers(user));
 
-        session.setAttribute("userSearch", us);
+        session.setAttribute("UserSearched", us);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/SearchedUsers.jsp");
         rd.forward(request, response);

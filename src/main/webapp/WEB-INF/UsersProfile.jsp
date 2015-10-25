@@ -19,7 +19,7 @@
     <body>
 
         <%
-            aboutUser au = (aboutUser) session.getAttribute("aboutUser");
+            UserProfile up = (UserProfile) session.getAttribute("UserProfile");
             LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         %>
         <div id ="navBar">
@@ -49,7 +49,7 @@
                 <div style ="overflow-x: scroll; overflow-y: scroll; height: 265px; "
                      <p style = "overflow-x: hidden; margin-top: 0%;"
                    <%
-                       java.util.LinkedList<String> followers = au.getFollowers();
+                       java.util.LinkedList<String> followers = up.getFollowers();
                        if (followers != null) {
 
                            for (int i = 0; i < followers.size(); i++) {
@@ -69,8 +69,8 @@
 
         <div style ="margin-left: 14%;">  
             <%
-                if (au.getIdValid() == true) {
-                    String id = au.getUUID();
+                if (up.getIdValid() == true) {
+                    String id = up.getUUID();
             %>
 
             <div id ="imgbut">
@@ -102,7 +102,7 @@
                 <div id ="aboutForm">
                     <form method ="POST" action="/Instagrim/UserDescription">
                         <div style ="height: 300px; width: 300px; float:left">
-                            <textarea style = "height: 98%; width: 98%; float:left" name="aboutUser" rows="5" columns="20" wrap ="virtual"><%=au.getAbout()%></textarea>
+                            <textarea style = "height: 98%; width: 98%; float:left" name="aboutUser" rows="5" columns="20" wrap ="virtual"><%=up.getAbout()%></textarea>
                         </div>
                         <div style ="text-align: center">
                             <input type="submit" value="Change details" style = "margin-top: 4%">
@@ -117,7 +117,7 @@
                          <p style = "overflow-x: hidden; margin-top: 0%;padding-right: 20px; text-align: center"
 
                        <%
-                           java.util.LinkedList<String> following = au.getFollowing();
+                           java.util.LinkedList<String> following = up.getFollowing();
                            if (following != null) {
                                for (int i = 0; i < following.size(); i++) {
 
@@ -135,7 +135,7 @@
 
             <div style ="margin-left: 1.2%;width: 620px; height: 100px; overflow-x: hidden; overflow-y: scroll; margin-top:20px">
 
-                <%  java.util.LinkedList<WallComments> wc = au.getWallComment();
+                <%  java.util.LinkedList<WallComments> wc = up.getWallComment();
                     String commenter;
                     String comment;
                     Date commentDate;

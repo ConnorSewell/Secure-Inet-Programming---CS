@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
-import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
+import uk.ac.dundee.computing.aec.instagrim.stores.UserSearched;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.aboutUser;
+import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 
 /**
  *
@@ -58,26 +58,26 @@ public class SearchedProfile extends HttpServlet {
         About about = new About();
         about.setCluster(cluster);
 
-        aboutUser au = new aboutUser();
-        userSearch us = new userSearch();
+        UserProfile up = new UserProfile();
+        UserSearched us = new UserSearched();
         
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
 
         String aboutUser = about.getAbout(profileOf);
         System.out.println("About: " + aboutUser);
 
-        au.setAbout(about.getAbout(profileOf));
-        au.setUUID(about.getPicId(profileOf));
-        au.setFollowers(about.getFollowers(profileOf));
-        au.setFollowing(about.getFollowing(profileOf));
-        au.setWallComment(about.getWallComments(profileOf));
+        up.setAbout(about.getAbout(profileOf));
+        up.setUUID(about.getPicId(profileOf));
+        up.setFollowers(about.getFollowers(profileOf));
+        up.setFollowing(about.getFollowing(profileOf));
+        up.setWallComment(about.getWallComments(profileOf));
 
-        au.setIdValid();
+        up.setIdValid();
 
         us.setSearchedUser(profileOf);
 
-        session.setAttribute("aboutUser", au);
-        session.setAttribute("userSearch", us);
+        session.setAttribute("UserProfile", up);
+        session.setAttribute("UserSearched", us);
 
         RequestDispatcher rd = null;
 

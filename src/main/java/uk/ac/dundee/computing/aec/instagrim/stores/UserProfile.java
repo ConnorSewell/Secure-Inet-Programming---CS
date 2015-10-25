@@ -10,7 +10,7 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
  * @author Connor131
  * Stores details about the users profile: profile pic id, about_user block etc
  */
-public class aboutUser {
+public class UserProfile {
 
     private String about_User = null;
     private java.util.UUID UUID = null;
@@ -19,7 +19,7 @@ public class aboutUser {
     private java.util.LinkedList<String> following;
     private boolean idValid;
 
-    public aboutUser() {
+    public UserProfile() {
 
     }
 

@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Set;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.stores.Address;
-import uk.ac.dundee.computing.aec.instagrim.stores.userDetails;
+import uk.ac.dundee.computing.aec.instagrim.stores.UsersDetails;
 
 /**
  *
@@ -166,9 +166,9 @@ public class User {
      * @param username: inputted username
      * @return returns an object representing the users details
      */
-    public userDetails getDetails(String username) {
+    public UsersDetails getDetails(String username) {
 
-        userDetails ud = new userDetails();
+        UsersDetails ud = new UsersDetails();
         Address address = new Address();
         String fName;
         String sName;

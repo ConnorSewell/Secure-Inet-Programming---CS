@@ -76,14 +76,14 @@ public class Register extends HttpServlet {
 
         if (username.equals("") || password.equals("") || firstName.equals("") || lastName.equals("") || email.equals("") || address.equals("") || street.equals("") || city.equals("") || zip.equals("")) {
             lg.setInvalidIn(true);
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Registration.jsp");
             rd.forward(request, response);
         }
 
 
         if (!username.matches("[0-9A-Za-z_-]+") || !zip.matches("[0-9]+")) {
             lg.setInvalidIn(true);
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Registration.jsp");
             rd.forward(request, response);
         }
 
