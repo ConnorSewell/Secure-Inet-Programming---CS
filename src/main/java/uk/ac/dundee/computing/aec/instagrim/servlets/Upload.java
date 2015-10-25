@@ -48,28 +48,13 @@ public class Upload extends HttpServlet {
         session.setAttribute("Pic", p);
 
         if (args[2].equals("Profile")) {
-            rd = request.getRequestDispatcher("/WEB-INF/UploadPage.jsp");
             p.setUploadType("Profile");
         } else if (args[2].equals("Gallery")) {
             p.setUploadType("Gallery");
-            rd = request.getRequestDispatcher("/WEB-INF/UploadPage.jsp");
         }
 
+        rd = request.getRequestDispatcher("/WEB-INF/UploadPage.jsp");
         rd.forward(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
     }
 
     /**
