@@ -63,7 +63,7 @@ public class PicDetails extends HttpServlet {
         p.setPicComment(comments.getComments(java.util.UUID.fromString(request.getParameter("picId"))));
         p.setPicLikes(comments.getLikes(java.util.UUID.fromString(request.getParameter("picId"))));
         
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/imageView.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Image.jsp");
         System.out.println("Pic is.. " + p.getPicAdded());
         rd.forward(request, response);
     

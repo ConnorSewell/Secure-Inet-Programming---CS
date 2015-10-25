@@ -62,9 +62,9 @@
                     </form>
                 </div>
 
-                <form method ="Post" action ="/initial.jsp" style = "margin-left: 46.5%; margin-top:10px">
-                    <input type ="submit" value ="To log in page">
-                </form>
+                <a href = "/Instagrim/Login" style = "margin-left: 46.5%; margin-top:10px" >To log in page</a>
+                
+              
 
         </article>
 

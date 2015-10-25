@@ -44,7 +44,7 @@ public class Register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Registration.jsp");
         rd.forward(request, response);
     }
 
@@ -96,13 +96,13 @@ public class Register extends HttpServlet {
                 lg.setLogedin();
                 lg.setUsername(username);
                 lg.setInvalidIn(false);
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Home.jsp");
                 rd.forward(request, response);
             }
 
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/register.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Registration.jsp");
         rd.forward(request, response);
 
     }

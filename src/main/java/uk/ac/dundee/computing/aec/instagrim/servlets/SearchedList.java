@@ -62,7 +62,7 @@ public class SearchedList extends HttpServlet {
 
         session.setAttribute("userSearch", us);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedUser.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/SearchedUsers.jsp");
         rd.forward(request, response);
     }
 

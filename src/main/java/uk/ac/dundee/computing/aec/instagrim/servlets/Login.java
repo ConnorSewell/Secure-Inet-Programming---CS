@@ -38,7 +38,7 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/initial.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
         rd.forward(request, response);
     }
 
@@ -79,7 +79,7 @@ public class Login extends HttpServlet {
             lg.setPasswordState(true);
             
             System.out.println("Session in servlet " + session);
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Home.jsp");
             rd.forward(request, response);
 
         } else {

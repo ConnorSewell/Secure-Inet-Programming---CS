@@ -48,11 +48,11 @@ public class Upload extends HttpServlet {
         session.setAttribute("Pic", p);
 
         if (args[2].equals("Profile")) {
-            rd = request.getRequestDispatcher("/WEB-INF/upload.jsp");
+            rd = request.getRequestDispatcher("/WEB-INF/UploadPage.jsp");
             p.setUploadType("Profile");
         } else if (args[2].equals("Gallery")) {
             p.setUploadType("Gallery");
-            rd = request.getRequestDispatcher("/WEB-INF/upload.jsp");
+            rd = request.getRequestDispatcher("/WEB-INF/UploadPage.jsp");
         }
 
         rd.forward(request, response);

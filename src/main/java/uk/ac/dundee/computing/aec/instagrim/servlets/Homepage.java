@@ -33,7 +33,7 @@ public class Homepage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Home.jsp");
         rd.forward(request, response);
     }
 

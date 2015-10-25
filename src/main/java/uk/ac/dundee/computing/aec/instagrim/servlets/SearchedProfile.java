@@ -84,7 +84,7 @@ public class SearchedProfile extends HttpServlet {
         if (lg.getUsername().equals(profileOf)) {
             response.sendRedirect("/Instagrim/Profile");
         } else {
-            rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
+            rd = request.getRequestDispatcher("/WEB-INF/ProfileSearched.jsp");
         }
 
         rd.forward(request, response);

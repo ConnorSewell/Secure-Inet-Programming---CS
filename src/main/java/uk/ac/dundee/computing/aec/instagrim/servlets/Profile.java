@@ -68,7 +68,7 @@ public class Profile extends HttpServlet {
         au.setWallComment(about.getWallComments(lg.getUsername()));
 
         session.setAttribute("aboutUser", au);
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/userProfile.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UsersProfile.jsp");
 
         rd.forward(request, response);
 
