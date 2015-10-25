@@ -71,9 +71,7 @@ public class Image extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-      //  Pic p = new Pic();
-       
-        
+    
         String args[] = Convertors.SplitRequestPath(request);
         int command;
         try {
@@ -82,7 +80,6 @@ public class Image extends HttpServlet {
             error("Bad Operator", response);
             return;
         }
-      //  p.setImageOwner(args[2]);
         switch (command) {
             
             case 1:

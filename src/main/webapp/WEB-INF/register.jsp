@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Instagrim</title>
+        <title>Register</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
     <body>

@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
-        <title>JSP Page</title>
+        <title>Log in</title>
     </head>
     <body>
 

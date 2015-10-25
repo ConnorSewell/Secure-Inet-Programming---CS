@@ -14,9 +14,6 @@ import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Statement;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import java.util.Date;
-import java.util.Iterator;
-import uk.ac.dundee.computing.aec.instagrim.stores.FollowingPicDetails;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.WallComments;
 
 /**
@@ -35,8 +32,11 @@ public class About {
         this.cluster = cluster;
     }
 
-    /*
-     * Inserting about user section
+    /**
+     * Updates the users about section
+     *
+     * @param user: User whose about section we wish to update
+     * @param aboutUser: The new contents of the users about section
      */
     public void insertAbout(String user, String aboutUser) {
         Session session = cluster.connect("ConnorSewellsInstagrim");
@@ -45,15 +45,17 @@ public class About {
         session.execute(bsInsertAboutUser.bind());
 
         session.close();
-
     }
 
-    /*
-     * Gets any value user has input previously for their about section
+    /**
+     * Gets the users about section
+     *
+     * @param user: User whose about section we wish to retrieve
+     * @return Returns the users about section
      */
-    public String getAbout(String User) {
+    public String getAbout(String user) {
 
-        String userDesc = null;
+        String userDesc = "User has not enterred a description";
 
         Session session = cluster.connect("ConnorSewellsInstagrim");
 
@@ -62,10 +64,8 @@ public class About {
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        User));
+                        user));
         if (rs.isExhausted()) {
-            userDesc = "User has not enterred a description";
-            System.out.println("No valid user");
             return userDesc;
         } else {
             for (Row row : rs) {
@@ -76,8 +76,11 @@ public class About {
         return userDesc;
     }
 
-    /*
-     * Gets the pic id of the users profile picture
+    /**
+     * Gets the users profile picture id
+     *
+     * @param user: User whose profile picture id we wish to retrieve
+     * @return Returns the users profile picture id
      */
     public java.util.UUID getPicId(String user) {
 
@@ -104,8 +107,11 @@ public class About {
         return UUID;
     }
 
-    /*
-     * Gets all wall comments
+    /**
+     * Returns the wall comments present on the users profile page
+     *
+     * @param user: User whose wall comments we wish to retrieve
+     * @return Returns a linked list of wall comments
      */
     public java.util.LinkedList<WallComments> getWallComments(String user) {
         java.util.LinkedList<WallComments> wc = new java.util.LinkedList<>();
@@ -130,7 +136,7 @@ public class About {
         } else {
             for (Row row : rs) {
                 WallComments wcomment = new WallComments();
-                
+
                 commentDate = row.getDate("comment_added");
                 commenter = row.getString("commenter");
                 comment = row.getString("comment");
@@ -143,8 +149,11 @@ public class About {
         return wc;
     }
 
-    /*
-     * Inserts wall comments to database
+    /**
+     * Inserts a new wall comment
+     *
+     * @param user, userFrom, comment, date: user = user whose wall comments is
+     * being added to. userFrom = user whose posting the comment.
      */
     public void setWallComments(String user, String userFrom, String comment, Date date) {
 
@@ -152,11 +161,6 @@ public class About {
 
         Session session = cluster.connect("ConnorSewellsInstagrim");
 
-        String commentAdd = userFrom + "/" + date + "/" + comment;
-
-        //  PreparedStatement ppInsertWallComment = session.prepare("update profilepage set wallComments = [' " + commentAdd.replace("'","''") + " ']  + wallComments where user = '" + user + "'");
-        // BoundStatement bsInsertWallComment= new BoundStatement(ppInsertWallComment);
-        // session.execute(bsInsertWallComment.bind());
         Statement statement = QueryBuilder.insertInto("wallcomments")
                 .value("user", user)
                 .value("commentid", commentId)
@@ -168,8 +172,11 @@ public class About {
         session.close();
     }
 
-    /*
-     * Gets all users current user is following
+    /**
+     * Gets the users who are being followed by the logged in user
+     *
+     * @param user: User whose "following" we wish to retrieve
+     * @return Returns a list of the users who the logged in user is following
      */
     public java.util.LinkedList<String> getFollowing(String user) {
         java.util.LinkedList<String> following = new java.util.LinkedList<String>();
@@ -194,8 +201,11 @@ public class About {
         return following;
     }
 
-    /*
-     * Gets all users followers
+    /**
+     * Gets the users about section
+     *
+     * @param user: User whose about section we wish to retrieve
+     * @return Returns the users about section
      */
     public java.util.LinkedList<String> getFollowers(String user) {
         java.util.LinkedList<String> followers = new java.util.LinkedList<String>();
@@ -219,52 +229,17 @@ public class About {
 
         return followers;
     }
-    
-    public java.util.LinkedList<FollowingPicDetails> getFollowingPics(java.util.LinkedList<String> following)
-    {
-        java.util.LinkedList<FollowingPicDetails> followingPics = new java.util.LinkedList<FollowingPicDetails>();
-        Session session = cluster.connect("ConnorSewellsInstagrim");
-       
-       PreparedStatement ps = session.prepare("select pictime, picid from followpics where user =?");
-       BoundStatement boundStatement = new BoundStatement(ps);
-        Iterator<String> iterate;
-        iterate = following.iterator();
-        while (iterate.hasNext()) {
-        //iterate.next();
-        
-       // System.out.println("Follower 1: " + iterate.next());
-        
-      
-        ResultSet rs = null;
-       // BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute(boundStatement.bind(iterate.next()));
-        if(rs.isExhausted())
-        {
-           return followingPics;
-        }
-        else
-        {
-            for(Row row: rs)
-            {
-                System.out.println("user... :" + row.getDate("pictime") + " picid..: " + row.getUUID("picid"));
-            }
-        }
-        }
-        
-        return followingPics;
-    }
 
-    /*
-     * Adds a follower to users profile in database
+    /**
+     * Adds a follower to the users following list
+     *
+     * @params user, userFollowed, followDate: Relevant data required for each
+     * follow
      */
     public void addFollower(String user, String userFollowed, Date followDate) {
-         
+
         Session session = cluster.connect("ConnorSewellsInstagrim");
 
-
-        //  PreparedStatement ppInsertWallComment = session.prepare("update profilepage set wallComments = [' " + commentAdd.replace("'","''") + " ']  + wallComments where user = '" + user + "'");
-        // BoundStatement bsInsertWallComment= new BoundStatement(ppInsertWallComment);
-        // session.execute(bsInsertWallComment.bind());
         Statement statement = QueryBuilder.insertInto("followers")
                 .value("following", userFollowed)
                 .value("user", user)
@@ -273,18 +248,19 @@ public class About {
 
         session.close();
     }
-    
 
-    /*
-     * Adds a user that user has followed to the users profile in database
+    /**
+     * Updates the following table with a new follower/following
+     *
+     * @param user, userFollowed, followDate: Relevant data required for storing
+     * a "following"
      */
     public void addFollowing(String user, String userFollowed, Date followDate) {
         Session session = cluster.connect("ConnorSewellsInstagrim");
 
-
         Statement statement = QueryBuilder.insertInto("following")
                 .value("user", user)
-                .value("following", userFollowed)     
+                .value("following", userFollowed)
                 .value("date_followed", followDate);
         session.execute(statement);
 

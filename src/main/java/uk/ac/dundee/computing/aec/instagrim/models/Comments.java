@@ -31,24 +31,33 @@ public class Comments {
     public Comments() {
     }
 
-    /*
-     * Adding user to the list of users who like the picture associated with picId
+   /**
+     * Adds a like to a picture
+     *
+     * @param user: User who liked the picture
+     * @param picId: the picId of the liked picture
+     * @param like_added: The date the picture was liked
      */
-    public void addLike(java.util.UUID picId, String user, Date date) {
+    public void addLike(java.util.UUID picId, String user, Date like_added) {
        
         Session session = cluster.connect("ConnorSewellsInstagrim");
 
            Statement statement = QueryBuilder.insertInto("piclikes")
                 .value("picid", picId)
                 .value("user", user)
-                .value("dateLiked", date);
+                .value("dateLiked", like_added);
         session.execute(statement);
 
         session.close();
     }
 
-    /*
-     * Adds a comment to the list of comments associated with picId
+     /**
+     * Adds a comment to a picture
+     *
+     * @param comment: The comment beind added
+     * @param picId: The pictureId of the picture
+     * @param commenter: The user who is commenting
+     * @param comment_added: The date at which the comment was posted
      */
     public void addComment(String comment, java.util.UUID picId, String commenter, Date comment_added) {
 
@@ -65,8 +74,12 @@ public class Comments {
 
     }
 
-    /*
-     * Gets all the likes the picture associated with picId has
+    
+     /**
+     * Gets all the users who liked a picture
+     *
+     * @param picId: The id of the pic whose likes are being requested
+     * @return Returns a list of likes
      */
     public java.util.LinkedList<String> getLikes(java.util.UUID picId) {
         java.util.LinkedList<String> likes = new java.util.LinkedList<String>();
@@ -102,8 +115,11 @@ public class Comments {
 
     }
 
-    /*
-     * Gets all the comments associated with picId
+     /**
+     * Gets all the comments associated with the picture
+     *
+     * @param picId: The id of the pic whose comments are being requested
+     * @return Returns a list of comments
      */
     public java.util.LinkedList<PicDetails> getComments(java.util.UUID picId) {
         java.util.LinkedList<PicDetails> picComments = new java.util.LinkedList<>();
@@ -121,8 +137,6 @@ public class Comments {
                 PicDetails pc = new PicDetails();
                 pc.setCommentDetails(row.getString("comment"), row.getString("commenter"), row.getDate("comment_added"));
                 picComments.add(pc);
-
-                //setCommentDetails(String comment, String commenter, Date commentAdded)
             }
         }
 
