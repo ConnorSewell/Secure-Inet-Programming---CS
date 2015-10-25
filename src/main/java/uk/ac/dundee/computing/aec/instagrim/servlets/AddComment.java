@@ -24,6 +24,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 /**
  *
  * @author Connor131
+ * Controls process of adding a comment to a picture
+ * 
  */
 @WebServlet(name = "AddComment", urlPatterns = {"/Images/Addcomment"})
 public class AddComment extends HttpServlet {
@@ -61,9 +63,9 @@ public class AddComment extends HttpServlet {
         String comment = request.getParameter("comment");
         java.util.UUID picId = p.returnUUID();
 
-        comments.addComment(comment.replace("'", "''"), picId, commentBy, commentDate);
+        comments.addComment(comment.replace("'", "''"), picId, commentBy.replace("'", "''"), commentDate);
       
-        response.sendRedirect("/Instagrim/Images/pic?picId="+p.getSUUID());
+        response.sendRedirect("/Instagrim/Images/Pic?picId="+p.getSUUID());
     }
 
     /**

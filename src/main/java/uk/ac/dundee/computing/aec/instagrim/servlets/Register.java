@@ -22,6 +22,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 /**
  *
  * @author Administrator
+ * Controls registration process
+ * 
  */
 @WebServlet(name = "Register", urlPatterns = {"/Register"})
 public class Register extends HttpServlet {

@@ -38,6 +38,8 @@
 
         </div>
 
+
+
         <h1>Gallery</h1>
 
         <article>
@@ -61,7 +63,7 @@
 
                 %>
                 <div class ="picAlbum">
-                    <a href="/Instagrim/Images/pic?picId=<%=p.getSUUID()%>">  <img src="/Instagrim/Thumb/<%=p.getSUUID()%>" style = "height: 200px; width: 200px"></a><br/> 
+                    <a href="/Instagrim/Images/Pic?picId=<%=p.getSUUID()%>">  <img src="/Instagrim/Thumb/<%=p.getSUUID()%>" style = "height: 200px; width: 200px"></a><br/> 
                 </div>
                 <%
 

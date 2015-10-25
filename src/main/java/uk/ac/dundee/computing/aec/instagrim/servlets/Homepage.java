@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author Connor131
+ * Controls process of redirecting to home page
+ * 
  */
 @WebServlet(name = "Home", urlPatterns = {"/Home"})
 public class Homepage extends HttpServlet {

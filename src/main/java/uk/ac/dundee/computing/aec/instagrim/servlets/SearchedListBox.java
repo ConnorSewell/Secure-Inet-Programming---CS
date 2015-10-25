@@ -18,6 +18,8 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 /**
  *
  * @author Connor131
+ * Determines what happens when search box is input
+ * 
  */
 @WebServlet(name = "SearchBox", urlPatterns = {"/Searchbox"})
 public class SearchedListBox extends HttpServlet {

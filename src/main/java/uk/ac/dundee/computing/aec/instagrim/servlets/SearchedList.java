@@ -23,6 +23,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.UserSearched;
 /**
  *
  * @author Connor131
+ * Controls process of getting list of searched users
+ * 
  */
 @WebServlet(name = "SearchedList", urlPatterns = {"/Search/*"})
 public class SearchedList extends HttpServlet {
@@ -47,8 +49,6 @@ public class SearchedList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-
         String args[] = Convertors.SplitRequestPath(request);
         String user = args[2];
 
@@ -60,7 +60,7 @@ public class SearchedList extends HttpServlet {
         us.setSearchedUser(user);
         us.setUsers(search.getUsers(user));
 
-        session.setAttribute("UserSearched", us);
+        request.setAttribute("UserSearched", us);
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/SearchedUsers.jsp");
         rd.forward(request, response);

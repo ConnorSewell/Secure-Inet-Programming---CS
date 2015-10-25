@@ -8,7 +8,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,11 +19,11 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.Comments;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserSearched;
 
 /**
  *
- * @author Connor131
+ * @author Connor131 Controls process of posting new likes
+ *
  */
 @WebServlet(name = "Likes", urlPatterns = {"/Images/Likes"})
 public class Likes extends HttpServlet {
@@ -59,8 +58,8 @@ public class Likes extends HttpServlet {
         java.util.UUID picId = p.returnUUID();
 
         comments.addLike(picId, likedBy, likeDate);
-        
-        response.sendRedirect("/Instagrim/Images/pic?picId="+p.getSUUID());
+
+        response.sendRedirect("/Instagrim/Images/Pic?picId=" + p.getSUUID());
 
     }
 

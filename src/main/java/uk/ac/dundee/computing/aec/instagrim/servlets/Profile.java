@@ -23,6 +23,8 @@ import uk.ac.dundee.computing.aec.instagrim.models.About;
 /**
  *
  * @author Connor131
+ * Controls process of profile information retrieval
+ * 
  */
 @WebServlet(name = "profile", urlPatterns = {"/Profile"})
 public class Profile extends HttpServlet {
@@ -59,15 +61,12 @@ public class Profile extends HttpServlet {
 
         up.setAbout(about.getAbout(lg.getUsername()));
         up.setUUID(about.getPicId(lg.getUsername()));
-
         up.setFollowers(about.getFollowers(lg.getUsername()));
         up.setFollowing(about.getFollowing(lg.getUsername()));
-
+        up.setWallComment(about.getWallComments(lg.getUsername()));
         up.setIdValid();
 
-        up.setWallComment(about.getWallComments(lg.getUsername()));
-
-        session.setAttribute("UserProfile", up);
+        request.setAttribute("UserProfile", up);
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UsersProfile.jsp");
 
         rd.forward(request, response);

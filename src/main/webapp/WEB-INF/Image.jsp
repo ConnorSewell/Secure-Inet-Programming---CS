@@ -24,7 +24,7 @@
         <%
             Pic p = (Pic) session.getAttribute("Pic");
             LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-            java.util.List<String> comments = p.getComment();
+
         %>
 
         <div id ="navBar">
@@ -66,6 +66,7 @@
                                 for (int i = 0; i < likes.size(); i++) {
 
                         %>
+                        <!--Creating list of people who like the profile with a link to their page -->
                         <a href = "/Instagrim/Profiles/<%=likes.get(i)%>"><%=likes.get(i)%></a> </br>
                         <%
                                 }

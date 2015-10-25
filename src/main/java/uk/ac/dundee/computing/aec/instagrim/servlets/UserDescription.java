@@ -22,7 +22,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 
 /**
  *
- * @author Connor131
+ * @author Connor131 Controls process of changing user description
+ *
  */
 @WebServlet(name = "UserDescription", urlPatterns = {"/UserDescription"})
 public class UserDescription extends HttpServlet {
@@ -48,28 +49,22 @@ public class UserDescription extends HttpServlet {
             throws ServletException, IOException {
 
         String username = "majed";
+
         String aboutIn = "No description to be shown";
+
+        aboutIn = request.getParameter("aboutUser");
 
         HttpSession session = request.getSession();
 
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        UserProfile up = (UserProfile) session.getAttribute("UserProfile");
 
-        if (up != null) {
-            aboutIn = request.getParameter("aboutUser");
-            up.setAbout(aboutIn);
-        }
-
-        if (lg != null) {
-            username = lg.getUsername();
-        }
+        username = lg.getUsername();
 
         About about = new About();
         about.setCluster(cluster);
         about.insertAbout(username, aboutIn);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/UsersProfile.jsp");
-        rd.forward(request, response);
+        response.sendRedirect("/Instagrim/Profile");
 
     }
 

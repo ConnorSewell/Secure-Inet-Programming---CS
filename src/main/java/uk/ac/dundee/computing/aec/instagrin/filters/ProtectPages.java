@@ -28,7 +28,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
  * @author Administrator
  */
 @WebFilter(filterName = "ProtectPages", urlPatterns = {"/Home","/Images/Addcomment","/Account","/Profile/Followers",  "/Image",
-    "/Image/*", "/Thumb/*", "/Images", "/Images/*", "/Images/Likes", "/Logout","/Images/pic","/Profile","/SampleImages","/Search/*",
+    "/Image/*", "/Thumb/*", "/Images", "/Images/*", "/Images/Likes", "/Logout","/Images/Pic","/Profile","/SampleImages","/Search/*",
     "/Searchbox", "/Profile", "/Profiles/*","/Upload/Profile", "/Upload/Gallery", "/UserDescription", "/WallComment"}, dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE})
 public class ProtectPages implements Filter {
     

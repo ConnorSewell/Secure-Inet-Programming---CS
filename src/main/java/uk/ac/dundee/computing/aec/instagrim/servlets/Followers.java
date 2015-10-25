@@ -22,22 +22,23 @@ import uk.ac.dundee.computing.aec.instagrim.stores.UserSearched;
 
 /**
  *
- * @author Connor131
+ * @author Connor131 Controls process of adding followers
+ *
  */
 @WebServlet(name = "Followers", urlPatterns = {"/Profile/Followers"})
 public class Followers extends HttpServlet {
-    
-     private Cluster cluster;   
 
-     public void init(ServletConfig config) throws ServletException {
+    private Cluster cluster;
+
+    public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
 
-
     /**
-     * Handles the HTTP <code>POST</code> method.
-     * Servlet responsible for adding followers/following
+     * Handles the HTTP <code>POST</code> method. Servlet responsible for adding
+     * followers/following
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -46,24 +47,23 @@ public class Followers extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session=request.getSession();
 
-        LoggedIn lg = (LoggedIn)session.getAttribute("LoggedIn");
-        UserSearched us = (UserSearched)session.getAttribute("UserSearched");
-        
+        HttpSession session = request.getSession();
+
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        UserSearched us = (UserSearched) session.getAttribute("UserSearched");
+
         About about = new About();
         about.setCluster(cluster);
-        System.out.println("Searched user is: " + lg.getUsername());
-        
+
         Date followDate = new Date();
-        
+
         about.addFollower(lg.getUsername(), us.getSearchedUser(), followDate);
         about.addFollowing(lg.getUsername(), us.getSearchedUser(), followDate);
-        
+
         System.out.println("Searched user is: " + us.getSearchedUser());
 
-        response.sendRedirect("/Instagrim/Profiles/"+us.getSearchedUser());
+        response.sendRedirect("/Instagrim/Profiles/" + us.getSearchedUser());
     }
 
     /**

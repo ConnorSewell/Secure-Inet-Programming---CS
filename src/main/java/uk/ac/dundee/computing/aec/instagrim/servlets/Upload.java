@@ -19,6 +19,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 /**
  *
  * @author Connor131
+ * Controls process of displaying upload page
  */
 @WebServlet(name = "upload", urlPatterns = {"/Upload/Profile", "/Upload/Gallery"})
 public class Upload extends HttpServlet {
@@ -42,16 +43,15 @@ public class Upload extends HttpServlet {
 
         String args[] = Convertors.SplitRequestPath(request);
 
-        HttpSession session = request.getSession();
-
         Pic p = new Pic();
-        session.setAttribute("Pic", p);
-
+        
         if (args[2].equals("Profile")) {
             p.setUploadType("Profile");
         } else if (args[2].equals("Gallery")) {
             p.setUploadType("Gallery");
         }
+        
+        request.setAttribute("Pic", p);
 
         rd = request.getRequestDispatcher("/WEB-INF/UploadPage.jsp");
         rd.forward(request, response);

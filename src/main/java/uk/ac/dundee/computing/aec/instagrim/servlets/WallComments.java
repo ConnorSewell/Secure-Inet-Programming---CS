@@ -19,13 +19,14 @@ import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserSearched;
+
 
 /**
  *
  * @author Connor131
+ * Controls process of adding wall comments
  */
+
 @WebServlet(name = "wallComment", urlPatterns = {"/WallComment"})
 public class WallComments extends HttpServlet {
 
@@ -37,9 +38,10 @@ public class WallComments extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method. Responsible for adding a new
-     * wall comment to the users page. Directs to searched page or user page
-     * depending on whose wall the user comments on. E.g. would go to /profile
+     * Handles the HTTP <code>POST</code> method. 
+     * Responsible for adding a new wall comment to the users page. Directs 
+     * to searched page or user page depending on whose wall the user comments on. 
+     * E.g. would go to /profile
      * if the user is commenting on their own page
      *
      * @param request servlet request

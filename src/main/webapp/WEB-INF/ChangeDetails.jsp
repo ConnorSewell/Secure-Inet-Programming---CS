@@ -18,7 +18,8 @@
     </head>
     <body>
         <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-           UsersDetails ud = (UsersDetails) session.getAttribute("UsersDetails");
+            UsersDetails ud = (UsersDetails) session.getAttribute("UsersDetails");
+           
         %>
 
         <div id ="navBar">
@@ -68,6 +69,7 @@
                 </div>
 
                 <%
+                    //looping through set of emails
                     Set<String> emails = new HashSet();
                     int emailNo = 0;
                     emails = ud.getEmail();

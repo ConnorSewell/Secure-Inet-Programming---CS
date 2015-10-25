@@ -22,6 +22,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 /**
  *
  * @author Administrator
+ * Controls process of logging in
+ * 
  */
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet {

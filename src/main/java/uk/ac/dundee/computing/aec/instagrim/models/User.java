@@ -31,8 +31,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.UsersDetails;
 
 /**
  *
- * @author Connor131
- * This class handles all of the users personal details
+ * @author Connor131 This class handles all of the users personal details
  */
 public class User {
 
@@ -63,19 +62,19 @@ public class User {
             System.out.println("Can't check your password");
             return false;
         }
+
         Session session = cluster.connect("ConnorSewellsInstagrim");
         PreparedStatement ps = session.prepare("select password from userprofiles where login =?");
+
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        username));
+        rs = session.execute(boundStatement.bind(username));
+
         if (rs.isExhausted()) {
             System.out.println("No valid user");
             return false;
         } else {
             for (Row row : rs) {
-
                 String StoredPass = row.getString("password");
                 if (StoredPass.compareTo(EncodedPassword) == 0) {
                     return true;
@@ -143,9 +142,7 @@ public class User {
         PreparedStatement ps = session.prepare("select login from userprofiles where login =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        username));
+        rs = session.execute(boundStatement.bind(username));
         if (rs.isExhausted()) {
             System.out.println("No valid user");
             return true;
@@ -281,8 +278,7 @@ public class User {
         session.execute(boundStatement.bind());
     }
 
-    
-     /**
+    /**
      * Changes the users email address
      *
      * @param username: User whose email is to be changed

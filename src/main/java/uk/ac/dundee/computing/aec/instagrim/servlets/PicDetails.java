@@ -5,7 +5,6 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletConfig;
@@ -21,26 +20,26 @@ import javax.servlet.RequestDispatcher;
 import uk.ac.dundee.computing.aec.instagrim.models.Comments;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
-
-
 /**
  *
- * @author Connor131
+ * @author Connor131 Controls process of displaying pic details
+ *
  */
-@WebServlet(name = "picdetails", urlPatterns = {"/Images/pic"})
+@WebServlet(name = "picdetails", urlPatterns = {"/Images/Pic"})
 public class PicDetails extends HttpServlet {
 
-    private Cluster cluster;   
+    private Cluster cluster;
 
-     public void init(ServletConfig config) throws ServletException {
+    public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
-     * Responsible for getting the details of a picture e.g. its comments, likes 
+     * Handles the HTTP <code>GET</code> method. Responsible for getting the
+     * details of a picture e.g. its comments, likes
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -49,43 +48,23 @@ public class PicDetails extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        
-        HttpSession session=request.getSession();
+
+        HttpSession session = request.getSession();
 
         Pic p = new Pic();
         Comments comments = new Comments();
-       
+
         comments.setCluster(cluster);
         session.setAttribute("Pic", p);
- 
+
         p.setUUID(java.util.UUID.fromString(request.getParameter("picId")));
         p.setPicComment(comments.getComments(java.util.UUID.fromString(request.getParameter("picId"))));
         p.setPicLikes(comments.getLikes(java.util.UUID.fromString(request.getParameter("picId"))));
-        
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Image.jsp");
-        System.out.println("Pic is.. " + p.getPicAdded());
-        rd.forward(request, response);
-    
-        
-    }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    
-  
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Image.jsp");
        
-        
-       // response.sendRedirect("/imageView.jsp");
+        rd.forward(request, response);
+
     }
 
     /**

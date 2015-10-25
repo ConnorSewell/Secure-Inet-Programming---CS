@@ -52,7 +52,8 @@ public class Search {
                 System.out.println("User: " + row.getString("login"));
 
                 String userName = row.getString("login");
-                if (userName.contains(name)) {
+                if (userName.toUpperCase().contains(name.toUpperCase()) || (name.toUpperCase().contains(userName.toUpperCase()))) 
+                {
                     allMatches.add(userName);
                 }
 

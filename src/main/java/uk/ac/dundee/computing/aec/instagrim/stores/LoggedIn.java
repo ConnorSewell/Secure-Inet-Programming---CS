@@ -7,15 +7,16 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
 
 /**
  *
- * @author Administrator
+ * @author Administrator 
  * Handles relevant log in details
+ * 
  */
 public class LoggedIn {
 
     private boolean logedin = false;
     private boolean invalidPass = false;
     private String Username = null;
-    private String Password = null;
+
     private boolean invalidName = false;
 
     public void LoggedIn() {
@@ -42,28 +43,12 @@ public class LoggedIn {
         logedin = true;
     }
 
-    public void setLogedout() {
-        logedin = false;
-    }
-
-    public void setPassword(String pass) {
-        this.Password = pass;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
     public void setPasswordState(boolean state) {
         invalidPass = state;
     }
 
     public boolean getPasswordState() {
         return invalidPass;
-    }
-
-    public void setLoginState(boolean logedin) {
-        this.logedin = logedin;
     }
 
     public boolean getlogedin() {

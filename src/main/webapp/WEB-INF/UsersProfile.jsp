@@ -19,7 +19,7 @@
     <body>
 
         <%
-            UserProfile up = (UserProfile) session.getAttribute("UserProfile");
+            UserProfile up = (UserProfile) request.getAttribute("UserProfile");
             LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         %>
         <div id ="navBar">

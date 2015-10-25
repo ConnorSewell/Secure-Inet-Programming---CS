@@ -25,7 +25,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.UsersDetails;
 
 /**
  *
- * @author Connor131
+ * @author Connor131 Controls process of changing user details
+ *
  */
 @WebServlet(name = "ChangeDetails", urlPatterns = {"/Account"})
 public class ChangeDetails extends HttpServlet {
@@ -62,7 +63,6 @@ public class ChangeDetails extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ChangeDetails.jsp");
         rd.forward(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method. Sets users details
      *
@@ -115,6 +115,7 @@ public class ChangeDetails extends HttpServlet {
 
             lg.setPasswordState(true);
 
+            //Block to change individual details
             if (!newPass.equals("")) {
                 us.changePass(username, currPass, newPass);
             }

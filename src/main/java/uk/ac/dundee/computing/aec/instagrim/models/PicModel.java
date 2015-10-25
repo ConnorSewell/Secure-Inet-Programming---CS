@@ -50,8 +50,14 @@ public class PicModel {
         this.cluster = cluster;
     }
 
-    /*
-     * Inserting pic to database
+    /**
+     * Inserts pic into pic table, and pic id into tables which are indexed by
+     * it
+     *
+     * @params b, type, name: Image properties
+     * @param: user: User whose uploading pic
+     * @param: profilePic: This is set to "Profile" if profile pic is selected
+     * @param: filter: Array of filters to be applied
      */
     public void insertPic(byte[] b, String type, String name, String user, String profilePic, String[] filter) {
         try {
@@ -86,7 +92,7 @@ public class PicModel {
             BoundStatement bsInsertPicToFollowers = new BoundStatement(psInsertPicToFollowers);
 
             Date DateAdded = new Date();
-            System.out.println("Date is... " + DateAdded);
+
             session.execute(bsInsertPic.bind(picid, buffer, thumbbuf, processedbuf, user, DateAdded, length, thumblength, processedlength, type, name));
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
             session.execute(bsInsertPicToFollowers.bind(user, DateAdded, picid));
@@ -234,18 +240,16 @@ public class PicModel {
      */
     public java.util.LinkedList<Pic> getPicsForUser(String user) {
         java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
+
         Session session = cluster.connect("ConnorSewellsInstagrim");
+
         PreparedStatement ps = session.prepare("select picid, pic_added from userpiclist where user =?");
 
         ResultSet rs = null;
 
         BoundStatement boundStatement = new BoundStatement(ps);
 
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        user));
-
-        Date pic_added = new Date();
+        rs = session.execute(boundStatement.bind(user));
 
         if (rs.isExhausted()) {
             System.out.println("No Images returned");
@@ -254,11 +258,8 @@ public class PicModel {
             for (Row row : rs) {
                 Pic pic = new Pic();
                 java.util.UUID UUID = row.getUUID("picid");
-                pic_added = row.getDate("pic_added");
-                System.out.println("UUID" + UUID.toString());
                 pic.setUUID(UUID);
                 Pics.add(pic);
-
             }
         }
 

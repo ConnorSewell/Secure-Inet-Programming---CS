@@ -19,12 +19,15 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.stores.UserSearched;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
+import uk.ac.dundee.computing.aec.instagrim.models.User;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
 
 /**
  *
- * @author Connor131
+ * @author Connor131 Controls process of retrieving searched user profile
+ * details
+ *
  */
 @WebServlet(name = "SearchedProfile", urlPatterns = {"/Profiles/*"})
 public class SearchedProfile extends HttpServlet {
@@ -38,8 +41,9 @@ public class SearchedProfile extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method. Servlet responsible for getting
-     * the searched users profile page details
-     * Responsible for getting the details of the user whose been searched for
+     * the searched users profile page details Responsible for getting the
+     * details of the user whose been searched for
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -52,15 +56,21 @@ public class SearchedProfile extends HttpServlet {
         HttpSession session = request.getSession();
 
         String args[] = Convertors.SplitRequestPath(request);
-
         String profileOf = args[2];
 
         About about = new About();
+        User user = new User();
+
         about.setCluster(cluster);
+        user.setCluster(cluster);
 
         UserProfile up = new UserProfile();
         UserSearched us = new UserSearched();
-        
+
+        if (user.checkNameVal(profileOf)) {
+            response.sendRedirect("/Instagrim/Home");
+        }
+
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
 
         String aboutUser = about.getAbout(profileOf);
@@ -71,13 +81,12 @@ public class SearchedProfile extends HttpServlet {
         up.setFollowers(about.getFollowers(profileOf));
         up.setFollowing(about.getFollowing(profileOf));
         up.setWallComment(about.getWallComments(profileOf));
-
         up.setIdValid();
 
         us.setSearchedUser(profileOf);
 
-        session.setAttribute("UserProfile", up);
-        session.setAttribute("UserSearched", us);
+        request.setAttribute("UserProfile", up);
+        request.setAttribute("UserSearched", us);
 
         RequestDispatcher rd = null;
 
@@ -88,20 +97,6 @@ public class SearchedProfile extends HttpServlet {
         }
 
         rd.forward(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method. Starts searching for users
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
     }
 
     /**

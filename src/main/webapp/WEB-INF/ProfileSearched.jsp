@@ -18,9 +18,9 @@
     </head>
     <body>
 
-        <%  UserProfile up = (UserProfile) session.getAttribute("UserProfile");
+        <%  UserProfile up = (UserProfile) request.getAttribute("UserProfile");
             LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-            UserSearched us = (UserSearched) session.getAttribute("UserSearched");
+            UserSearched us = (UserSearched) request.getAttribute("UserSearched");
         %>
         <div id ="navBar">
             <ul>

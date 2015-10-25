@@ -17,7 +17,7 @@
     </head>
     <body>
         <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-           Pic p = (Pic) session.getAttribute("Pic");        %>
+           Pic p = (Pic) request.getAttribute("Pic");%>
         <div id ="navBar">
             <ul>
                 <li><a href="/Instagrim/Home">Home</a></li>
