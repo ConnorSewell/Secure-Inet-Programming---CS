@@ -15,6 +15,7 @@ import java.util.Date;
 /**
  *
  * @author Administrator
+ * Stores relevant picture details
  */
 public class Pic {
 
@@ -22,7 +23,6 @@ public class Pic {
     private int length;
     private String type;
     private java.util.UUID UUID=null;
-    //private java.util.List<String> likes;
     private Date pic_added = new Date();
     private String imageOwner=null;
     private java.util.List<String> comment;
@@ -30,8 +30,20 @@ public class Pic {
     private BufferedImage bi;
     private java.util.LinkedList<PicDetails> picComment; 
     private java.util.LinkedList<String> likes;
+    private String uploadType;
+    
     public void Pic() {
 
+    }
+    
+    public void setUploadType(String type)
+    {
+        this.uploadType = type;
+    }
+    
+    public String getUploadType()
+    {
+        return uploadType;
     }
     
     public void setPicLikes(java.util.LinkedList<String> likes)

@@ -10,9 +10,9 @@ import com.datastax.driver.mapping.annotations.UDT;
 
 /**
  *
- * @author Connor131
+ * Stores users address
  */
-//Idea for this entire bean
+//Idea for this store
 //http://docs.datastax.com/en/developer/java-driver/2.1/java-driver/reference/mappingUdts.html 21/10/2015 21:00 
 @UDT(keyspace = "ConnorSewellsInstagrim", name = "address")
 public class Address {

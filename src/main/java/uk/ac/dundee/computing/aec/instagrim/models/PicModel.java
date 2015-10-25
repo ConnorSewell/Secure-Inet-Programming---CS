@@ -20,28 +20,24 @@ import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import static java.lang.System.out;
 import java.nio.ByteBuffer;
 import java.util.Date;
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpSession;
 import org.imgscalr.Scalr;
 import static org.imgscalr.Scalr.*;
 import org.imgscalr.Scalr.Method;
-
 import uk.ac.dundee.computing.aec.instagrim.lib.*;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
-//import uk.ac.dundee.computing.aec.stores.TweetStore;
 
+/**
+ *
+ * @author Connor131 This class handles all image processing
+ *
+ */
 public class PicModel {
 
     Cluster cluster;
@@ -95,7 +91,8 @@ public class PicModel {
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
             session.execute(bsInsertPicToFollowers.bind(user, DateAdded, picid));
 
-            if (profilePic.equals("profile")) {
+            if (profilePic.equals("Profile")) //Updating users profilepage with new profile picture if they uploaded via "Upload/Profile"
+            {
                 PreparedStatement psInsertProfilePic = session.prepare("update profilepage set picid= " + picid + " where user = '" + user + "'");
                 BoundStatement bsInsertProfilePic = new BoundStatement(psInsertProfilePic);
                 session.execute(bsInsertProfilePic.bind());
@@ -109,7 +106,10 @@ public class PicModel {
     }
 
     /*
-     * Resizing of picture
+     * Resizing picture
+     * @param picid: id of pic
+     * @param: type: type of pic e.g. jpeg
+     * @filter: Array of all filters selected
      */
     public byte[] picresize(String picid, String type, String[] filter) {
         try {
@@ -129,7 +129,10 @@ public class PicModel {
     }
 
     /*
-     * ?
+     * Processing image, applying filters etc.
+     * @param picid: id of pic
+     * @param: type: type of pic e.g. jpeg
+     * @param: Array of all filters selected
      */
     public byte[] picdecolour(String picid, String type, String[] filter) {
         try {
@@ -149,7 +152,9 @@ public class PicModel {
     }
 
     /*
-     * Creating thumbnail + applying selected filters
+     * Creating thumbnail + applying filters
+     * @param img: The buffered image
+     * @param: Array of filters to be applied
      */
     public static BufferedImage createThumbnail(BufferedImage img, String[] filter) {
 
@@ -185,7 +190,10 @@ public class PicModel {
     }
 
     /*
-     * Creating processed image + applying selected filters
+     * Creating the processed image
+     * @param img: The buffered image
+     * @param: filter: Array of filters to be applied
+     * @filter: Array of all filters selected
      */
     public static BufferedImage createProcessed(BufferedImage img, String[] filter) {
         int Width = img.getWidth() - 1;
@@ -221,9 +229,10 @@ public class PicModel {
     }
 
     /*
-     * Gets all pictures belonging to user
+     * Retreiving all of the users uploaded pictures
+     * @param User: The user whose images are being retrieved
      */
-    public java.util.LinkedList<Pic> getPicsForUser(String User) {
+    public java.util.LinkedList<Pic> getPicsForUser(String user) {
         java.util.LinkedList<Pic> Pics = new java.util.LinkedList<>();
         Session session = cluster.connect("ConnorSewellsInstagrim");
         PreparedStatement ps = session.prepare("select picid, pic_added from userpiclist where user =?");
@@ -234,7 +243,7 @@ public class PicModel {
 
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        User));
+                        user));
 
         Date pic_added = new Date();
 
@@ -247,8 +256,6 @@ public class PicModel {
                 java.util.UUID UUID = row.getUUID("picid");
                 pic_added = row.getDate("pic_added");
                 System.out.println("UUID" + UUID.toString());
-                pic.setPicAdded(pic_added);
-                pic.setImageOwner(User);
                 pic.setUUID(UUID);
                 Pics.add(pic);
 
@@ -259,7 +266,9 @@ public class PicModel {
     }
 
     /*
-     * Gets a pic
+     * Retreiving a pic
+     * @param image_type: The type of image e.g. jpeg 
+     & @param picid: The picid of the picture being retrieved
      */
     public Pic getPic(int image_type, java.util.UUID picid) {
         Session session = cluster.connect("ConnorSewellsInstagrim");
@@ -309,7 +318,9 @@ public class PicModel {
             System.out.println("Can't get Pic" + et);
             return null;
         }
+
         session.close();
+
         Pic p = new Pic();
         p.setPic(bImage, length, type);
 

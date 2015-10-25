@@ -10,11 +10,12 @@ import java.util.Date;
 /**
  *
  * @author Connor131
+ * Stores details relevant to wall comments
  */
 public class WallComments {
-    String comment;
-    String commenter;
-    Date commentDate;
+    private String comment;
+    private String commenter;
+    private Date commentDate;
     
     public void setWallComment(String comment, String commenter, Date commentDate)
     {

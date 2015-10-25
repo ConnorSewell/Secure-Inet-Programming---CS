@@ -10,12 +10,13 @@ import java.util.Date;
 /**
  *
  * @author Connor131
+ * Stores details of the picture e.g. comments, likes
  */
 public class PicDetails {
-    String comment;
-    String commenter;
-    Date commentAdded;
-    String userLiked;
+   private String comment;
+   private  String commenter;
+   private Date commentAdded;
+   private String userLiked;
     
     public void setCommentDetails(String comment, String commenter, Date commentAdded)
     {

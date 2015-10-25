@@ -73,8 +73,6 @@ public class Register extends HttpServlet {
         HttpSession session = request.getSession();
         LoggedIn lg = new LoggedIn();
         session.setAttribute("LoggedIn", lg);
-       
-        //http://www.datastax.com/dev/blog/cql-in-2-1
 
         if (username.equals("") || password.equals("") || firstName.equals("") || lastName.equals("") || email.equals("") || address.equals("") || street.equals("") || city.equals("") || zip.equals("")) {
             lg.setInvalidIn(true);
@@ -93,12 +91,11 @@ public class Register extends HttpServlet {
         us.setCluster(cluster);
 
         if (us.checkNameVal(username)) {
-            if (us.RegisterUser(username, password.replace("'", "''"), firstName.replace("'", "''"), lastName.replace("'", "''"), email.replace("'", "''"), address.replace("'", "''"), street.replace("'", "''"), city.replace("'", "''"), Integer.parseInt(zip))) {
-
+            if (us.RegisterUser(username, password.replace("'", "''"), firstName.replace("'", "''"), lastName.replace("'", "''"), email.replace("'", "''"), address.replace("'", "''"), street.replace("'", "''"), city.replace("'", "''"), Integer.parseInt(zip))) 
+            {
                 lg.setLogedin();
                 lg.setUsername(username);
                 lg.setInvalidIn(false);
-                System.out.println("User is...: " + lg.getUsername());
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
                 rd.forward(request, response);
             }

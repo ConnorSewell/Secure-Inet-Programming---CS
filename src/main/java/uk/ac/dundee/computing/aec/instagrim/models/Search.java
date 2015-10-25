@@ -15,55 +15,50 @@ import com.datastax.driver.core.Session;
 /**
  *
  * @author Connor131
+ * This class handles all details relevant when searching for a user
  */
 public class Search {
-    
+
     Cluster cluster;
-    
-    public Search(){
+
+    public Search() {
         System.out.println("Can't update about section...");
     }
-     
-      public void setCluster(Cluster cluster) {
+
+    public void setCluster(Cluster cluster) {
         this.cluster = cluster;
-     }
-      
-     
-      
-     /**
-     * Gets all the users whose names are in the search term, or whose names contain the search term
+    }
+
+    /**
+     * Gets all the users whose names are in the search term, or whose names
+     * contain the search term
      *
      * @param name: User whose being searched for
      * @return All users matching the search term
      */
-      public java.util.LinkedList<String> getUsers(String name)
-      {
-          
+    public java.util.LinkedList<String> getUsers(String name) {
+
         java.util.LinkedList<String> allMatches = new java.util.LinkedList<>();
         Session session = cluster.connect("ConnorSewellsInstagrim");
         PreparedStatement ps = session.prepare("select login from userprofiles");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        ));
+        rs = session.execute(boundStatement.bind());
         if (rs.isExhausted()) {
             System.out.println("No valid user");
-            
+
         } else {
             for (Row row : rs) {
                 System.out.println("User: " + row.getString("login"));
-               
+
                 String userName = row.getString("login");
-                if (userName.contains(name) || name.contains(userName))
-                {
+                if (userName.contains(name)) {
                     allMatches.add(userName);
                 }
-                    
+
             }
         }
-           return allMatches;
-      }
-      
- 
+        return allMatches;
+    }
+
 }

@@ -40,6 +40,7 @@ public class ChangeDetails extends HttpServlet {
     /**
      * Handles the HTTP <code>GET</code> method. Retrieves users details.
      * Servlet responsible for getting the users account details
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -82,17 +83,20 @@ public class ChangeDetails extends HttpServlet {
         userDetails ud = (userDetails) session.getAttribute("userDetails");
 
         String username = lg.getUsername();
-
         String currPass = request.getParameter("currPass");
         String newPass = request.getParameter("newPass");
-
         String firstName = request.getParameter("firstName");
         String surName = request.getParameter("surName");
-
         String addressName = request.getParameter("address");
         String street = request.getParameter("street");
         String city = request.getParameter("city");
-        int zip = Integer.parseInt(request.getParameter("zip"));
+        String zipstring = (request.getParameter("zip"));
+
+        int zip = 0;
+
+        if (!zipstring.equals("")) {
+            zip = Integer.parseInt(zipstring);
+        }
 
         String[] email = request.getParameterValues("email"); //http://stackoverflow.com/questions/5342370/how-to-get-values-of-all-input-fields-which-have-the-same-name
 
@@ -108,7 +112,7 @@ public class ChangeDetails extends HttpServlet {
         us.setCluster(cluster);
 
         if (us.IsValidUser(lg.getUsername(), currPass)) {
-            
+
             lg.setPasswordState(true);
 
             if (!newPass.equals("")) {
@@ -136,9 +140,7 @@ public class ChangeDetails extends HttpServlet {
                 ud.setAddressName(addressName);
                 us.changeAddress(username, addressName, street, city, zip);
             }
-        }
-        else
-        {
+        } else {
             lg.setPasswordState(false);
         }
 

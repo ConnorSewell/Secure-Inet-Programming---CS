@@ -82,7 +82,7 @@ public class SearchedProfile extends HttpServlet {
         RequestDispatcher rd = null;
 
         if (lg.getUsername().equals(profileOf)) {
-            response.sendRedirect("/Instagrim/profile");
+            response.sendRedirect("/Instagrim/Profile");
         } else {
             rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
         }

@@ -18,7 +18,7 @@
     </head>
     <body>
 
-        <% aboutUser au = (aboutUser) session.getAttribute("aboutUser");
+        <%  aboutUser au = (aboutUser) session.getAttribute("aboutUser");
             LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
             userSearch us = (userSearch) session.getAttribute("userSearch");
         %>
@@ -32,7 +32,7 @@
                 <li><a href="/Instagrim/Account">Account</a></li>
                 <li><a href="/Instagrim/Logout">Log Out</a></li>
 
-                <form method="GET"  action="/Instagrim/searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                <form method="GET"  action="/Instagrim/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
                     <input type="text" name="user" placeholder = "Search for user">
                     <input type="submit" value="Search"> 
                 </form>
@@ -55,7 +55,7 @@
                            for (int i = 0; i < followers.size(); i++) {
 
                    %>
-                <p>    <a href = "/Instagrim/profile/<%=followers.get(i)%>"><%=followers.get(i)%></a> </p>
+                <p>    <a href = "/Instagrim/Profiles/<%=followers.get(i)%>"><%=followers.get(i)%></a> </p>
                 <%
                         }
 
@@ -64,7 +64,7 @@
 
                 </p>
             </div>
-            <form method="POST" action="/Instagrim/profile/Followers" style = "margin-top:5px; margin-left: 10%">
+            <form method="POST" action="/Instagrim/Profile/Followers" style = "margin-top:5px; margin-left: 10%">
                 <input type="submit" value="Follow">
             </form>
 
@@ -119,7 +119,7 @@
                                for (int i = 0; i < following.size(); i++) {
 
                        %>
-                    <p>  <a href = "/Instagrim/profile/<%=following.get(i)%>"><%=following.get(i)%></a> </p>
+                    <p>  <a href = "/Instagrim/Profiles/<%=following.get(i)%>"><%=following.get(i)%></a> </p>
                     <%
                             }
 
@@ -150,7 +150,7 @@
                         commentDate = wcc.getCommentDate();
 
                 %>
-                <p style = "overflow-x: hidden;">User: <%=commenter%> on <%=commentDate%> </br> <%=comment%></p> 
+                <p style = "overflow-x: hidden;">User: <a href ="/Instagrim/Profiles/<%=commenter%>"><%=commenter%></a> on <%=commentDate%> </br> <%=comment%></p> 
                 <%
 
 
@@ -164,7 +164,7 @@
 
 
             <div style ="margin-left: 1.2%; margin-top: 5px; width: 500px">
-                <form method="POST" action="/Instagrim/wallComment?who=<%=us.getSearchedUser()%>">
+                <form method="POST" action="/Instagrim/WallComment?who=<%=us.getSearchedUser()%>">
                     <div>
                         <textarea style = "width: 614px; height: 50px" name="wallComment" placeholder = "Post to your wall" wrap="virtual"></textarea>
                     </div>

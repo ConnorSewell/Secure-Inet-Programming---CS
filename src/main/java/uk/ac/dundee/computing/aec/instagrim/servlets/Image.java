@@ -146,6 +146,7 @@ public class Image extends HttpServlet {
         String[] filter = request.getParameterValues("filter");
         String pictype = request.getParameter("pictype");
         HttpSession session = request.getSession();
+        
         Pic p = new Pic();
         session.setAttribute("Pic", p);
 
@@ -174,7 +175,7 @@ public class Image extends HttpServlet {
                 is.close();
             }
 
-            response.sendRedirect("/Instagrim/upload/" + pictype);
+            response.sendRedirect("/Instagrim/Upload/" + pictype);
         }
     }
 

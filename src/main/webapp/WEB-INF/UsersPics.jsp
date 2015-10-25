@@ -29,7 +29,7 @@
                 <li><a href="/Instagrim/Account">Account</a></li>
                 <li><a href="/Instagrim/Logout">Log Out</a></li>
 
-                <form method="GET"  action="/Instagrim/searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                <form method="GET"  action="/Instagrim/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
                     <input type="text" name="user" placeholder = "Search for user">
                     <input type="submit" value="Search"> 
                 </form>

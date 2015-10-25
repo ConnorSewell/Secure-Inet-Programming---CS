@@ -19,7 +19,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
  *
  * @author Connor131
  */
-@WebServlet(name = "SearchBox", urlPatterns = {"/searchbox"})
+@WebServlet(name = "SearchBox", urlPatterns = {"/Searchbox"})
 public class SearchedListBox extends HttpServlet {
 
     private Cluster cluster;

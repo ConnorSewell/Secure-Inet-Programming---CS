@@ -1,5 +1,5 @@
 <%-- 
-    Document   : changePassword
+    Document   : changeDetails
     Created on : 08-Oct-2015, 23:10:04
     Author     : Connor131
 --%>
@@ -18,7 +18,7 @@
     </head>
     <body>
         <% LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-            userDetails ud = (userDetails) session.getAttribute("userDetails");
+           userDetails ud = (userDetails) session.getAttribute("userDetails");
         %>
 
         <div id ="navBar">
@@ -32,7 +32,7 @@
                 <li><a href="/Instagrim/Account">Account</a></li>
                 <li><a href="/Instagrim/Logout">Log Out</a></li>
 
-                <form method="GET"  action="/Instagrim/searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                <form method="GET"  action="/Instagrim/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
                     <input type="text" name="user" placeholder = "Search for user">
                     <input type="submit" value="Search"> 
                 </form>
@@ -41,13 +41,12 @@
 
         <h1 style = "text-align: center">Change password</h1>
         <h2 style = "text-align: center">Confirm current password before changing details</h2>
-        
+
         <%
-            if(!lg.getPasswordState())
-            {
-                %>
-                <h3 style = "text-align: center"> Incorrect password </h3>
-                <%
+            if (!lg.getPasswordState()) {
+        %>
+        <h3 style = "text-align: center"> Incorrect password </h3>
+        <%
             }
         %>
         </br>

@@ -18,14 +18,15 @@ import uk.ac.dundee.computing.aec.instagrim.stores.WallComments;
 
 /**
  *
- * @author Connor131
+ * @author Connor131 This class handles all of the users profile details e.g.
+ * about section, picture, wall comments, etc
  */
 public class About {
 
     Cluster cluster;
 
     public About() {
-        System.out.println("Can't update about section...");
+
     }
 
     public void setCluster(Cluster cluster) {
@@ -62,9 +63,7 @@ public class About {
         PreparedStatement ps = session.prepare("select about_user from profilepage where user =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        user));
+        rs = session.execute(boundStatement.bind(user));
         if (rs.isExhausted()) {
             return userDesc;
         } else {
@@ -91,9 +90,7 @@ public class About {
         PreparedStatement ps = session.prepare("select picid from profilepage where user =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        user));
+        rs = session.execute(boundStatement.bind(user));
         if (rs.isExhausted()) {
             System.out.println("No valid user");
             return null;
@@ -181,9 +178,7 @@ public class About {
         PreparedStatement ps = session.prepare("select following from following where user =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        user));
+        rs = session.execute(boundStatement.bind(user));
         if (rs.isExhausted()) {
 
             return following;
@@ -210,9 +205,7 @@ public class About {
         PreparedStatement ps = session.prepare("select user from followers where following =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
-        rs = session.execute( // this is where the query is executed
-                boundStatement.bind( // here you are binding the 'boundStatement'
-                        user));
+        rs = session.execute(boundStatement.bind(user));
         if (rs.isExhausted()) {
 
             return followers;

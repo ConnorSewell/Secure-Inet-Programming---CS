@@ -21,7 +21,7 @@
         </header>
         <nav>
             <%
-                aboutUser au = (aboutUser) session.getAttribute("aboutUser");
+
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                 if (lg != null) {
 
@@ -37,7 +37,7 @@
                     <li><a href="/Instagrim/Account">Account</a></li>
                     <li><a href="/Instagrim/Logout">Log Out</a></li>
 
-                    <form method="GET"  action="/Instagrim/searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                    <form method="GET"  action="/Instagrim/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
                         <input type="text" name="user" placeholder = "Search for user">
                         <input type="submit" value="Search"> 
                     </form>
@@ -56,8 +56,8 @@
 
         </nav>
         <div id ="mainBlock">
-            <h1>InstaGrim ! </h1>
-            <h2>Your World...</h2>
+            <h1>InstaGrim!</h1>
+            <h2>Your World in Black and White</h2>
 
             <img src = "Logo.jpg" alt = "testing logo" align = "middle" style = "width: 300px; height: 300px; margin: 0 auto; display:block; margin-top: 0px;"> 
             <h3>Share it</h3>
@@ -69,15 +69,10 @@
 
     <style>
 
-
-
-        #mainBlock{
+        #mainBlock
+        {
             margin-top:20px;
             text-align: center;
-        }
-
-        body, html{
-            // margin:0;
         }
 
     </style>

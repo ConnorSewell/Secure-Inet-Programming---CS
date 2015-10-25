@@ -24,7 +24,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
  *
  * @author Connor131
  */
-@WebServlet(name = "Followers", urlPatterns = {"/profile/Followers"})
+@WebServlet(name = "Followers", urlPatterns = {"/Profile/Followers"})
 public class Followers extends HttpServlet {
     
      private Cluster cluster;   

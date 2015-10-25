@@ -18,7 +18,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.PicDetails;
 
 /**
  *
- * @author Connor131
+ * @author Connor131 This class handles all of the comments/likes for pictures
  */
 public class Comments {
 
@@ -31,7 +31,7 @@ public class Comments {
     public Comments() {
     }
 
-   /**
+    /**
      * Adds a like to a picture
      *
      * @param user: User who liked the picture
@@ -39,10 +39,10 @@ public class Comments {
      * @param like_added: The date the picture was liked
      */
     public void addLike(java.util.UUID picId, String user, Date like_added) {
-       
+
         Session session = cluster.connect("ConnorSewellsInstagrim");
 
-           Statement statement = QueryBuilder.insertInto("piclikes")
+        Statement statement = QueryBuilder.insertInto("piclikes")
                 .value("picid", picId)
                 .value("user", user)
                 .value("dateLiked", like_added);
@@ -51,7 +51,7 @@ public class Comments {
         session.close();
     }
 
-     /**
+    /**
      * Adds a comment to a picture
      *
      * @param comment: The comment beind added
@@ -74,8 +74,7 @@ public class Comments {
 
     }
 
-    
-     /**
+    /**
      * Gets all the users who liked a picture
      *
      * @param picId: The id of the pic whose likes are being requested
@@ -94,7 +93,7 @@ public class Comments {
 
             System.out.println("No valid user");
             return likes;
-           
+
         } else {
             for (Row row : rs) {
 
@@ -103,19 +102,11 @@ public class Comments {
             }
         }
 
-        if(likes == null)
-        {
-            System.out.println("Likes currently null");
-        }
-        else
-        {
-            System.out.println("Hey Im not null! " + likes.get(0));
-        }
         return likes;
 
     }
 
-     /**
+    /**
      * Gets all the comments associated with the picture
      *
      * @param picId: The id of the pic whose comments are being requested

@@ -31,7 +31,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.userDetails;
 
 /**
  *
- * @author Administrator
+ * @author Connor131
+ * This class handles all of the users personal details
  */
 public class User {
 

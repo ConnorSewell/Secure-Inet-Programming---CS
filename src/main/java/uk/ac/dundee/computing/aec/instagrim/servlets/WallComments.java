@@ -26,7 +26,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.userSearch;
  *
  * @author Connor131
  */
-@WebServlet(name = "wallComment", urlPatterns = {"/wallComment"})
+@WebServlet(name = "wallComment", urlPatterns = {"/WallComment"})
 public class WallComments extends HttpServlet {
 
     private Cluster cluster;
@@ -56,8 +56,7 @@ public class WallComments extends HttpServlet {
         HttpSession session = request.getSession();
 
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        aboutUser au = (aboutUser) session.getAttribute("aboutUser");
-       
+
         String userFrom = lg.getUsername();
         About about = new About();
 
@@ -65,15 +64,13 @@ public class WallComments extends HttpServlet {
 
         Date date = new Date();
         about.setWallComments(postTo, userFrom, wallComment, date);
-       
 
         if (!postTo.equals(lg.getUsername())) {
             response.sendRedirect("/Instagrim/Profiles/" + postTo);
-           // RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/searchedProfile.jsp");
-           // r//d.forward(request, response);
+
         }
 
-       response.sendRedirect("/Instagrim/Profile");
+        response.sendRedirect("/Instagrim/Profile");
 
     }
 
