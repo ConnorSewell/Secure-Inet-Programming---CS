@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page isErrorPage="true" %>
+<%@page isErrorPage="true" %>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
@@ -30,11 +30,11 @@
         <%
             if (lg == null) {
         %>
-        <h3> <a href = "/Instagrim/Login">Click here to be redirected...  </a></h3>
+        <h3> <a href = "/InstaConnor/Login">Click here to be redirected...  </a></h3>
         <%
         } else {
         %>
-        <h3> <a href = "/Instagrim/Home">Click here to be redirected...  </a></h3>
+        <h3> <a href = "/InstaConnor/Home">Click here to be redirected...  </a></h3>
         <%
             }
 

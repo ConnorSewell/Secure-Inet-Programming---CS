@@ -46,7 +46,7 @@ public class SearchedListBox extends HttpServlet {
             throws ServletException, IOException {
 
         String user = request.getParameter("user");
-        response.sendRedirect("/Instagrim/Search/"+ user);
+        response.sendRedirect("/InstaConnor/Search/"+ user);
 
     }
 

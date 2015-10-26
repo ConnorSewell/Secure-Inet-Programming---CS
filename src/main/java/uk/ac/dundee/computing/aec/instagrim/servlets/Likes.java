@@ -59,7 +59,7 @@ public class Likes extends HttpServlet {
 
         comments.addLike(picId, likedBy, likeDate);
 
-        response.sendRedirect("/Instagrim/Images/Pic?picId=" + p.getSUUID());
+        response.sendRedirect("/InstaConnor/Images/Pic?picId=" + p.getSUUID());
 
     }
 

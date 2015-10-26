@@ -42,7 +42,7 @@
                 <div style = "text-align: center">
                     <input type="text" name="username" placeholder = "Username" style = "margin-top: 5px;">
                     </br>
-                    <input type="text" name="password" placeholder = "Password" style = "margin-top: 5px;">
+                    <input type="password" name="password" placeholder = "Password" style = "margin-top: 5px;">
                     </br>
                     <input type="text" name="first_name" placeholder = "First name" style = "margin-top: 5px;"> 
                     </br>
@@ -62,7 +62,7 @@
                     </form>
                 </div>
 
-                <a href = "/Instagrim/Login" style = "margin-left: 46.5%; margin-top:10px" >To log in page</a>
+                <a href = "/InstaConnor/Login" style = "margin-left: 46.5%; margin-top:10px" >To log in page</a>
                 
               
 

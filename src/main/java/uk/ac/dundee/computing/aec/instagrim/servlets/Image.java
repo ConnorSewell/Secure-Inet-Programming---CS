@@ -176,7 +176,7 @@ public class Image extends HttpServlet {
                 is.close();
             }
 
-            response.sendRedirect("/Instagrim/Upload/" + pictype);
+            response.sendRedirect("/InstaConnor/Upload/" + pictype);
         }
     }
 

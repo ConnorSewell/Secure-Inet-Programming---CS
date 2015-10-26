@@ -63,7 +63,7 @@ public class Followers extends HttpServlet {
 
         System.out.println("Searched user is: " + us.getSearchedUser());
 
-        response.sendRedirect("/Instagrim/Profiles/" + us.getSearchedUser());
+        response.sendRedirect("/InstaConnor/Profiles/" + us.getSearchedUser());
     }
 
     /**

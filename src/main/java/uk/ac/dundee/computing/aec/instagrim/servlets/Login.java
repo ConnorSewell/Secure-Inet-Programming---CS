@@ -86,7 +86,7 @@ public class Login extends HttpServlet {
 
         } else {
             lg.setPasswordState(true);
-            response.sendRedirect("/Instagrim");
+            response.sendRedirect("/InstaConnor");
         }
 
     }

@@ -70,8 +70,8 @@ public class PicModel {
             java.util.UUID picid = convertor.getTimeUUID();
 
             //The following is a quick and dirty way of doing this, will fill the disk quickly !
-            Boolean success = (new File("/var/tmp/instagrim/")).mkdirs();
-            FileOutputStream output = new FileOutputStream(new File("/var/tmp/instagrim/" + picid));
+            Boolean success = (new File("/var/tmp/InstaConnor/")).mkdirs();
+            FileOutputStream output = new FileOutputStream(new File("/var/tmp/InstaConnor/" + picid));
             output.write(b);
 
             byte[] thumbb = picresize(picid.toString(), types[1], filter);
@@ -119,7 +119,7 @@ public class PicModel {
      */
     public byte[] picresize(String picid, String type, String[] filter) {
         try {
-            BufferedImage BI = ImageIO.read(new File("/var/tmp/instagrim/" + picid));
+            BufferedImage BI = ImageIO.read(new File("/var/tmp/InstaConnor/" + picid));
             BufferedImage thumbnail = createThumbnail(BI, filter);
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -142,9 +142,9 @@ public class PicModel {
      */
     public byte[] picdecolour(String picid, String type, String[] filter) {
         try {
-            BufferedImage BI = ImageIO.read(new File("/var/tmp/instagrim/" + picid));
+            BufferedImage BI = ImageIO.read(new File("/var/tmp/InstaConnor/" + picid));
 
-            BufferedImage processed = createProcessed(BI, filter);
+            BufferedImage processed = createProcessed(BI);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(processed, type, baos);
             baos.flush();
@@ -201,36 +201,9 @@ public class PicModel {
      * @param: filter: Array of filters to be applied
      * @filter: Array of all filters selected
      */
-    public static BufferedImage createProcessed(BufferedImage img, String[] filter) {
-        int Width = img.getWidth() - 1;
-        img = resize(img, Method.SPEED, Width, OP_ANTIALIAS);
-
-        boolean colour = false;
-
-        if (filter != null) {
-            for (int i = 0; i < filter.length; i++) {
-                if (filter[i].equals("rotate90")) {
-                    img = rotate(img, Scalr.Rotation.CW_90, OP_ANTIALIAS);
-                }
-
-                if (filter[i].equals("rotate180")) {
-                    img = rotate(img, Scalr.Rotation.CW_180, OP_ANTIALIAS);
-                }
-
-                if (filter[i].equals("rotate270")) {
-                    img = rotate(img, Scalr.Rotation.CW_270, OP_ANTIALIAS);
-                }
-
-                if (filter[i].equals("addColour")) {
-                    colour = true;
-                }
-            }
-
-        }
-        if (!colour) {
-            img = apply(img, OP_GRAYSCALE);
-        }
-
+    public static BufferedImage createProcessed(BufferedImage img) {
+        int Width=img.getWidth()-1;
+        img = resize(img, Method.SPEED, Width, OP_ANTIALIAS, OP_GRAYSCALE);
         return pad(img, 4);
     }
 

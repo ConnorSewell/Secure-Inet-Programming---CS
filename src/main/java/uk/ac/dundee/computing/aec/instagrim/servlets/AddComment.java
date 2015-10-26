@@ -65,7 +65,7 @@ public class AddComment extends HttpServlet {
 
         comments.addComment(comment.replace("'", "''"), picId, commentBy.replace("'", "''"), commentDate);
       
-        response.sendRedirect("/Instagrim/Images/Pic?picId="+p.getSUUID());
+        response.sendRedirect("/InstaConnor/Images/Pic?picId="+p.getSUUID());
     }
 
     /**

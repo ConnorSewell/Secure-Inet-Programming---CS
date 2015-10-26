@@ -8,7 +8,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -68,11 +67,11 @@ public class WallComments extends HttpServlet {
         about.setWallComments(postTo, userFrom, wallComment, date);
 
         if (!postTo.equals(lg.getUsername())) {
-            response.sendRedirect("/Instagrim/Profiles/" + postTo);
+            response.sendRedirect("/InstaConnor/Profiles/" + postTo);
 
         }
 
-        response.sendRedirect("/Instagrim/Profile");
+        response.sendRedirect("/InstaConnor/Profile");
 
     }
 

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.About;
 import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
-import uk.ac.dundee.computing.aec.instagrim.stores.UserProfile;
+
 
 /**
  *
@@ -64,7 +64,7 @@ public class UserDescription extends HttpServlet {
         about.setCluster(cluster);
         about.insertAbout(username, aboutIn);
 
-        response.sendRedirect("/Instagrim/Profile");
+        response.sendRedirect("/InstaConnor/Profile");
 
     }
 

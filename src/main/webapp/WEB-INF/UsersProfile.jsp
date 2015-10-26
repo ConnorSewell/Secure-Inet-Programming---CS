@@ -13,7 +13,7 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+        <link rel="stylesheet" type="text/css" href="/InstaConnor/Styles.css" />
         <title>JSP Page</title>
     </head>
     <body>
@@ -24,20 +24,20 @@
         %>
         <div id ="navBar">
             <ul>
-                <li><a href="/Instagrim/Home">Home</a></li>
-                <li><a href="/Instagrim/Profile">Profile</a></li>
-                <li><a href="/Instagrim/Upload/Gallery">Upload</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                <li><a href="/Instagrim/Account">Account</a></li>
-                <li><a href="/Instagrim/Logout">Log Out</a></li>
+                    <li><a href="/InstaConnor/Home">Home</a></li>
+                    <li><a href="/InstaConnor/Profile">Profile</a></li>
+                    <li><a href="/InstaConnor/Upload/Gallery">Upload</a></li>
+                    <li><a href="/InstaConnor/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                    <li><a href="/InstaConnor/SampleImages">Samples</a></li>
+                    <li><a href="/InstaConnor/Account">Account</a></li>
+                    <li><a href="/InstaConnor/Logout">Log Out</a></li>
 
-                <form method="GET"  action="/Instagrim/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
-                    <input type="text" name="user" placeholder = "Search for user">
-                    <input type="submit" value="Search"> 
-                </form>
+                    <form method="GET"  action="/InstaConnor/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                        <input type="text" name="user" placeholder = "Search for user">
+                        <input type="submit" value="Search"> 
+                    </form>
             </ul> 
-            </br>
+          
 
         </div>
 
@@ -55,7 +55,7 @@
                            for (int i = 0; i < followers.size(); i++) {
 
                    %>
-                <p>     <a href = "/Instagrim/Profiles/<%=followers.get(i)%>"><%=followers.get(i)%></a> </p>
+                <p>     <a href = "/InstaConnor/Profiles/<%=followers.get(i)%>"><%=followers.get(i)%></a> </p>
                 <%
                         }
 
@@ -75,7 +75,7 @@
 
             <div id ="imgbut">
                 <div style = "height: 300px; width: 300px;">
-                    <img style = "height: 100%; width: 100%" src="/Instagrim/Thumb/<%=id%>">
+                    <img style = "height: 100%; width: 100%" src="/InstaConnor/Thumb/<%=id%>">
                 </div>
 
                 <%
@@ -92,7 +92,7 @@
                     %>
 
 
-                    <form action="/Instagrim/Upload/Profile">
+                    <form action="/InstaConnor/Upload/Profile">
                         <div style ="text-align:center">
                             <button style = "margin-top: 4%">Edit profile picture</button>
                         </div>
@@ -100,7 +100,7 @@
                 </div>
 
                 <div id ="aboutForm">
-                    <form method ="POST" action="/Instagrim/UserDescription">
+                    <form method ="POST" action="/InstaConnor/UserDescription">
                         <div style ="height: 300px; width: 300px; float:left">
                             <textarea style = "height: 98%; width: 98%; float:left" name="aboutUser" rows="5" columns="20" wrap ="virtual"><%=up.getAbout()%></textarea>
                         </div>
@@ -111,7 +111,7 @@
                 </div>
 
 
-                <div style = "margin-left: 85%; margin-top:0%; height: 300px;">
+                <div style = "margin-left: 85%; margin-top:0%; height: 250px;">
                     <p style = "margin-top: 0%; font-weight: bold">Following:</p>
                     <div style ="overflow-x: scroll; overflow-y: scroll; height: 265px; "
                          <p style = "overflow-x: hidden; margin-top: 0%;padding-right: 20px; text-align: center"
@@ -122,7 +122,7 @@
                                for (int i = 0; i < following.size(); i++) {
 
                        %>
-                    <p> <a href = "/Instagrim/Profiles/<%=following.get(i)%>"><%=following.get(i)%></a> </p>
+                    <p> <a href = "/InstaConnor/Profiles/<%=following.get(i)%>"><%=following.get(i)%></a> </p>
                     <%
                             }
 
@@ -153,7 +153,7 @@
                         commentDate = wcc.getCommentDate();
 
                 %>
-                <p style = "overflow-x: hidden;">User: <a href = "/Instagrim/Profiles/<%=commenter%>"><%=commenter%></a> on <%=commentDate%> </br> <%=comment%></p> 
+                <p style = "overflow-x: hidden;">User: <a href = "/InstaConnor/Profiles/<%=commenter%>"><%=commenter%></a> on <%=commentDate%> </br> <%=comment%></p> 
                 <%
 
 
@@ -178,9 +178,6 @@
             </div>
         </div>
     </div>
-
-
-
 
 </div>
 

@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+        <link rel="stylesheet" type="text/css" href="/InstaConnor/Styles.css" />
         <title>Log in</title>
     </head>
     <body>
@@ -23,7 +23,7 @@
             <h1>InstaGrim!</h1> 
             <h2>Your world in Black and White</h2> 
 
-            <img src = "/Instagrim/Logo.jpg" alt = "testing logo" align = "middle" style = "width: 300px; height: 300px; margin: 0 auto; display:block; margin-top: 0px;"> 
+            <img src = "/InstaConnor/Logo.jpg" alt = "testing logo" align = "middle" style = "width: 300px; height: 300px; margin: 0 auto; display:block; margin-top: 0px;"> 
 
             <h3>Share it</h3>
 
@@ -44,7 +44,7 @@
         </form>
 
         <div id ="register">
-            <a href="/Instagrim/Register">Don't have an account?</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+            <a href="/InstaConnor/Register">Don't have an account?</a>​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
         </div>
 
 

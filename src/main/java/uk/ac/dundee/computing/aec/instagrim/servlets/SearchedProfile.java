@@ -68,7 +68,7 @@ public class SearchedProfile extends HttpServlet {
         UserSearched us = new UserSearched();
 
         if (user.checkNameVal(profileOf)) {
-            response.sendRedirect("/Instagrim/Home");
+            response.sendRedirect("/InstaConnor/Home");
         }
 
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -91,7 +91,7 @@ public class SearchedProfile extends HttpServlet {
         RequestDispatcher rd = null;
 
         if (lg.getUsername().equals(profileOf)) {
-            response.sendRedirect("/Instagrim/Profile");
+            response.sendRedirect("/InstaConnor/Profile");
         } else {
             rd = request.getRequestDispatcher("/WEB-INF/ProfileSearched.jsp");
         }

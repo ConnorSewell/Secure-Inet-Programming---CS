@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+        <link rel="stylesheet" type="text/css" href="/InstaConnor/Styles.css" />
         <title>Profile</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
@@ -20,18 +20,18 @@
            Pic p = (Pic) request.getAttribute("Pic");%>
         <div id ="navBar">
             <ul>
-                <li><a href="/Instagrim/Home">Home</a></li>
-                <li><a href="/Instagrim/Profile">Profile</a></li>
-                <li><a href="/Instagrim/Upload/Gallery">Upload</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                <li><a href="/Instagrim/Account">Account</a></li>
-                <li><a href="/Instagrim/Logout">Log Out</a></li>
+                   <li><a href="/InstaConnor/Home">Home</a></li>
+                    <li><a href="/InstaConnor/Profile">Profile</a></li>
+                    <li><a href="/InstaConnor/Upload/Gallery">Upload</a></li>
+                    <li><a href="/InstaConnor/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                    <li><a href="/InstaConnor/SampleImages">Samples</a></li>
+                    <li><a href="/InstaConnor/Account">Account</a></li>
+                    <li><a href="/InstaConnor/Logout">Log Out</a></li>
 
-                <form method="GET"  action="/Instagrim/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
-                    <input type="text" name="user" placeholder = "Search for user">
-                    <input type="submit" value="Search"> 
-                </form>
+                    <form method="GET"  action="/InstaConnor/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                        <input type="text" name="user" placeholder = "Search for user">
+                        <input type="submit" value="Search"> 
+                    </form>
             </ul> 
             </br>
 
@@ -40,7 +40,7 @@
         <article>
             <h1 style = "text-align:center">File Upload</h1>
             <div style = "text-align:center">
-                <form method="POST" enctype="multipart/form-data" action="/Instagrim/Image?pictype=<%=p.getUploadType()%>">
+                <form method="POST" enctype="multipart/form-data" action="/InstaConnor/Image?pictype=<%=p.getUploadType()%>">
                     <input type="file" name="upfile" style = "padding-left:7%"> </br>
 
                     Rotate 90<input type="checkbox" name="filter" value ="rotate90">
@@ -58,17 +58,17 @@
             <div style ="margin-left: 26%">
                 <div style = "text-align:center; float: left;">
                     <p>Unfiltered</p>
-                    <img src ="/Instagrim/Unfiltered.PNG" alt ="Failed to display..." style = "width: 200px; height: 200px"></img>
+                    <img src ="/InstaConnor/Unfiltered.PNG" alt ="Failed to display..." style = "width: 200px; height: 200px"></img>
                 </div>
 
                 <div style ="text-align:center; float: left; margin-left: 5%">
                     <p>Rotate 90 Filter</p>
-                    <img src ="/Instagrim/Rotate90.PNG" style = "width: 200px; height: 200px"></img>
+                    <img src ="/InstaConnor/Rotate90.PNG" style = "width: 200px; height: 200px"></img>
                 </div>
 
                 <div style ="text-align:center; float: left;margin-left: 5%">
                     <p>Colour Filter</p>
-                    <img src ="/Instagrim/Colour.png" style = "width: 200px; height: 200px"></img>
+                    <img src ="/InstaConnor/Colour.png" style = "width: 200px; height: 200px"></img>
                 </div>
             </div>
 

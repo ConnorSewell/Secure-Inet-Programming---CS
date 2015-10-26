@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+        <link rel="stylesheet" type="text/css" href="/InstaConnor/Styles.css" />
         <title>Account</title>
     </head>
     <body>
@@ -25,15 +25,15 @@
         <div id ="navBar">
             <ul>
 
-                <li><a href="/Instagrim/Home">Home</a></li>
-                <li><a href="/Instagrim/Profile">Profile</a></li>
-                <li><a href="/Instagrim/Upload/Gallery">Upload</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                <li><a href="/Instagrim/Account">Account</a></li>
-                <li><a href="/Instagrim/Logout">Log Out</a></li>
+                <li><a href="/InstaConnor/Home">Home</a></li>
+                <li><a href="/InstaConnor/Profile">Profile</a></li>
+                <li><a href="/InstaConnor/Upload/Gallery">Upload</a></li>
+                <li><a href="/InstaConnor/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/InstaConnor/SampleImages">Samples</a></li>
+                <li><a href="/InstaConnor/Account">Account</a></li>
+                <li><a href="/InstaConnor/Logout">Log Out</a></li>
 
-                <form method="GET"  action="/Instagrim/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                <form method="GET"  action="/InstaConnor/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
                     <input type="text" name="user" placeholder = "Search for user">
                     <input type="submit" value="Search"> 
                 </form>
@@ -51,7 +51,7 @@
             }
         %>
         </br>
-        <form method="POST"  action="/Instagrim/Account">
+        <form method="POST"  action="/InstaConnor/Account">
             <div style ="text-align: center">
                 <div style ="padding-right: 5%">
                     Current Password <input type="password" name="currPass" placeholder = "Current Password" style = "margin-top: 0%;"></li>
@@ -69,7 +69,7 @@
                 </div>
 
                 <%
-                    //looping through set of emails
+                   
                     Set<String> emails = new HashSet();
                     int emailNo = 0;
                     emails = ud.getEmail();

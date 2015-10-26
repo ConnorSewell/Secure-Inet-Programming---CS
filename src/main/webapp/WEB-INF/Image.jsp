@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+        <link rel="stylesheet" type="text/css" href="/InstaConnor/Styles.css" />
         <title>Picture</title>
     </head>
     <body>
@@ -29,15 +29,15 @@
 
         <div id ="navBar">
             <ul>
-                <li><a href="/Instagrim/Home">Home</a></li>
-                <li><a href="/Instagrim/Profile">Profile</a></li>
-                <li><a href="/Instagrim/Upload/Gallery">Upload</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="/Instagrim/SampleImages">Samples</a></li>
-                <li><a href="/Instagrim/Account">Account</a></li>
-                <li><a href="/Instagrim/Logout">Log Out</a></li>
+                <li><a href="/InstaConnor/Home">Home</a></li>
+                <li><a href="/InstaConnor/Profile">Profile</a></li>
+                <li><a href="/InstaConnor/Upload/Gallery">Upload</a></li>
+                <li><a href="/InstaConnor/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/InstaConnor/SampleImages">Samples</a></li>
+                <li><a href="/InstaConnor/Account">Account</a></li>
+                <li><a href="/InstaConnor/Logout">Log Out</a></li>
 
-                <form method="GET"  action="/Instagrim/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                <form method="GET"  action="/InstaConnor/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
                     <input type="text" name="user" placeholder = "Search for user">
                     <input type="submit" value="Search"> 
                 </form>
@@ -46,13 +46,13 @@
         </div>
 
         <h1> Comments </h1>
-        </br>
+        
         <div>
 
 
             <div style = "height: 400px; width: 400px; margin-left: 36%">
 
-                <img src="/Instagrim/Thumb/<%=p.getSUUID()%>"  style = "width: 75%; height: 75%; float:left">
+                <img src="/InstaConnor/Thumb/<%=p.getSUUID()%>"  style = "width: 75%; height: 75%; float:left">
 
 
                 <div style = "width: 25%; height: 68%; margin-left: 80%">
@@ -67,7 +67,7 @@
 
                         %>
                         <!--Creating list of people who like the profile with a link to their page -->
-                        <a href = "/Instagrim/Profiles/<%=likes.get(i)%>"><%=likes.get(i)%></a> </br>
+                        <a href = "/InstaConnor/Profiles/<%=likes.get(i)%>"><%=likes.get(i)%></a> </br>
                         <%
                                 }
 
@@ -104,7 +104,7 @@
 
                     %>
 
-                    <p>User: <a href = "/Instagrim/Profiles/<%=commenter%>"><%=commenter%></a> on <%=commentDate%> </br> <%=comment%></p> 
+                    <p>User: <a href = "/InstaConnor/Profiles/<%=commenter%>"><%=commenter%></a> on <%=commentDate%> </br> <%=comment%></p> 
 
                     <%
                             }
