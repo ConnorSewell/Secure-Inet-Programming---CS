@@ -46,7 +46,7 @@
         </div>
 
         <h1> Comments </h1>
-        
+
         <div>
 
 
@@ -60,6 +60,7 @@
                     <div style =" overflow: scroll; height: 87% ">
                         <%
                             java.util.LinkedList<String> likes = p.getLikes();
+                            boolean alreadyLiked = false;
 
                             if (likes != null) {
 
@@ -69,6 +70,9 @@
                         <!--Creating list of people who like the profile with a link to their page -->
                         <a href = "/InstaConnor/Profiles/<%=likes.get(i)%>"><%=likes.get(i)%></a> </br>
                         <%
+                                    if (likes.get(i).equals(lg.getUsername())) {
+                                        alreadyLiked = true;
+                                    }
                                 }
 
                             }
@@ -77,10 +81,15 @@
                     </div>
                 </div>
 
+                <%
+                    if (!alreadyLiked) {
+                %>
                 <form method="POST" action="Likes" style = "margin-top:5px; margin-left: 86%">
                     <input type="submit" value="Like">
                 </form>
-
+                <%
+                    }
+                %>            
 
 
                 <div style = "width: 105%; overflow: scroll; height: 32%">

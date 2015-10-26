@@ -24,20 +24,20 @@
         %>
         <div id ="navBar">
             <ul>
-                   <li><a href="/InstaConnor/Home">Home</a></li>
-                    <li><a href="/InstaConnor/Profile">Profile</a></li>
-                    <li><a href="/InstaConnor/Upload/Gallery">Upload</a></li>
-                    <li><a href="/InstaConnor/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                    <li><a href="/InstaConnor/SampleImages">Samples</a></li>
-                    <li><a href="/InstaConnor/Account">Account</a></li>
-                    <li><a href="/InstaConnor/Logout">Log Out</a></li>
+                <li><a href="/InstaConnor/Home">Home</a></li>
+                <li><a href="/InstaConnor/Profile">Profile</a></li>
+                <li><a href="/InstaConnor/Upload/Gallery">Upload</a></li>
+                <li><a href="/InstaConnor/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/InstaConnor/SampleImages">Samples</a></li>
+                <li><a href="/InstaConnor/Account">Account</a></li>
+                <li><a href="/InstaConnor/Logout">Log Out</a></li>
 
-                    <form method="GET"  action="/InstaConnor/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
-                        <input type="text" name="user" placeholder = "Search for user">
-                        <input type="submit" value="Search"> 
-                    </form>
+                <form method="GET"  action="/InstaConnor/Searchbox" style = "margin-top: 6px; display:in-line; float:right; margin-right:50px">
+                    <input type="text" name="user" placeholder = "Search for user">
+                    <input type="submit" value="Search"> 
+                </form>
             </ul> 
-            
+
 
         </div>
 
@@ -50,6 +50,7 @@
                      <p style = "overflow-x: hidden; margin-top: 0%;"
                    <%
                        java.util.LinkedList<String> followers = up.getFollowers();
+                       boolean alreadyFollowed = false;
                        if (followers != null) {
 
                            for (int i = 0; i < followers.size(); i++) {
@@ -57,6 +58,10 @@
                    %>
                 <p>    <a href = "/InstaConnor/Profiles/<%=followers.get(i)%>"><%=followers.get(i)%></a> </p>
                 <%
+                            if (followers.get(i).equals(lg.getUsername())) {
+                                alreadyFollowed = true;
+                            }
+
                         }
 
                     }
@@ -64,10 +69,15 @@
 
                 </p>
             </div>
+            <%
+                if (!alreadyFollowed) {
+            %>
             <form method="POST" action="/InstaConnor/Profile/Followers" style = "margin-top:5px; margin-left: 10%">
                 <input type="submit" value="Follow">
             </form>
-
+            <%
+                }
+            %>
         </div>
 
 
