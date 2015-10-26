@@ -20,7 +20,7 @@
 
         <%  UserProfile up = (UserProfile) request.getAttribute("UserProfile");
             LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-            UserSearched us = (UserSearched) request.getAttribute("UserSearched");
+            UserSearched us = (UserSearched) session.getAttribute("UserSearched");
         %>
         <div id ="navBar">
             <ul>

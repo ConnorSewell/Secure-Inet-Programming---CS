@@ -86,7 +86,7 @@ public class SearchedProfile extends HttpServlet {
         us.setSearchedUser(profileOf);
 
         request.setAttribute("UserProfile", up);
-        request.setAttribute("UserSearched", us);
+        session.setAttribute("UserSearched", us);
 
         RequestDispatcher rd = null;
 
