@@ -56,6 +56,11 @@ public class SearchedProfile extends HttpServlet {
         HttpSession session = request.getSession();
 
         String args[] = Convertors.SplitRequestPath(request);
+
+        if (args.length < 3) {
+            response.sendRedirect("/InstaConnor/Home");
+        }
+
         String profileOf = args[2];
 
         About about = new About();

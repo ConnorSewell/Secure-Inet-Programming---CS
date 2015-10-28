@@ -21,9 +21,8 @@ import uk.ac.dundee.computing.aec.instagrim.stores.UserSearched;
 
 /**
  *
- * @author Connor131
- * Controls process of getting list of searched users
- * 
+ * @author Connor131 Controls process of getting list of searched users
+ *
  */
 @WebServlet(name = "SearchedList", urlPatterns = {"/Search/*"})
 public class SearchedList extends HttpServlet {
@@ -49,6 +48,11 @@ public class SearchedList extends HttpServlet {
             throws ServletException, IOException {
 
         String args[] = Convertors.SplitRequestPath(request);
+
+        if (args.length < 3) {
+            response.sendRedirect("/InstaConnor/Home");
+        }
+
         String user = args[2];
 
         UserSearched us = new UserSearched();

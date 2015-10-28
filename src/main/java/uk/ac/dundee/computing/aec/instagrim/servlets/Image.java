@@ -69,6 +69,7 @@ public class Image extends HttpServlet {
         // TODO Auto-generated method stub
 
         String args[] = Convertors.SplitRequestPath(request);
+       
         int command;
         try {
             command = (Integer) CommandsMap.get(args[1]);
@@ -76,6 +77,14 @@ public class Image extends HttpServlet {
             error("Bad Operator", response);
             return;
         }
+        
+         
+        if(args.length < 3)
+        {
+            response.sendRedirect("/InstaConnor/Home");
+        }
+           
+        
         switch (command) {
 
             case 1:
